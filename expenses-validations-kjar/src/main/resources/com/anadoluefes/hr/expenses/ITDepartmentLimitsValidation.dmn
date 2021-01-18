@@ -1,0 +1,300 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_08DDB5A8-9676-404E-A762-19AD581E02DE" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_D28EFDE2-9840-48E7-BEC6-2B554342DCB7" name="IT Department Limits Validation" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://redhat.com/dmn/itdepartmentlimitsvalidationUUID">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_98FEA883-8B71-450C-A0BE-1C1918C45C1C" name="Expense Limit Status" isCollection="false">
+    <dmn:typeRef>string</dmn:typeRef>
+    <dmn:allowedValues kie:constraintType="enumeration" id="_0D0B616C-169B-41D5-BA25-3F0F01843237">
+      <dmn:text>"Met", "Exceeded"</dmn:text>
+    </dmn:allowedValues>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_C6B53439-8FF8-468E-B737-BBC25475E851" name=" Expense Type" isCollection="false">
+    <dmn:typeRef>string</dmn:typeRef>
+    <dmn:allowedValues kie:constraintType="enumeration" id="_E3CF0708-5FAC-4ED1-ADC4-6B8FBE97EEBB">
+      <dmn:text>"Taxi", "Food", "Accommodation"</dmn:text>
+    </dmn:allowedValues>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_259D5379-1651-412F-9503-B6B77AAA95BA" name="Role" isCollection="false">
+    <dmn:typeRef>string</dmn:typeRef>
+    <dmn:allowedValues kie:constraintType="enumeration" id="_BEE54C60-29FA-40F7-9978-BE3C1EE1F656">
+      <dmn:text>"Engineer", "Manager", "HR Officer", "HR Manager"</dmn:text>
+    </dmn:allowedValues>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_F37994F7-A2D4-4B19-B51F-213F70D31849" name="Limit" isCollection="false">
+    <dmn:typeRef>number</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:inputData id="_B1538F51-F21D-41D9-A8FB-AE24DF15FFA6" name="Expense Type">
+    <dmn:extensionElements/>
+    <dmn:variable id="_98355A73-8AE8-4684-8BF1-C69CBED771CC" name="Expense Type" typeRef=" Expense Type"/>
+  </dmn:inputData>
+  <dmn:inputData id="_1DE3E68F-9486-4FFC-A175-FA038049DD0F" name="Limit">
+    <dmn:extensionElements/>
+    <dmn:variable id="_9F59BA8E-24F7-4C30-B5D5-7C9359F944EA" name="Limit" typeRef="Limit"/>
+  </dmn:inputData>
+  <dmn:inputData id="_583A1F6A-FA08-4DAF-8ECD-6ACB221A826A" name="Role">
+    <dmn:extensionElements/>
+    <dmn:variable id="_05052A7D-DA0B-4D2D-98F3-56D0F61D530A" name="Role" typeRef="Role"/>
+  </dmn:inputData>
+  <dmn:decision id="_883F5977-37F1-4D0A-BC26-F7611F1D37B4" name="IT Department Limits Validation">
+    <dmn:extensionElements/>
+    <dmn:variable id="_63DEA8C9-FB93-4A73-81E7-89693603324F" name="IT Department Limits Validation" typeRef="Expense Limit Status"/>
+    <dmn:informationRequirement id="_7B2C02E4-24BF-4260-80FF-4BF0C76307C3">
+      <dmn:requiredInput href="#_583A1F6A-FA08-4DAF-8ECD-6ACB221A826A"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_49AC9885-31EC-4226-A4D3-29C7CE5B60A8">
+      <dmn:requiredInput href="#_B1538F51-F21D-41D9-A8FB-AE24DF15FFA6"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_7C20DBAC-7F24-4942-AD2B-FA0BB4C52193">
+      <dmn:requiredInput href="#_1DE3E68F-9486-4FFC-A175-FA038049DD0F"/>
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="_1F10D1F0-F1BD-4603-AAE6-E60FD7A8B910" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+      <dmn:input id="_F76B3C55-10C7-4309-97AE-9E0956A58DD3">
+        <dmn:inputExpression id="_159ED2A8-CAB7-4A9A-B99B-05DF7BD6F65C" typeRef=" Expense Type">
+          <dmn:text>Expense Type</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="_EA9EBDF1-056E-4948-9B77-06017829E6EE">
+        <dmn:inputExpression id="_37682C0C-8534-498A-9614-8ED3E2592BBE" typeRef="Limit">
+          <dmn:text>Limit</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="_E2B0B236-081B-451C-A737-ABB9409F5CC3">
+        <dmn:inputExpression id="_604D6263-BC7B-465B-9842-65F06887ED69" typeRef="Role">
+          <dmn:text>Role</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="_3778E96A-B5FF-420A-A9E9-EB0C26C04310" typeRef="Expense Limit Status"/>
+      <dmn:rule id="_750D411D-DC80-497F-B468-6B5168846B33">
+        <dmn:inputEntry id="_28E7BA1C-30BE-4D0A-BB92-19878D8CE6B6">
+          <dmn:text>"Taxi"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_1B055F91-141F-4BBE-A856-3B7522647D8B">
+          <dmn:text>&lt;5000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_8EA1649D-1C7B-498E-A3EC-76F99249E2E3">
+          <dmn:text>"Manager"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_9E4FDBFD-3CDA-4E4F-9E46-74CE15875E10">
+          <dmn:text>"Met"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_86614353-FD6C-4817-818C-0FB653DB9330">
+        <dmn:inputEntry id="_229257E4-2C83-4F16-A872-3F261E464462">
+          <dmn:text>"Taxi"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_A8D57248-13F0-4BA8-8BE6-AC3A7AD900A8">
+          <dmn:text>&gt;=5000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_0E80772C-626D-4AD3-A2A7-C180A2EE8CB0">
+          <dmn:text>"Manager"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_EC6F83C5-DE1A-4954-8BF6-CEA9CBF9E3F0">
+          <dmn:text>"Exceeded"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_DB3A7997-F062-4B98-B13C-E2F56B7FED12">
+        <dmn:inputEntry id="_4CE76F41-2269-4399-9540-7209B7042F9E">
+          <dmn:text>"Taxi"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_DAF73DF7-30F0-4400-B94D-D8BAAA1978BF">
+          <dmn:text>&lt;500</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_7EDD03B4-96BB-4DBD-99DE-1DD22891AA93">
+          <dmn:text>"Engineer"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_3A7C8057-306F-473E-A2D8-98846D741519">
+          <dmn:text>"Met"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_A39099BC-E193-43FC-9A80-DE84841A5589">
+        <dmn:inputEntry id="_00DEB581-2B28-43D7-BD7C-2C97499B5249">
+          <dmn:text>"Taxi"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_3AC16811-E00B-42F0-A9DD-06B7B12D3C8F">
+          <dmn:text>&gt;=500</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_3CE57DBC-A963-4258-AC4A-8DB9BAB5D51E">
+          <dmn:text>"Engineer"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_CF5814A3-1C94-4A14-A5F3-7E89A45C4D79">
+          <dmn:text>"Exceeded"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_045BEEFE-F4C4-4B07-8D85-AFFF7584E7F0">
+        <dmn:inputEntry id="_BEF35F00-81CE-41F9-94B6-CF29F66E7BDC">
+          <dmn:text>"Accommodation"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_D8BD647C-A04B-4B53-AF1B-8C0257936178">
+          <dmn:text>&lt;15000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_00285264-58F1-4B48-BE23-80E2937BF8AD">
+          <dmn:text>"Manager"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_C43047D7-C2DD-48C1-BF97-0877E3A46498">
+          <dmn:text>"Met"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_2A081FBE-0DF5-46FF-AC39-D02AA61D9742">
+        <dmn:inputEntry id="_2D01101D-2BA1-4081-B33F-F2733B1488F0">
+          <dmn:text>"Accommodation"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_18A3A8F8-2888-4171-A488-EA926AA6DF35">
+          <dmn:text>&gt;=15000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_D3EA8E4D-8FCF-4965-86F2-01BACA1AD346">
+          <dmn:text>"Manager"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_71F95AC4-D348-4302-B7E0-B25C5FF846ED">
+          <dmn:text>"Exceeded"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_5071DFCF-862B-490E-B353-15AD80E3BE59">
+        <dmn:inputEntry id="_DF5970DB-94D4-4876-A36E-455164FBD23B">
+          <dmn:text>"Accommodation"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_3729596F-9C62-4875-B928-09EDC5FC0AA0">
+          <dmn:text>&lt;3000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_8015B85B-347B-4CC4-B082-E7509EF972C8">
+          <dmn:text>"Engineer"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_BBC2AB16-A136-4E71-87AF-E504419ECBAA">
+          <dmn:text>"Met"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_B632E4C7-C1B2-4F47-A477-B6752400CA8B">
+        <dmn:inputEntry id="_650B51B4-195F-4DFE-8876-4105B3506CBA">
+          <dmn:text>"Accommodation"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_3D6B247B-44D7-409B-A962-144B79628BA4">
+          <dmn:text>&gt;=3000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_EFE2C729-6A76-4B4E-8F2B-B3DAAF64053A">
+          <dmn:text>"Engineer"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_E09C1938-9ABA-43D0-B018-47D9A5384678">
+          <dmn:text>"Exceeded"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_C4BC0819-69FE-4B1C-879B-A324B188EB61">
+        <dmn:inputEntry id="_A7B2605C-6EDF-40EB-BE16-D1C2D9F571D7">
+          <dmn:text>"Food"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_04EF94B8-0ED5-4DEB-8399-64267B2D2C84">
+          <dmn:text>&lt;500</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_1B283F01-E558-44D9-A02D-034EA2010217">
+          <dmn:text>"Manager"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_777F23BB-4578-40B5-8C30-76C5F599DCF2">
+          <dmn:text>"Met"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_AD1BB399-9C5B-4093-A4C9-C93A9A289CDC">
+        <dmn:inputEntry id="_E0AE3451-81FC-42DB-A8F1-BB6944E148CC">
+          <dmn:text>"Food"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_86C9BD2D-3509-4895-A2E2-3D65B840C317">
+          <dmn:text>&gt;=500</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_56E7F89C-0BC5-43FB-8326-67C0541D7F8E">
+          <dmn:text>"Manager"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_6BC853FE-DE81-450C-86B7-22C09CB4FAE7">
+          <dmn:text>"Exceeded"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_C157DCC7-F8FF-4185-B4AA-99739DC9731E">
+        <dmn:inputEntry id="_88B8B6CF-B538-4C38-B57A-0B36089079B6">
+          <dmn:text>"Food"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_A18F59AA-AF7D-4922-A81D-13647FA53638">
+          <dmn:text>&lt;100</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_77F3DDAC-F9C7-4AA5-93EA-12209FB32118">
+          <dmn:text>"Engineer"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_C4737898-0ACA-4264-A3FD-AD03FC774B4F">
+          <dmn:text>"Met"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+      <dmn:rule id="_1863F576-5018-4B42-A303-455B27D8CDEA">
+        <dmn:inputEntry id="_B9058371-66D3-4C73-9EB0-6A5E9DC8E2BF">
+          <dmn:text>"Food"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_F4494CD1-0A7D-48D2-9969-5699C60A60F4">
+          <dmn:text>&gt;=100</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_94E8554C-53B5-475B-992B-77B25B9177BE">
+          <dmn:text>"Engineer"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_4474FBCD-698E-4258-B522-A0B30014472F">
+          <dmn:text>"Exceeded"</dmn:text>
+        </dmn:outputEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_1F10D1F0-F1BD-4603-AAE6-E60FD7A8B910">
+            <kie:width>50.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>168.0</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-_B1538F51-F21D-41D9-A8FB-AE24DF15FFA6" dmnElementRef="_B1538F51-F21D-41D9-A8FB-AE24DF15FFA6" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="419.29906542056074" y="357" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_1DE3E68F-9486-4FFC-A175-FA038049DD0F" dmnElementRef="_1DE3E68F-9486-4FFC-A175-FA038049DD0F" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="585" y="357" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_583A1F6A-FA08-4DAF-8ECD-6ACB221A826A" dmnElementRef="_583A1F6A-FA08-4DAF-8ECD-6ACB221A826A" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="253.59813084112147" y="364" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_883F5977-37F1-4D0A-BC26-F7611F1D37B4" dmnElementRef="_883F5977-37F1-4D0A-BC26-F7611F1D37B4" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="430" y="197" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-_7B2C02E4-24BF-4260-80FF-4BF0C76307C3" dmnElementRef="_7B2C02E4-24BF-4260-80FF-4BF0C76307C3">
+        <di:waypoint x="303.5981308411215" y="389"/>
+        <di:waypoint x="480" y="247"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_49AC9885-31EC-4226-A4D3-29C7CE5B60A8" dmnElementRef="_49AC9885-31EC-4226-A4D3-29C7CE5B60A8">
+        <di:waypoint x="469.29906542056074" y="357"/>
+        <di:waypoint x="480" y="247"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_7C20DBAC-7F24-4942-AD2B-FA0BB4C52193" dmnElementRef="_7C20DBAC-7F24-4942-AD2B-FA0BB4C52193">
+        <di:waypoint x="585" y="382"/>
+        <di:waypoint x="530" y="222"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>

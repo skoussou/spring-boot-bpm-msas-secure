@@ -1,0 +1,25 @@
+= sap-expenses-service-task
+
+Contains RHPAM Service Task which will be used in BPMN to connect to Fuse Integration Service for SAP Updates
+
+
+* RHPAM Service Task Creation
+
+	mvn archetype:generate \
+	-DarchetypeGroupId=org.jbpm \
+	-DarchetypeArtifactId=jbpm-workitems-archetype \
+	-DarchetypeVersion=7.33.0.Final-redhat-00003 \
+	-Dversion=1.0.0 \
+	-DgroupId=com.redhat.servicetask \
+	-DartifactId=sap-expenses-service-task \
+	-DclassPrefix=SapExpensesWorkItem -s $WORKSHOP/resources/settings-xml/settings.xml
+
+
+* Service Task Class
+
+link:./src/main/java/com/redhat/servicetask/SapExpensesWorkItemWorkItemHandler.java[SapExpensesWorkItemWorkItemHandler.java]
+
+* Add to Business Central via 
+** Settings --> Service Task Administration (Select and Upload JAR --> activate it then)
+** In the KJAR you need it go to KJAR Project Settings --> Service Tasks --> Install
+

@@ -1,0 +1,26 @@
+[
+        [
+            "name" : "NotificationsWorkItemDefinitions",
+            "displayName" : "NotificationsWorkItemDefinitions",
+            "category" : "Anadolu Service Tasks",
+            "description" : "",
+            "defaultHandler" : "mvel: new com.redhat.servicetask.NotificationsWorkItemWorkItemHandler()",
+            "documentation" : "notifications-service-task/index.html",
+
+            "parameters" : [
+                                "Notification" : new StringDataType()
+
+            ],
+            "results" : [
+                                "SampleResult" : new StringDataType()
+
+            ],
+            "mavenDependencies" : [
+                                 "org.jbpm.contrib:notifications-service-task:7.33.0.Final-redhat-00003"
+
+            ],
+            "icon" : "NotificationsWorkItemDefinitions.png"
+
+        ]
+
+]

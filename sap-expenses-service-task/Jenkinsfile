@@ -1,0 +1,98 @@
+// global variables
+
+// GIT REPO
+git_bussiness_app_project_repo="<TBD>>"
+git_bussiness_app_project_branch = "master"
+// Service Name
+svc_name="business-application-service"
+
+// namespaces
+namespace_dev = "dev-pam-pipeline"
+def namespace_acp = "stage-pam-pipeline"
+def namespace_prd = "prod-pam-pipeline"	
+// MAVEN Artifact Server
+nexus_url="https://nexus.anadoluefes.com/repository/"
+nexus_repository="maven-releases"
+
+
+pipeline {
+    
+    //agent none
+    agent {
+        label 'maven'
+    }
+    
+    stages {
+        stage('Checkout Business App') {
+          //agent {
+          //  label 'maven'
+          //}
+          steps {
+               //step([$class: 'WsCleanup'])
+  			 git(
+  			   url: "${git_bussiness_app_project_repo}",
+  			    credentialsId: 'jenkins-automation-gitlab',
+  			   branch: "${git_bussiness_app_project_branch}"
+  			 )
+             script {
+             echo "#############################################################################################"     
+             echo "#                                                                                           #"
+             echo "#           Checking versions of tooling used for Java/Maven                                #"
+             echo "#                                                                                           #"                   
+             echo "#############################################################################################"                        
+             sh "pwd"
+            
+             sh "mvn --version"
+             sh "ls -l ./settings.xml"
+             }
+          }
+        }
+        
+       
+                
+        stage('Build/Test App & Create Offliner KJAR Dependencies Repo') {
+          //agent {
+          //  label 'maven'
+          //}
+          steps {
+             script {
+             echo "#############################################################################################"     
+             echo "#                                                                                           #"
+             echo "#           Build KJARs Maven Dependencies local Repository                                 #"
+             echo "#                                                                                           #"                   
+             echo "#############################################################################################"       			   
+    			   
+             sh "mvn clean package  -s ./settings.xml"
+             // sh "ls -la local-m2-repository-offliner/com/redhat"
+             }
+          }
+        }
+
+        stage('Deploy to Nexus') {
+          //agent {
+          //  label 'maven'
+          //}
+          steps {
+             script {
+              sh "mvn deploy      -DaltReleaseDeploymentRepository=$nexus_repository::default::$nexus_url$nexus_repository -s ./settings.xml"            
+             }
+          }
+        }
+   }
+}
+
+// Convenience Functions to read variables from the pom.xml
+// Do not change anything below this line.
+// --------------------------------------------------------
+def getVersionFromPom(pom) {
+  def matcher = readFile(pom) =~ '<version>(.+)</version>'
+  matcher ? matcher[0][1] : null
+}
+def getGroupIdFromPom(pom) {
+  def matcher = readFile(pom) =~ '<groupId>(.+)</groupId>'
+  matcher ? matcher[0][1] : null
+}
+def getArtifactIdFromPom(pom) {
+  def matcher = readFile(pom) =~ '<artifactId>(.+)</artifactId>'
+  matcher ? matcher[0][1] : null
+}

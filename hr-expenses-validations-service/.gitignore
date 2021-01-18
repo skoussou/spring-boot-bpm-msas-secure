@@ -1,0 +1,6 @@
+/target
+/local-m2-repository
+/ARCHIVE
+local-m2-repository-offliner/
+.project
+.classpath

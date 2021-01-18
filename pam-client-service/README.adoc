@@ -1,0 +1,403 @@
+= pam-client-service
+:toc:
+
+
+== Purpose
+
+Offers Business (UI) APIs for process and rules execution in RHPAM. It handles Business to Process/Rules model exchanges and mappings, combinations of APIs, custom searches etc. to allow client applications transparrently work with RHPAM services. It can be further expanded to offer additional capabilities. This is an implementation of section "_1.3 RHPAM Task & Process Client Integration Service
+_" in link:https://docs.google.com/document/d/1MC7KCEMaWbFkL9L0xeHm69-zFM2j32fONchYXPb_4q4/edit?pli=1#[P4-Delivery-Of-Use-Case-Tasks]
+
+=== Configurations
+
+* The pam-client-service discovers the other 2 Spring Boot KIE Server services statically see link:./src/main/java/com/redhat/app/configuration/connections/BusinessServiceMappingsHelper.java[BusinessServiceMappingsHelper.java] enhancement would be to use ConfigMap or Database to provide this configuration dynamically.
+
+== APIs Exposed
+
+=== Starts a Process - `[POST] /rhpam/process/{processId}`
+
+* BODY: 
+	
+	{\"listOfExpenseItems\":[{\"expenseType\":\"Food\",\"expenseValue\":100000},{\"expenseType\":\"Taxi\",\"expenseValue\":26000},{\"expenseType\":\"Accommodation\",\"expenseValue\":10000}],\"departmentRole\":\"HR Manager\",\"departmentName\":\"HR\",\"expenseSubmitterID\":\"PetraJones-35324\",\"expenseFormCorrelationKey\":\"expenseReport-60\",\"expenseOwnerID\":\"NickWatkins-0253\",\"expenseOwnerNotificationAddress\":\"nick.watkings@redhat.com\",\"financialAffairsDirectorApproverUsername\":\"kie-server-user\",\"firstApproverUsername\":\"kie-server-user\",\"secondApproverUsername\":\"kie-server-user\"}
+
+* Reponse:
+
+	`Id' (a Long value of Process Instance created)
+
+=== Validate Per Item Deparment Expense Limits - `[POST] /rhpam/expenses/department/validation`
+
+* BODY:  
+
+	{\"departmentName\":\"HR\",\"departmentRole\":\"HR Manager\",\"expenseType\":\"Taxi\",\"limit\":999}
+
+* Reponse:
+
+ { "limit" : "Met"}
+
+* BODY:  
+
+	{\"departmentName\":\"HR\",\"departmentRole\":\"HR Manager\",\"expenseType\":\"Taxi\",\"limit\":10000}
+
+* Response:
+
+	  { "limit" : "Exceeded"}
+
+
+=== Retrieves Process Instances of Approvals - `[GET] rhpam/expenses/instances/{processId}`
+
+* Response: 
+
+	[
+	   {
+	      "id":302,
+	      "processId":"ExpensesApproval",
+	      "processName":"Expenses Approval",
+	      "processVersion":"0.9",
+	      "state":1,
+	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "initiator":"user",
+	      "date":"2020-08-11T14:13:59.900+0000",
+	      "processInstanceDescription":"Expenses Approval",
+	      "correlationKey":"302",
+	      "parentId":-1,
+	      "slaCompliance":0,
+	      "slaDueDate":null,
+	      "activeUserTasks":null,
+	      "variables":null
+	   },
+	   {
+	      "id":402,
+	      "processId":"ExpensesApproval",
+	      "processName":"Expenses Approval",
+	      "processVersion":"0.9",
+	      "state":1,
+	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "initiator":"user",
+	      "date":"2020-08-11T17:05:12.589+0000",
+	      "processInstanceDescription":"Expenses Approval",
+	      "correlationKey":"402",
+	      "parentId":-1,
+	      "slaCompliance":0,
+	      "slaDueDate":null,
+	      "activeUserTasks":null,
+	      "variables":null
+	   },
+	   {
+	      "id":452,
+	      "processId":"ExpensesApproval",
+	      "processName":"Expenses Approval",
+	      "processVersion":"0.9",
+	      "state":1,
+	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "initiator":"user",
+	      "date":"2020-08-11T17:19:03.517+0000",
+	      "processInstanceDescription":"Expenses Approval",
+	      "correlationKey":"452",
+	      "parentId":-1,
+	      "slaCompliance":0,
+	      "slaDueDate":null,
+	      "activeUserTasks":null,
+	      "variables":null
+	   },
+	   {
+	      "id":602,
+	      "processId":"ExpensesApproval",
+	      "processName":"Expenses Approval",
+	      "processVersion":"0.9",
+	      "state":1,
+	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "initiator":"user",
+	      "date":"2020-08-12T06:19:39.926+0000",
+	      "processInstanceDescription":"Expenses Approval",
+	      "correlationKey":"602",
+	      "parentId":-1,
+	      "slaCompliance":0,
+	      "slaDueDate":null,
+	      "activeUserTasks":null,
+	      "variables":null
+	   },
+	   {
+	      "id":603,
+	      "processId":"ExpensesApproval",
+	      "processName":"Expenses Approval",
+	      "processVersion":"0.9",
+	      "state":1,
+	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "initiator":"user",
+	      "date":"2020-08-12T06:52:13.739+0000",
+	      "processInstanceDescription":"Expenses Approval",
+	      "correlationKey":"603",
+	      "parentId":-1,
+	      "slaCompliance":0,
+	      "slaDueDate":null,
+	      "activeUserTasks":null,
+	      "variables":null
+	   },
+	   {
+	      "id":653,
+	      "processId":"ExpensesApproval",
+	      "processName":"Expenses Approval",
+	      "processVersion":"0.9",
+	      "state":1,
+	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "initiator":"user",
+	      "date":"2020-08-12T07:39:51.414+0000",
+	      "processInstanceDescription":"Expenses Approval",
+	      "correlationKey":"653",
+	      "parentId":-1,
+	      "slaCompliance":0,
+	      "slaDueDate":null,
+	      "activeUserTasks":null,
+	      "variables":null
+	   }
+	]
+
+ 
+=== Search For Tasks - `[GET] /rhpam/tasks/{userId}`  (Implemented and tested with single ProcessId/Single service, not tested multiple services/multiple processes)
+[[anchor-1]]
+
+* Purpose: Searches for tasks. It combines behind the scenes API calls to KIE Server APIs
+
+** /server/queries/tasks/instances/pot-owners  (Returns tasks with a user defined as a potential owner.)
+** /server/queries/tasks/instances/owners      (Returns task instances that the querying user owns.)
+
+* Sending Requests
+* userId: Calling user -->-> should call the owners API (filter by in payload list of states)
+* if in payload groups -->   should also call /server/queries/tasks/instances/pot-owners (filter by in payload list of states)
+* what happens if we only want pot-owner???
+* also filter by ProcessId the KIE Server
+
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/tasks/user' -H  "accept: application/json" -H  "content-type: application/json"   -d {\"processId\":\"ExpensesApproval\",\"groupFilters\":[],\"taskStatusfilters\":[]}
+
+	{\"processId\":\"ExpensesApproval\",\"groupFilters\":[],\"taskStatusfilters\":[\"InProgress\"]}
+	{\"processId\":\"ExpensesApproval\",\"groupFilters\":[\"financialapprover\"],\"taskStatusfilters\":[\"InProgress\",\"Reserved\",\"Completed\"]}
+
+eg. 
+
+	curl --location --request POST "$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/tasks/firstapprover"  \
+	 --header "Authorization: Bearer $TOKEN" \
+	   -H "accept: application/json" -H "content-type: application/json" -d "{\"processId\":\"ExpensesApproval\",\"groupFilters\":[],\"taskStatusfilters\":[]}"
+
+	[{"id":3,"name":"Expenses Approval 1","subject":"","description":"","status":"Reserved","priority":0,"skipable":false,"actualOwner":"firstapprover","createdBy":null,"createdOn":"2020-10-23T13:05:21.997+0000","activationTime":"2020-10-23T13:05:21.997+0000","expirationTime":null,"processInstanceId":3,"processId":"ExpensesApproval","containerId":"com.anadoluefes:expenses-approvals-kjar:0.5.0","parentId":-1}]
+
+
+
+TODO
+
+	Search/Retrieve list of Tasks a user has performed (filtered by Completed/Reserved status) (TODO)
+	Further filter by Completed/Ready states?
+	Further filter by Process type?
+
+	{
+	  "task-summary": [
+	    {
+	      "task-id": 326,
+	      "task-name": "Expenses Approval 1",
+	      "task-subject": "",
+	      "task-description": "",
+	      "task-status": "Reserved",
+	      "task-priority": 0,
+	      "task-is-skipable": false,
+	      "task-actual-owner": "pamAdmin",
+	      "task-created-by": null,
+	      "task-created-on": {
+		"java.util.Date": 1597302805000
+	      },
+	      "task-activation-time": {
+		"java.util.Date": 1597302805000
+	      },
+	      "task-expiration-time": null,
+	      "task-proc-inst-id": 326,
+	      "task-proc-def-id": "ExpensesApproval",
+	      "task-container-id": "expenses-approvals-kjar_0.5.0",
+	      "task-parent-id": -1
+	    },
+	    {
+	      "task-id": 317,
+	      "task-name": "Expenses Approval 2",
+	      "task-subject": "",
+	      "task-description": "",
+	      "task-status": "InProgress",
+	      "task-priority": 0,
+	      "task-is-skipable": false,
+	      "task-actual-owner": "pamAdmin",
+	      "task-created-by": null,
+	      "task-created-on": {
+		"java.util.Date": 1597293500000
+	      },
+	      "task-activation-time": {
+		"java.util.Date": 1597293500000
+	      },
+	      "task-expiration-time": null,
+	      "task-proc-inst-id": 316,
+	      "task-proc-def-id": "ExpensesApproval",
+	      "task-container-id": "expenses-approvals-kjar_0.3.0",
+	      "task-parent-id": -1
+	    },
+	    {
+	      "task-id": 315,
+	      "task-name": "Expenses Approval 2",
+	      "task-subject": "",
+	      "task-description": "",
+	      "task-status": "InProgress",
+	      "task-priority": 0,
+	      "task-is-skipable": false,
+	      "task-actual-owner": "pamAdmin",
+	      "task-created-by": null,
+	      "task-created-on": {
+		"java.util.Date": 1597292403000
+	      },
+	      "task-activation-time": {
+		"java.util.Date": 1597292403000
+	      },
+	      "task-expiration-time": null,
+	      "task-proc-inst-id": 314,
+	      "task-proc-def-id": "ExpensesApproval",
+	      "task-container-id": "expenses-approvals-kjar_0.3.0",
+	      "task-parent-id": -1
+	    }
+	  ]
+	}
+
+
+
+
+=== Act on Task - `[GET] /rhpam/task/{id}/{action}`
+
+* ACTIONS ALLOWED
+** COMPLETE *(Implemented)*
+** CLAIM *(TODO)*
+** START *(TODO)*
+** RELEASE *(TODO)*
+** DELEGATE *(TODO)*
+** FORWARD *(TODO)*
+
+IMPORTANT: Important: calling this API you are required to provide `taskContainerId` and `processId` these information will be retrieved in the response from xref:anchor-1[Search For Tasks] API call. The UI will store the Payload information and when a customer does one of the *ACTIONs* above you will put them in the payload based on the `{id}` of the task selected by the user. You can see these 2 pieces information as they will be returned to you here for link:https://github.com/kiegroup/droolsjbpm-integration/blob/1ddf93da82852781777071fc64e79763ad8435e8/kie-server-parent/kie-server-api/src/main/java/org/kie/server/api/model/instance/TaskSummary.java#L61[processId] and here for link:https://github.com/kiegroup/droolsjbpm-integration/blob/1ddf93da82852781777071fc64e79763ad8435e8/kie-server-parent/kie-server-api/src/main/java/org/kie/server/api/model/instance/TaskSummary.java#L63[taskContainerId]
+
+
+==== COMPLETE 
+
+* Request Body (APPROVED)
+
+	{"approvalStatus":"Approved","approvalMessage":"I approve this report"taskContainerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
+
+* COMPLETE Request Body (Revision_Request)
+
+	{"approvalStatus":"Revision_Request","approvalMessage":"Revise Dates in Claim Item 1","taskContainerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
+
+* COMPLETE Request Body (Rejected)
+
+	{"approvalStatus":"Rejected","approvalMessage":"Your expenses are too high","taskContainerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
+
+==== CLAIM 
+
+* This is left TODO in this two classes link:./src/main/java/com/redhat/controller/NonSSORHPAMController.java[NonSSORHPAMController] and link:./src/main/java/com/redhat/controller/RHPAMController.java[RHPAMController]
+
+
+==== START
+
+* This is left TODO in this two classes link:./src/main/java/com/redhat/controller/NonSSORHPAMController.java[NonSSORHPAMController] and link:./src/main/java/com/redhat/controller/RHPAMController.java[RHPAMController]
+
+==== RELEASE
+
+* This is left TODO in this two classes link:./src/main/java/com/redhat/controller/NonSSORHPAMController.java[NonSSORHPAMController] and link:./src/main/java/com/redhat/controller/RHPAMController.java[RHPAMController]
+
+==== DELEGATE
+
+* This is left TODO in this two classes link:./src/main/java/com/redhat/controller/NonSSORHPAMController.java[NonSSORHPAMController] and link:./src/main/java/com/redhat/controller/RHPAMController.java[RHPAMController]
+
+==== FORWARD
+
+* This is left TODO in this two classes link:./src/main/java/com/redhat/controller/NonSSORHPAMController.java[NonSSORHPAMController] and link:./src/main/java/com/redhat/controller/RHPAMController.java[RHPAMController]
+
+
+=== Search Approvals History - `[GET] /rhpam/t/expenses/history/{pid}`      (Scoping but incomplete)
+
+We need to expose a CUSTOM Query that utilizes a combination of
+
+select id, actualowner, lastmodificationdate from audittaskimpl where processInstanceId=752
+select * from taskvariableimpl where taskid in (39, 38, 37, 36)
+
+
+
+
+== How to Run For Development Use
+
+	mvn clean spring-boot:run -P local -Dspring-boot.run.profiles=local -s settings-nexus.xml
+	
+*Note:* Source Code now has been modified to integrate with RHSSO. In order to use  *local* profile you would have to comment out KeycloakSecurityConfig.java and change @Profile in RHPAMController.java and re-activate class ./src/main/java/com/redhat/app/configuration/security/DefaultWebSecurityConfig.TXT, change @Profile in ./src/main/java/com/redhat/controller/NonSSORHPAMController.java and rebuild. Alternatively, follow instructions here:  https://github.com/redhat-cop/businessautomation-cop/tree/master/pam-quick-examples/spring-boot-examples/security to setup RHSSO Locally with (kie-server and financialapprover (currently required by the ExpensesApproval process only)
+
+* To test non RHSSO OPenshift behavior you need to comment out for now KeycloakSecurityConfig.java to KeycloakSecurityConfig.txt (no good way to exclude Keycloak compilation yet)
+
+	mvn clean spring-boot:run -P openshift -Dspring-boot.run.profiles=openshift -s settings-nexus.xml
+	
+*Note:* Source Code now has been modified to integrate with RHSSO. In order to use  *openshift* (or one of openshift-dev, openshift-qa, openshift-prod) profile you would have to comment out KeycloakSecurityConfig.java and change @Profile in RHPAMController.java and re-activate class ./src/main/java/com/redhat/app/configuration/security/DefaultWebSecurityConfig.TXT, change @Profile in ./src/main/java/com/redhat/controller/NonSSORHPAMController.java and rebuild. Alternatively, follow instructions here:  https://github.com/redhat-cop/businessautomation-cop/tree/master/pam-quick-examples/spring-boot-examples/security to setup RHSSO Locally with (kie-server and financialapprover (currently required by the ExpensesApproval process only)	OR use the configured RHSSO (currently it is pointing to keycloak.auth-server-url=https://sso-ahmet-rhpam.efes-roks-cls01-8d096ac4a14f7747edefd138d2db7a24-0000.eu-de.containers.appdomain.cloud/auth
+
+* To test RHSSO OPenshift behavior you need to comment out for now KeycloakSecurityConfig.java to KeycloakSecurityConfig.txt (no good way to exclude Keycloak compilation yet)
+
+	mvn clean spring-boot:run -P openshift-dev -Dspring-boot.run.profiles=openshift -s settings-nexus.xml
+
+*Note:*  You need to configure ./src/main/resources/openshift-dev.properties for a valid RHSSO (currently it is pointing to keycloak.auth-server-url=https://sso-ahmet-rhpam.efes-roks-cls01-8d096ac4a14f7747edefd138d2db7a24-0000.eu-de.containers.appdomain.cloud/auth
+
+
+== How to Package/Deploy on OCP for Development Testing (without RHSSO as no design/implementation of OCP RHSSO exists for the expenses project)
+
+	mvn clean package -DskipTests=true -P openshift -Dmaven.artifact.threads=50 -s settings-nexus.xml
+        mvn oc:deploy -Djkube.namespace=dev-demo -DskipTests=true -P openshift -Dmaven.artifact.threads=50 -s settings-nexus.xml
+
+
+== EXAMPLE CALLS
+
+export PAM_CLIENT_SERVICE_ROUTE_URL=<URL OF (ROUTE) PAM CLIENT SERVICE>
+export BUSINESS_PROCESS_KIESERVER_ROUTE_URL=<URL OF (ROUTE) PAM BUSINESS APPLICATION SERVICE>
+
+=== Example Calls sequence for `[POST] /rhpam/process/{processId}` and COMPLETE Action `[GET] /rhpam/task/{id}/{action}`
+
+* Create Process
+
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/process/ExpensesApproval' -H  "accept: application/json" -H  "content-type: application/json"   -d  "{\"listOfExpenseItems\":[{\"expenseType\":\"Food\",\"expenseValue\":100000},{\"expenseType\":\"Taxi\",\"expenseValue\":26000},{\"expenseType\":\"Accommodation\",\"expenseValue\":10000}],\"departmentRole\":\"HR Manager\",\"departmentName\":\"HR\",\"expenseSubmitterID\":\"PetraJones-35324\",\"expenseFormCorrelationKey\":\"expenseReport-62\",\"expenseOwnerID\":\"NickWatkins-0253\",\"expenseOwnerNotificationAddress\":\"nick.watkings@redhat.com\",\"financialAffairsDirectorApproverUsername\":\"user\",\"firstApproverUsername\":\"user\",\"secondApproverUsername\":\"user\"}"
+
+** Response Process ID: 752
+** In DB `select from taskevent where processInstanceId= 752` points to task `36` (Expenses-Approval-1)
+** In Browser open the diagram and press F5 in each task completion to see process progress: http://hr-expenses-business-application-service-hr-expenses-dev.apps.cluster-anadolu-52cf.anadolu-52cf.example.opentlc.com/rest/server/containers/com.anadoluefes:expenses-approvals-kjar:0.5.0/images/processes/instances/752
+* Complete Task `36` status `Approved`
+
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/36/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"com.anadoluefes:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
+
+** Response _Action [COMPLETE] Completed on Task [36]_
+** In DB `select from taskevent where processInstanceId= 752` points to task `37`  (Expenses-Approval-2)
+
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/37/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"com.anadoluefes:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
+
+** Response _Action [COMPLETE] Completed on Task [37]_
+** In DB `select from taskevent where processInstanceId= 752` points to task `38`  (Financial Affairs Director Approval)
+
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/38/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"Although high I will also approve this report\", \"taskContainerId\":\"com.anadoluefes:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
+
+** Response _Action [COMPLETE] Completed on Task [38]_
+** In DB `select from taskevent where processInstanceId= 752` points to task `39`  (Financial Department Approval)
+** In DB `select from peopleassignments_potowners where task_id = 39`  and group `financialapprover` is the allocated *group of potential owners*. We will use `user` (available in the DefaultWebSecurityConfig.java of project `hr-expenses-business-application-service`
+
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/39/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"Approved for payment by Financial DEpartment\", \"taskContainerId\":\"com.anadoluefes:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
+
+** In DB `select status from processinstance log where processInstanceId= 752` status is 2 process completed 
+** check again the status of the procss in the diagram in the browser: http://hr-expenses-business-application-service-hr-expenses-dev.apps.cluster-anadolu-52cf.anadolu-52cf.example.opentlc.com/rest/server/containers/com.anadoluefes:expenses-approvals-kjar:0.5.0/images/processes/instances/752
+
+=== Example Calls `[POST] /rhpam/expenses/department/validation`
+
+* MET
+
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/expenses/department/validation' -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"departmentName\":\"HR\",\"departmentRole\":\"HR Manager\",\"expenseType\":\"Taxi\",\"limit\":9999}"
+{"limit":"Met"}[stkousso@stkousso proc-decorator]
+
+* EXCEEDED
+
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/expenses/department/validation' -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"departmentName\":\"HR\",\"departmentRole\":\"HR Manager\",\"expenseType\":\"Taxi\",\"limit\":10000}"
+
+
+
+* Complete Task (Approval)
+
+	 curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/23/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d 
+
+
+

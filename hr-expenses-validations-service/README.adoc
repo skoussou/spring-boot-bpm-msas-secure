@@ -1,0 +1,261 @@
+= hr-expenses-validations-service -  Springboot Runtime App
+:toc:
+
+
+== Purpose & Configuration
+
+Creates a `Spring Boot based KIE Server` and hosts KJAR Project `expenses-validations-kjar`. In the future you can add more versions of the `expenses-validations-kjar` into this
+
+* In link:hr-expenses-validations-business-service.xml[hr-expenses-validations-business-service.xml] you will need to configure a `<container>` section for each new KJAR Version (keep `<containerAlias>expenses-validations-kjar</containerAlias>`
+* In link:pom.xml[pom.xml] section needs to be updated to list *ALL KJAR* full Group Artifact Version details for thos KJARs to be loaded into the Openshift `hr-expenses-business-application-service` image.
+
+      <plugin>
+        <groupId>org.kie</groupId>
+        <artifactId>kie-maven-plugin</artifactId>
+        <!--<version>${version.org.kie}</version>-->
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>package-dependencies-kjar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <artifactItems>
+            <artifactItem>
+              <groupId>com.redhat</groupId>
+              <artifactId>expenses-validations-kjar</artifactId>
+              <version>1.0.0</version>
+            </artifactItem>
+          </artifactItems>
+        </configuration>
+      </plugin>
+
+* For each version update on `hr-expenses-validations-service` update the following before manually doing either a deployment to Openshift (see below `Running on Openshift` or via CICD Pipeline
+** change the `<version>0.0.4-SNAPSHOT</version>` in the link:pom.xml[pom.xml]
+** change the `COPY target/hr-expenses-business-application-service-0.0.4-SNAPSHOT.jar` accordingly in in the link:Dockerfile[Dockerfile]
+
+== How to run
+
+=== Running locally with RHSSO (UNCOMMENT SSOWebSecurityConfig.txt class)
+* You need an RHSSO Setup. For an example setup RHSSO Locally refer to https://github.com/redhat-cop/businessautomation-cop/tree/master/pam-quick-examples/spring-boot-examples/security
+** Also provided here an RHSSO config in link:realm-export.json[realm-export.json]
+* Start Spring Boot App locally
+
+	mvn clean spring-boot:run -P h2 -Dspring-boot.run.profiles=h2 -Dspring-boot.run.jvmArguments="-Dkie.maven.settings.custom=$WORKSHOP/resources/settings-xml/settings.xml  -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy" -s $WORKSHOP/resources/settings-xml/settings.xml
+
+=== How to Package/Deploy on OCP for Development Testing (without RHSSO - COMMENT Out SSOWebSecurityConfig class)
+
+IIMPORTANT: Important First Secret/ConfigMap needs to be created with the details of the Validation Service to call. We have overcome this by directly adding to generated DC the following environemnt variables
+
+* Deployment Config for `hr-expenses-validations-service` must ensure it contains the following
+
+         "   - name: JAVA_OPTS_APPEND
+              value: -Dorg.kie.server.controller=ws://expenses-dev-rhpamcentrmon:8080/controller/websocket/controller -Dorg.kie.server.controller.user=user -Dorg.kie.server.controller.pwd=user -Dorg.kie.server.controller.connect=10000 -Dorg.kie.server.location=http://hr-expenses-validations-business-service:8090/rest/server              "
+
+* Package and Deploy in Openshift service `hr-expenses-business-application-service`
+
+	mvn clean package -DskipTests=true -P openshift -Dmaven.artifact.threads=50 -s settings-nexus.xml
+        mvn oc:deploy -Djkube.namespace=dev-demo -DskipTests=true -P openshift -Dmaven.artifact.threads=50 -s settings-nexus.xml
+
+
+== Access SWAGGER API
+** Swagger API:	http://hr-expenses-validations-business-service-hr-expenses-dev.apps.ocppreprod.aefesopenshift.com/rest/api-docs?url=../rest/swagger.json (user/user non RHSSO auth)
+
+
+== Creating another service like this
+
+* A re-usable Springboot Busines Application with _minimal_ dependencies to provide a Runtime for JBPM/Drools (RHPAM/RHDM) business projects
+
+
+== How To Configure & Use this Repo for another service
+[[anchor-1]]
+
+IMPORTANT: Important: Before using note that by default this App provides the minimum configurations for SpringBoot KJAR Service. See xref:anchor-7[How To Further Configure the App]
+
+1. _Fork_ this repository for every new service (ie. this is just a baseline) and update *pom.xml* with new *GAV*.
+2. Configure in `pom.xml` under plugin `kie-maven-plugin` the KJARs you plan to deploy in your service (*Important:* KJARs need to be deployed in NEXUS if using a central maven repo. See xref:anchor-8[How To Deploy a KJAR into Central Maven Repo])
+
+        <configuration>
+          <artifactItems>
+            <artifactItem>
+              <groupId>com.redhat</groupId>
+              <artifactId>expenses-validations-kjar</artifactId>
+              <version>1.0.0</version>
+            </artifactItem>
+            <artifactItem>
+              <groupId>com.redhat</groupId>
+              <artifactId>expenses-validations-kjar</artifactId>
+              <version>2.0.0</version>
+            </artifactItem>            
+          </artifactItems>
+        </configuration>
+
+3. Configure `your-service-name.xml` (see link:hr-expenses-business-application-service.xml[hr-expenses-business-application-service.xml] as an example.
+* The name of the `your-service-name.xml` and must match `application-openshift.properties` properties (and in any other properties file created under src/main/resources) `kieserver.serverId`, `kieserver.Name`) 
+* one *<container>* section for each KJAR above must be created in `your-service-name.xml`
+3. Configure the `artifactId` and `version` based on your `pom.xml` in the `src/main/docker/Dockerfile`
+4. Configure any required connection details in `application-openshift.properties` to connect to either an _external database_ 
+
+
+=== How To Run Locally the Springboot App
+[[anchor-2]]
+
+2. Run the Service as local SpringBoot App and xref:anchor-6[Use the KJAR Springboot Service APIs]
+* No external DB dependencies
+
+	mvn spring-boot:run -Dspring-boot.run.profiles=h2 -Dspring-boot.run.jvmArguments="-Dkie.maven.settings.custom=settings-local-only.xml  -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy"
+
+* use *-Dspring-boot.run.profiles=postgres* and *-P postgres* to use with an external PostgresSQL database and update *_src/main/resources/application-postgres.properties_* with DB connection details
+
+=== How To Use in Openshift 
+[[anchor-4]]
+
+
+==== Run the service in K8s/Openshift cluster (jkube) - NON-CICD
+
+first start at xref:anchor-4[How To Use in Openshift]
+
+1. Use the *openshift* profile to *Build App*, *Build KJAR Maven Dependencies Repo*, *Build Image with Repo*, *Create resoures bc/dc*
+* Build and deploy in OCP
+
+	mvn clean package -DskipTests=true -P openshift -Dmaven.artifact.threads=50 -s settings-nexus.xml
+        mvn oc:deploy -Djkube.namespace=dev-demo -DskipTests=true -P openshift -Dmaven.artifact.threads=50 -s settings-nexus.xml
+* Check the created OCP resources
+
+	oc get all -l app=<YOUR SERVICE NAME>
+	oc get all -l version=<YOUR VERSION>
+
+2.  Get to Swagger API and xref:anchor-6[Use the KJAR Springboot Service APIs]
+
+	[ROUTE_URL]/rest/api-docs?url=../rest/server/swagger.json	(user/user)
+
+
+=== Run the Service (CICD) in Openshift (for empty non customer cluster)
+
+IMPORTANT: Important: Namespaces and other information may need to be adapted for your cluster
+
+first start at xref:anchor-4[How To Use in Openshift]
+
+1. OCP Secrets/ServiceAccount Setups if working on your own Cluster
+* Bind *_edit_* role to *cicd-pam* group or to group which is used in the CICD Jenkins namespace to be able to *_edit_* the namespace where buildsConfigs, deploymentConfigs, builds etc. will be configured in
+
+	oc policy add-role-to-group edit system:serviceaccounts:cicd-pam -n ${NAMESPACE_WHERE_SERVICE_WILL_BE_DEPLOYED}
+
+* create a secret containing the `redhat.registry.io` credentials for pulling images (this can be done by OCP Infra so this task is if you manage your own server) in all namespaces to be used
+
+	oc create secret generic imagestreamsecret --from-file=.dockerconfigjson=/home/stkousso/.docker/config.json --type=kubernetes.io/dockerconfigjson -n ${NAMESPACE_WHERE_SERVICE_WILL_BE_DEPLOYED}
+
+* associate the `imagestreamsecret`, within the namespace which will receive the `Jenkinsfile` pipelne builds and will be required to pull images/create new images, with the relevant *_ServiceAccount_*
+
+        oc secrets link builder imagestreamsecret --for=pull -n ${NAMESPACE_WHERE_SERVICE_WILL_BE_DEPLOYED} 
+        oc secrets link builder imagestreamsecret -n ${NAMESPACE_WHERE_SERVICE_WILL_BE_DEPLOYED}
+
+* if the pipeline will `rollout` the service to other namespaces (eg `stage-pam-pipeline`, `prod-pam-pipeline`), 
+** then in the `namespace` where the Jenkins pipeline will build/deliver the generated *Service Image* and register it within the *ImageStream* (eg `dev-pam-pipeline`) add `system:image-puller` for *ServiceAccount* of the all namespaces the image will be rolled (ie. pulled by) out to:
+
+	oc policy add-role-to-user system:image-puller system:serviceaccount:${STAGE/PROD_NAMESPACE}:default -n ${NAMESPACE_WHERE_SERVICE_WILL_BE_DEPLOYED}
+
+	eg.
+	oc policy add-role-to-user system:image-puller system:serviceaccount:stage-pam-pipeline:default -n dev-pam-pipeline
+	clusterrole.rbac.authorization.k8s.io/system:image-puller added: "system:serviceaccount:stage-pam-pipeline:default
+
+** Deployment Configs need to be created with the following command (modifying for each namespace *NAMESPACE_TO_DEPLOY* and *IMAGE_STREAM_NAMESPACE* (ie. namespace where the business app ImageStream was created in)
+
+	oc new-app ocp-resources/business-app-deployment-template.yml   \
+                    -p IMAGE_STREAM_NAMESPACE=${IMAGE_STREAM_NAMESPACE} \
+                    -p IMAGE_STREAM_NAME=business-application-service   \
+                    -p IMAGE_STREAM_TAG=2.2.18                          \
+                    -p  NAMESPACE_TO_DEPLOY=qa-pam-pipeline             \
+                    -l application=business-application-service -n qa-pam-pipeline
+
+
+*** for `stage-pam-pipeline`
+
+	oc new-app ocp-resources/business-app-deployment-template.yml \
+                    -p IMAGE_STREAM_NAMESPACE=dev-pam-pipeline        \
+                    -p IMAGE_STREAM_NAME=business-application-service \
+                    -p IMAGE_STREAM_TAG=2.2.18                        \
+                    -p  NAMESPACE_TO_DEPLOY=stage-pam-pipeline        \
+                    -l application=business-application-service -n stage-pam-pipeline
+
+*** for `prod-pam-pipeline`
+
+	oc new-app ocp-resources/business-app-deployment-template.yml \
+                    -p IMAGE_STREAM_NAMESPACE=dev-pam-pipeline        \
+                    -p IMAGE_STREAM_NAME=business-application-service \
+                    -p IMAGE_STREAM_TAG=2.2.18                        \
+                    -p  NAMESPACE_TO_DEPLOY=prod-pam-pipeline         \
+                    -l application=business-application-service -n prod-pam-pipeline
+
+
+2. Add a *new* Jenkins job based on the https://github.com/skoussou/springboot-business-app/blob/master/Jenkinsfile[`Jenkinsfile`] in this repository in your Jenkins and configure the parameters at the top of the file to the correct namespaces
+* *git_bussiness_app_project_repo =*  The URL to the cloned business app project
+* *git_bussiness_app_project_branch =* The branch to clone from in the jenkins pipeline
+* *svc_name=* name of the service
+* *namespace_dev=* namespace where the build will occur
+* *def namespace_acp=* rollout to this namespace after dev
+* *def namespace_prd=* rollout to this namespace after stage
+* *nexus_url=* NEXUS Repositories URL
+* *nexus_repository=* repository where relesaes are deployed in nexus
+3. Updates to `pom.xml` *version* requires updates of version in https://github.com/skoussou/springboot-business-app/blob/master/Dockerfile#L6[`Dockerfile`] version 
+4. *Run New Jenkins Build*
+* Check the created OCP resources
+
+	oc get all -l app=business-application-service
+	oc get all -l version=2.2.15
+
+3.  Get to Swagger API and xref:anchor-6[Use the KJAR Springboot Service APIs]
+
+	[ROUTE_URL]/rest/api-docs?url=../rest/server/swagger.json	(user/user)
+
+[[anchor-6]]
+== KJAR Springboot Service APIs
+* Get Containers List
+
+	curl -u 'user:user' -X GET --header 'Accept: application/json' 'http://127.0.0.1:8090/rest/server/containers'
+	curl -u 'user:user' -X GET --header 'Accept: application/json' 'http://business-application-service-dev-pam.apps.cluster-workshop-d20a.workshop-d20a.example.opentlc.com/rest/server/containers'
+
+* Find Process IDs in KIEContainer
+
+	curl -k -u user:user -X GET "http://127.0.0.1:8090/rest/server/containers/retail/processes/" -H "accept: application/json"
+	curl -k -u user:user -X GET "http://business-application-service-dev-pam.apps.cluster-workshop-d20a.workshop-d20a.example.opentlc.com/rest/server/containers/{ALIAS or CONTAINERID}/processes/" -H "accept: application/json"
+
+* Find Process Details(eg. process Variables) based on Process ID
+
+	curl -k -u user:user -X GET "http://127.0.0.1:8090/rest/server/containers/retail/processes/definitions/my-process" -H "accept: application/json"
+	curl -k -u user:user -X GET "http://business-application-service-dev-pam.apps.cluster-workshop-d20a.workshop-d20a.example.opentlc.com/rest/server/containers/containers/{ALIAS or CONTAINERID}/processes/definitions/{ProcessID}" -H "accept: application/json"
+
+* Start Process
+
+	curl -u 'user:user' -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{}' 'http://127.0.0.1:8090/rest/server/containers/{ALIAS or CONTAINERID}/processes/{ProcessID}/instances'
+	eg. curl -u 'user:user' -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{}' 'http://127.0.0.1:8090/rest/server/containers/retail/processes/my-process/instances'
+	curl -u 'user:user' -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{}' 'http://business-application-service-dev-pam.apps.cluster-workshop-d20a.workshop-d20a.example.opentlc.com/rest/server/containers/basic-kjar-2.0.0/processes/my-process/instances'
+
+* Retrieve instances of processes in KIEContainer (status 1=Active, 2=Completed, 3=Error)
+
+	curl -u 'user:user' -X GET  "http://127.0.0.1:8090/rest/server/containers/example-retail-credit-kjar-1.0.0/processes/instances?status=2&page=0&pageSize=10&sortOrder=true" -H "accept: application/json" -H "content-type: application/json"
+	curl -k -u user:user -X GET "http://business-application-service-dev-pam.apps.cluster-workshop-d20a.workshop-d20a.example.opentlc.com/rest/server/containers/{CONTAINER_ID}/processes/instances?status=2&page=0&pageSize=10&sortOrder=true" -H "accept: application/json" -H "content-type: application/json"
+
+
+
+[[anchor-7]]
+== How To Further Configure the App
+
+1. Security (Adding Users/External Security)
+2. Database
+3. Timers
+4. APIs
+
+
+== How To Deploy a KJAR into Central Maven Repo
+[[anchor-8]]
+* See example at: https://github.com/skoussou/basic-kjar/blob/b4a11571cc099203ecfd0cf08b11f6957c56842d/pom.xml#L9[Basic KJAR distributionManagement]
+* With https://github.com/skoussou/basic-kjar/blob/b4a11571cc099203ecfd0cf08b11f6957c56842d/settings.xml#L12[server configs in settings.xml matching the distributionManagement ids] execute:
+
+	mvn clean deploy -s settings.xml
+
+
+

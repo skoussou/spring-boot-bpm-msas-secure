@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.jbpm:jbpm-flow:7.44.0.Final-redhat-00003">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jbpm/jbpm-flow/7.44.0.Final-redhat-00003/jbpm-flow-7.44.0.Final-redhat-00003.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jbpm/jbpm-flow/7.44.0.Final-redhat-00003/jbpm-flow-7.44.0.Final-redhat-00003-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jbpm/jbpm-flow/7.44.0.Final-redhat-00003/jbpm-flow-7.44.0.Final-redhat-00003-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

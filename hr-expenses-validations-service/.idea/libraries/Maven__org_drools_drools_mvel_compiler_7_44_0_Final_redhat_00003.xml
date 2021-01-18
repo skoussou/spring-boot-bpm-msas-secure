@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.drools:drools-mvel-compiler:7.44.0.Final-redhat-00003">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/drools/drools-mvel-compiler/7.44.0.Final-redhat-00003/drools-mvel-compiler-7.44.0.Final-redhat-00003.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/drools/drools-mvel-compiler/7.44.0.Final-redhat-00003/drools-mvel-compiler-7.44.0.Final-redhat-00003-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/drools/drools-mvel-compiler/7.44.0.Final-redhat-00003/drools-mvel-compiler-7.44.0.Final-redhat-00003-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

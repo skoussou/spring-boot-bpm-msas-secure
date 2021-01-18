@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: me.snowdrop:narayana-spring-boot-starter:2.3.0.redhat-00008">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/me/snowdrop/narayana-spring-boot-starter/2.3.0.redhat-00008/narayana-spring-boot-starter-2.3.0.redhat-00008.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/me/snowdrop/narayana-spring-boot-starter/2.3.0.redhat-00008/narayana-spring-boot-starter-2.3.0.redhat-00008-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/me/snowdrop/narayana-spring-boot-starter/2.3.0.redhat-00008/narayana-spring-boot-starter-2.3.0.redhat-00008-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

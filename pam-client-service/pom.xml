@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.redhat</groupId>
+  <artifactId>pam-client-service</artifactId>
+  <version>1.0.0</version>
+  <name>pam-client</name>
+  <description>Spring Boot PAM Client with Keycloak Integration</description>
+
+  <distributionManagement>
+    <repository>
+       <id>releases</id>
+       <url>https://nexus-cicd-demo.apps.cluster-demo-d3f8.demo-d3f8.example.opentlc.com/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+       <id>snapshots</id>
+       <url>https://nexus-cicd-demo.apps.cluster-demo-d3f8.demo-d3f8.example.opentlc.com /repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <!--  <version>2.2.12.RELEASE</version> -->
+    <version>2.3.7.RELEASE</version>
+    <!--version>2.4.0</version-->
+  </parent>
+  <!--
+  <parent>
+    <groupId>dev.snowdrop</groupId>
+    <artifactId>snowdrop-dependencies</artifactId>
+    <version>2.3.4.Final-redhat-00001</version>
+  </parent>
+  -->
+  <properties>
+    <!--java.version>11</java.version-->
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+
+    <!-- Version 7.8 RHPAM BOM
+    <version.rhpam.bom>7.8.0.redhat-00002</version.rhpam.bom> -->
+    <!-- Version 7.9 RHPAM BOM -->
+    <version.rhpam.bom>7.9.0.redhat-00002</version.rhpam.bom> 
+
+    <!-- for BOM if I have time to test -->
+    <!--version.org.keycloak>9.0.3.redhat-00002</version.org.keycloak-->
+    <version.keycloak>9.0.2</version.keycloak>
+    <version.org.apache.cxf>3.2.6</version.org.apache.cxf>
+    <!--version.spring.boot>2.2.2.RELEASE</version.spring.boot-->
+
+    <jkube.version>1.0.2</jkube.version>
+  </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${version.spring.boot}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency-->
+            <dependency>
+                <groupId>com.redhat.ba</groupId>
+                <artifactId>ba-platform-bom</artifactId>
+                <version>${version.rhpam.bom}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>${version.keycloak}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+  <dependencies>
+    <!--dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency-->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <!-- Activate for RHSSO Setup -->
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-spring-boot-starter</artifactId>
+      <version>${version.keycloak}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+
+    <!-- Model Artifacts to use in RHPAM Requests -->
+    <dependency>
+      <groupId>com.anadoluefes</groupId>
+      <artifactId>expenses-model</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+    <!-- Controller Based REST API -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- KIE APIs -->
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-dmn-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.server</groupId>
+      <artifactId>kie-server-client</artifactId>
+    </dependency>
+
+      <!-- JSON Format APIs  f
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.8.6</version>
+      </dependency>-->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+            <!--mainClass>com.redhat.service.api.model.expenses.ExpenseApprovals</mainClass-->
+            <mainClass>com.redhat.service.api.model.UseGSOConvertJavaOBJtoJASONstring</mainClass>
+        </configuration>
+      </plugin>
+      <plugin>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>  
+    <profile>
+      <id>local</id>
+      <activation>
+        <property>
+          <name>local</name>
+        </property>
+      </activation>
+      <!-- Moving dependencies for keyloack to openshift profile as activating RHSSO Integration 
+      <dependencies>
+        <dependency>
+          <groupId>org.keycloak</groupId>
+          <artifactId>keycloak-spring-boot-starter</artifactId>
+          <version>${version.keycloak}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+          <scope>runtime</scope>
+          <optional>true</optional>
+        </dependency>
+      </dependencies>-->
+    </profile>
+   
+    <profile>
+      <id>openshift</id>
+      <activation>
+        <property>
+          <name>openshift</name>
+        </property>
+      </activation>
+
+      <properties>
+        <jkube.mode>openshift</jkube.mode>
+        <jkube.build.strategy>docker</jkube.build.strategy>
+      </properties>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+        </dependency>
+      </dependencies>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>openshift-maven-plugin</artifactId>
+            <version>${jkube.version}</version>
+            <configuration>
+              <images>
+                <image>
+                  <name>${jkube.namespace}/${project.artifactId}:${project.version}</name>
+                  <!--alias>${project.artifactId}</alias>
+                  <tags>
+                    <tag>${project.version}</tag>
+                  </tags-->
+                  <build>
+                  <from>registry.redhat.io/redhat-openjdk-18/openjdk18-openshift</from>
+                    <assembly>
+                      <targetDir>/</targetDir>
+                      <inline>
+                        <files>
+                          <file>
+                            <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+                            <outputDirectory>deployments</outputDirectory>
+                            <destName>${project.build.finalName}.${project.packaging}</destName>
+                          </file>
+                        </files>
+                        <fileSets>
+
+                          <fileSet>
+                            <directory>src/main/docker</directory>
+                            <outputDirectory>opt/jboss/.m2</outputDirectory>
+                            <includes>
+                              <include>settings.xml</include>
+                            </includes>
+                          </fileSet>
+                        </fileSets>
+                      </inline>
+                      <user>jboss:jboss:jboss</user>
+                    </assembly>
+                    <env>
+                      <SPRING_PROFILES_ACTIVE>openshift</SPRING_PROFILES_ACTIVE>
+                     </env>
+		     <env>
+
+                       <JAVA_OPTIONS>-Dorg.drools.server.filter.classes=true -Dspring.profiles.active=openshift -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dkie.maven.settings.custom=/opt/jboss/.m2/settings.xml -Dorg.guvnor.m2repo.dir=/opt/jboss/.m2/repository -Dapplied=pom-openshift-profile</JAVA_OPTIONS>
+                    </env>
+                    <!--env>
+                      <PROCESS_IDS_TO_ALIAS_MAPPINGS>procestosalias</PROCESS_IDS_TO_ALIAS_MAPPINGS>
+                     </env>
+                    <env>
+                      <ALIAS_TO_SERVICE_MAPPINGS>aliastoservice</ALIAS_TO_SERVICE_MAPPINGS>
+                     </env-->                                                           
+                    <ports>
+                      <port>8090</port>
+                    </ports>
+                    <runCmds>
+                      <run>chgrp -R root /opt/jboss/.m2 &amp;&amp; chmod -R g+w /opt/jboss/.m2</run>
+                      <run>chgrp -R root /deployments &amp;&amp; chmod -R g+w /deployments</run>
+                    </runCmds>
+                  </build>
+                </image>
+              </images>
+              <generateRoute>true</generateRoute>
+              <enricher>
+                <config>
+                  <jkube-healthcheck-spring-boot>
+                    <timeoutSeconds>1</timeoutSeconds>
+                    <readinessProbeInitialDelaySeconds>60</readinessProbeInitialDelaySeconds>
+                    <livenessProbeInitialDelaySeconds>30</livenessProbeInitialDelaySeconds>
+                    <failureThreshold>3</failureThreshold>
+                    <successThreshold>1</successThreshold>
+                  </jkube-healthcheck-spring-boot>
+                </config>
+              </enricher>
+              <resources>
+                <annotations>
+                </annotations>
+                <!--env>
+                  <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
+		</env-->
+		<env>
+		    <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
+		    <JAVA_OPTS_APPEND>-DSSO_AUTH_SERVER_URL=https://secure-sso-init-test-expenses.apps.cluster-4315.4315.example.opentlc.com</JAVA_OPTS_APPEND>
+                </env>
+                <openshiftBuildConfig>
+                  <requests>
+                    <cpu>200m</cpu>
+                    <memory>1Gi</memory>
+                  </requests>
+                  <limits>
+                    <cpu>200m</cpu>
+                    <memory>1Gi</memory>
+                  </limits>
+                </openshiftBuildConfig>
+                <labels>
+                  <all>
+                    <property>
+                      <name>app</name>
+                      <value>${project.artifactId}</value>
+                    </property>
+                    <property>
+                      <name>version</name>
+                      <value>${project.version}</value>
+                    </property>
+                  </all>
+                </labels>
+              </resources>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>resource</goal>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+
+    <!-- Cloud Profiles - Openshift with Dockerfile 'install' phase, tested and working. See README.adoc -->
+    <profile>
+      <id>openshift-docker</id>
+      <activation>
+        <property>
+          <name>openshift-docker</name>
+        </property>
+      </activation>
+
+      <properties>
+        <jkube.mode>openshift</jkube.mode>
+        <jkube.build.strategy>docker</jkube.build.strategy>
+      </properties>
+
+      <dependencies>
+        <!--dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+        </dependency-->
+        <!--dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+        </dependency-->
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>openshift-maven-plugin</artifactId>
+            <version>${jkube.version}</version>
+            <configuration>
+              <images>
+                <image>
+                  <name>${jkube.namespace}/${project.artifactId}:${project.version}</name>
+                  <build>
+                    <dockerFileDir>${project.basedir}</dockerFileDir>
+                    <dockerFile>Dockerfile</dockerFile>
+                  </build>
+                </image>
+              </images>
+              <generateRoute>true</generateRoute>
+              <enricher>
+                <config>
+                  <jkube-healthcheck-spring-boot>
+                    <timeoutSeconds>1</timeoutSeconds>
+                    <readinessProbeInitialDelaySeconds>60</readinessProbeInitialDelaySeconds>
+                    <livenessProbeInitialDelaySeconds>30</livenessProbeInitialDelaySeconds>
+                    <failureThreshold>3</failureThreshold>
+                    <successThreshold>1</successThreshold>
+                  </jkube-healthcheck-spring-boot>
+                </config>
+              </enricher>
+              <resources>
+                <annotations>
+                </annotations>
+                <env>
+                  <JAVA_OPTIONS>-Dorg.drools.server.filter.classes=true -Dspring.profiles.active=openshift -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dkie.maven.settings.custom=/opt/jboss/.m2/settings.xml -Dorg.guvnor.m2repo.dir=/opt/jboss/.m2/repository -Dapplied=pom-openshift-dockerfile-profile</JAVA_OPTIONS>
+                </env>
+                <env>
+                  <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
+                </env>
+                <openshiftBuildConfig>
+                  <requests>
+                    <cpu>500m</cpu>
+                    <memory>1Gi</memory>
+                  </requests>
+                  <limits>
+                    <cpu>500m</cpu>
+                    <memory>1Gi</memory>
+                  </limits>
+                </openshiftBuildConfig>
+                <labels>
+                  <all>
+                    <property>
+                      <name>app</name>
+                      <value>${project.artifactId}</value>
+                    </property>
+                    <property>
+                      <name>version</name>
+                      <value>${project.version}</value>
+                    </property>
+                  </all>
+                </labels>
+              </resources>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>resource</goal>
+                  <goal>build</goal>
+                  <goal>deploy</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+</project>

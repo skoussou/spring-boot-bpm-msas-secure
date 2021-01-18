@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/bpmn20" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" id="_jApoIN0XEeqOe_NM4o9CTw" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd http://www.omg.org/spec/DD/20100524/DC DC.xsd http://www.omg.org/spec/DD/20100524/DI DI.xsd " exporter="jBPM Process Modeler" exporterVersion="2.0" targetNamespace="http://www.omg.org/bpmn20">
+  <bpmn2:itemDefinition id="_pExpensesItemsTypesHighestCostItem" structureRef="java.util.ArrayList"/>
+  <bpmn2:itemDefinition id="_pDepartmentRoleItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_pDepartmentNameItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_pExpenseLimitValidationDecisionItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_pDecisionNameItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_pDecisionModelNamespaceItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_pDecisionsListItem" structureRef="java.util.ArrayList"/>
+  <bpmn2:itemDefinition id="_pDecisionItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_pExpenseTypeItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_pLimitItem" structureRef="java.math.BigDecimal"/>
+  <bpmn2:itemDefinition id="_C1F820AD-19C3-4643-8288-00900A7E22FD_multiInstanceItemType_expenseItem" structureRef="java.util.LinkedHashMap"/>
+  <bpmn2:itemDefinition id="_C1F820AD-19C3-4643-8288-00900A7E22FD_multiInstanceItemType_pDecision" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ContainerIdInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LanguageInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ModelInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_RoleInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_Expense-TypeInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LimitInputXItem" structureRef="java.math.BigDecimal"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_NamespaceInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_DecisionInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_HR-Department-Limits-ValidationOutputXItem" structureRef="String"/>
+  <bpmn2:process id="DepartmentLimitsValidations" drools:packageName="com.redhat.hr.expenses" drools:version="0.3" drools:adHoc="false" name="Department Limits Validations" isExecutable="true">
+    <bpmn2:property id="pExpensesItemsTypesHighestCost" itemSubjectRef="_pExpensesItemsTypesHighestCostItem" name="pExpensesItemsTypesHighestCost"/>
+    <bpmn2:property id="pDepartmentRole" itemSubjectRef="_pDepartmentRoleItem" name="pDepartmentRole"/>
+    <bpmn2:property id="pDepartmentName" itemSubjectRef="_pDepartmentNameItem" name="pDepartmentName"/>
+    <bpmn2:property id="pExpenseLimitValidationDecision" itemSubjectRef="_pExpenseLimitValidationDecisionItem" name="pExpenseLimitValidationDecision"/>
+    <bpmn2:property id="pDecisionName" itemSubjectRef="_pDecisionNameItem" name="pDecisionName"/>
+    <bpmn2:property id="pDecisionModelNamespace" itemSubjectRef="_pDecisionModelNamespaceItem" name="pDecisionModelNamespace"/>
+    <bpmn2:property id="pDecisionsList" itemSubjectRef="_pDecisionsListItem" name="pDecisionsList"/>
+    <bpmn2:property id="pDecision" itemSubjectRef="_pDecisionItem" name="pDecision"/>
+    <bpmn2:sequenceFlow id="_8164994B-3D8C-4118-ABD9-45ADD2BD431E" sourceRef="_C1F820AD-19C3-4643-8288-00900A7E22FD" targetRef="_BA952D42-7E83-4CCA-B07E-6B6E492D3866">
+      <bpmn2:extensionElements>
+        <drools:metaData name="isAutoConnection.source">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+        <drools:metaData name="isAutoConnection.target">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_8FA26273-911A-4787-98EF-9FF77B157460" sourceRef="_23683A27-E37C-489F-870A-3658C8F09FB0" targetRef="_C1F820AD-19C3-4643-8288-00900A7E22FD"/>
+    <bpmn2:endEvent id="_BA952D42-7E83-4CCA-B07E-6B6E492D3866">
+      <bpmn2:incoming>_8164994B-3D8C-4118-ABD9-45ADD2BD431E</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:startEvent id="_23683A27-E37C-489F-870A-3658C8F09FB0">
+      <bpmn2:outgoing>_8FA26273-911A-4787-98EF-9FF77B157460</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:subProcess id="_C1F820AD-19C3-4643-8288-00900A7E22FD" name="Validate Highest Limts in Expense Form">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[Validate Highest Limts in Expense Form]]></drools:metaValue>
+        </drools:metaData>
+        <drools:onExit-script scriptFormat="http://www.java.com/java">
+          <drools:script><![CDATA[System.out.println("\n ON EXIST pExpenseLimitValidationDecision was ["+pExpenseLimitValidationDecision+"]");
+System.out.println("\n ON EXIST pDecisionsList was ["+pDecisionsList+"]");]]></drools:script>
+        </drools:onExit-script>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_8FA26273-911A-4787-98EF-9FF77B157460</bpmn2:incoming>
+      <bpmn2:outgoing>_8164994B-3D8C-4118-ABD9-45ADD2BD431E</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_jApoId0XEeqOe_NM4o9CTw">
+        <bpmn2:dataInput id="_C1F820AD-19C3-4643-8288-00900A7E22FD_IN_COLLECTIONInputX" itemSubjectRef="_pExpensesItemsTypesHighestCostItem" name="IN_COLLECTION"/>
+        <bpmn2:dataInput id="_C1F820AD-19C3-4643-8288-00900A7E22FD_expenseItemInputX" itemSubjectRef="_C1F820AD-19C3-4643-8288-00900A7E22FD_multiInstanceItemType_expenseItem" name="expenseItem"/>
+        <bpmn2:dataOutput id="_C1F820AD-19C3-4643-8288-00900A7E22FD_OUT_COLLECTIONOutputX" itemSubjectRef="_pDecisionsListItem" name="OUT_COLLECTION"/>
+        <bpmn2:dataOutput id="_C1F820AD-19C3-4643-8288-00900A7E22FD_pDecisionOutputX" itemSubjectRef="_C1F820AD-19C3-4643-8288-00900A7E22FD_multiInstanceItemType_pDecision" name="pDecision"/>
+        <bpmn2:inputSet id="_jApoIt0XEeqOe_NM4o9CTw">
+          <bpmn2:dataInputRefs>_C1F820AD-19C3-4643-8288-00900A7E22FD_IN_COLLECTIONInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_C1F820AD-19C3-4643-8288-00900A7E22FD_expenseItemInputX</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_jApoI90XEeqOe_NM4o9CTw">
+          <bpmn2:dataOutputRefs>_C1F820AD-19C3-4643-8288-00900A7E22FD_OUT_COLLECTIONOutputX</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_C1F820AD-19C3-4643-8288-00900A7E22FD_pDecisionOutputX</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:property id="pExpenseType" itemSubjectRef="_pExpenseTypeItem" name="pExpenseType"/>
+      <bpmn2:property id="pLimit" itemSubjectRef="_pLimitItem" name="pLimit"/>
+      <bpmn2:dataInputAssociation id="_jApoJN0XEeqOe_NM4o9CTw">
+        <bpmn2:sourceRef>pExpensesItemsTypesHighestCost</bpmn2:sourceRef>
+        <bpmn2:targetRef>_C1F820AD-19C3-4643-8288-00900A7E22FD_IN_COLLECTIONInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="_jApoJd0XEeqOe_NM4o9CTw">
+        <bpmn2:sourceRef>_C1F820AD-19C3-4643-8288-00900A7E22FD_OUT_COLLECTIONOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>pDecisionsList</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:multiInstanceLoopCharacteristics id="_jApoJt0XEeqOe_NM4o9CTw" isSequential="true">
+        <bpmn2:loopDataInputRef>_C1F820AD-19C3-4643-8288-00900A7E22FD_IN_COLLECTIONInputX</bpmn2:loopDataInputRef>
+        <bpmn2:loopDataOutputRef>_C1F820AD-19C3-4643-8288-00900A7E22FD_OUT_COLLECTIONOutputX</bpmn2:loopDataOutputRef>
+        <bpmn2:inputDataItem xsi:type="bpmn2:tDataInput" id="expenseItem" itemSubjectRef="_C1F820AD-19C3-4643-8288-00900A7E22FD_multiInstanceItemType_expenseItem" name="expenseItem"/>
+        <bpmn2:outputDataItem xsi:type="bpmn2:tDataOutput" id="pDecision" itemSubjectRef="_C1F820AD-19C3-4643-8288-00900A7E22FD_multiInstanceItemType_pDecision" name="pDecision"/>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression" id="_jApoJ90XEeqOe_NM4o9CTw"><![CDATA[($ in pDecisionsList if $ == "Exceeded").size == 1]]></bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
+      <bpmn2:sequenceFlow id="_4EF935FD-04AE-4836-9D5E-DE83E4D77F0A" sourceRef="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07" targetRef="_7656C379-B7CD-4B3B-BD46-274311FE4B90">
+        <bpmn2:extensionElements>
+          <drools:metaData name="isAutoConnection.source">
+            <drools:metaValue><![CDATA[true]]></drools:metaValue>
+          </drools:metaData>
+          <drools:metaData name="isAutoConnection.target">
+            <drools:metaValue><![CDATA[true]]></drools:metaValue>
+          </drools:metaData>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:sequenceFlow id="_634C40E9-D87B-4394-A511-49EF844C20E3" sourceRef="_0A002AF2-910E-4EEE-B621-05563CA1224A" targetRef="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07"/>
+      <bpmn2:sequenceFlow id="_BABAECEA-FECA-4FC6-BB27-E38B087BA88D" sourceRef="_996AA84C-7DBF-42C6-8B0B-CB658C3704B3" targetRef="_0A002AF2-910E-4EEE-B621-05563CA1224A">
+        <bpmn2:extensionElements>
+          <drools:metaData name="isAutoConnection.target">
+            <drools:metaValue><![CDATA[true]]></drools:metaValue>
+          </drools:metaData>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:endEvent id="_7656C379-B7CD-4B3B-BD46-274311FE4B90">
+        <bpmn2:incoming>_4EF935FD-04AE-4836-9D5E-DE83E4D77F0A</bpmn2:incoming>
+      </bpmn2:endEvent>
+      <bpmn2:startEvent id="_996AA84C-7DBF-42C6-8B0B-CB658C3704B3">
+        <bpmn2:outgoing>_BABAECEA-FECA-4FC6-BB27-E38B087BA88D</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07" drools:taskName="RemoteDMNService" name="Expense Item auto-reviewed with Deparmental Limits">
+        <bpmn2:extensionElements>
+          <drools:metaData name="elementname">
+            <drools:metaValue><![CDATA[Expense Item auto-reviewed with Deparmental Limits ]]></drools:metaValue>
+          </drools:metaData>
+          <drools:onEntry-script scriptFormat="http://www.java.com/java">
+            <drools:script><![CDATA[System.out.println("\n-----------------------------------------------------");
+System.out.println("pDecisionName -> ["+pDecisionName+"]");
+System.out.println("pDecisionModelNamespace -> ["+pDecisionModelNamespace+"]");
+System.out.println("pLimit -> ["+pLimit+"]");
+System.out.println("pExpenseType -> ["+pExpenseType+"]");
+System.out.println("pDepartmentRole -> ["+pDepartmentRole+"]");
+System.out.println("-----------------------------------------------------\n");]]></drools:script>
+          </drools:onEntry-script>
+          <drools:onExit-script scriptFormat="http://www.java.com/java">
+            <drools:script><![CDATA[kcontext.setVariable("pDecision", pExpenseLimitValidationDecision);]]></drools:script>
+          </drools:onExit-script>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>_634C40E9-D87B-4394-A511-49EF844C20E3</bpmn2:incoming>
+        <bpmn2:outgoing>_4EF935FD-04AE-4836-9D5E-DE83E4D77F0A</bpmn2:outgoing>
+        <bpmn2:ioSpecification id="_jApoKN0XEeqOe_NM4o9CTw">
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ContainerIdInputX" drools:dtype="String" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ContainerIdInputXItem" name="ContainerId"/>
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LanguageInputX" drools:dtype="String" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LanguageInputXItem" name="Language"/>
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ModelInputX" drools:dtype="String" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ModelInputXItem" name="Model"/>
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_RoleInputX" drools:dtype="String" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_RoleInputXItem" name="Role"/>
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_Expense-TypeInputX" drools:dtype="String" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_Expense-TypeInputXItem" name="Expense Type"/>
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LimitInputX" drools:dtype="java.math.BigDecimal" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LimitInputXItem" name="Limit"/>
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_NamespaceInputX" drools:dtype="String" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_NamespaceInputXItem" name="Namespace"/>
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_DecisionInputX" drools:dtype="String" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_DecisionInputXItem" name="Decision"/>
+          <bpmn2:dataInput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_TaskNameInputX" drools:dtype="Object" name="TaskName"/>
+          <bpmn2:dataOutput id="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_HR-Department-Limits-ValidationOutputX" drools:dtype="String" itemSubjectRef="__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_HR-Department-Limits-ValidationOutputXItem" name="HR Department Limits Validation"/>
+          <bpmn2:inputSet id="_jApoKd0XEeqOe_NM4o9CTw">
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ContainerIdInputX</bpmn2:dataInputRefs>
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LanguageInputX</bpmn2:dataInputRefs>
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ModelInputX</bpmn2:dataInputRefs>
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_RoleInputX</bpmn2:dataInputRefs>
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_Expense-TypeInputX</bpmn2:dataInputRefs>
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LimitInputX</bpmn2:dataInputRefs>
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_NamespaceInputX</bpmn2:dataInputRefs>
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_DecisionInputX</bpmn2:dataInputRefs>
+            <bpmn2:dataInputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_TaskNameInputX</bpmn2:dataInputRefs>
+          </bpmn2:inputSet>
+          <bpmn2:outputSet id="_jApoKt0XEeqOe_NM4o9CTw">
+            <bpmn2:dataOutputRefs>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_HR-Department-Limits-ValidationOutputX</bpmn2:dataOutputRefs>
+          </bpmn2:outputSet>
+        </bpmn2:ioSpecification>
+        <bpmn2:dataInputAssociation id="_jApoK90XEeqOe_NM4o9CTw">
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ContainerIdInputX</bpmn2:targetRef>
+          <bpmn2:assignment id="_jApoLN0XEeqOe_NM4o9CTw">
+            <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_jApoLd0XEeqOe_NM4o9CTw"><![CDATA[expenses-validations-kjar]]></bpmn2:from>
+            <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_jApoLt0XEeqOe_NM4o9CTw">_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ContainerIdInputX</bpmn2:to>
+          </bpmn2:assignment>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataInputAssociation id="_jApoL90XEeqOe_NM4o9CTw">
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LanguageInputX</bpmn2:targetRef>
+          <bpmn2:assignment id="_jApoMN0XEeqOe_NM4o9CTw">
+            <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_jApoMd0XEeqOe_NM4o9CTw"><![CDATA["DMN"]]></bpmn2:from>
+            <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_jApoMt0XEeqOe_NM4o9CTw">_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LanguageInputX</bpmn2:to>
+          </bpmn2:assignment>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataInputAssociation id="_jApoM90XEeqOe_NM4o9CTw">
+          <bpmn2:sourceRef>pDecisionName</bpmn2:sourceRef>
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_ModelInputX</bpmn2:targetRef>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataInputAssociation id="_jApoNN0XEeqOe_NM4o9CTw">
+          <bpmn2:sourceRef>pDepartmentRole</bpmn2:sourceRef>
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_RoleInputX</bpmn2:targetRef>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataInputAssociation id="_jApoNd0XEeqOe_NM4o9CTw">
+          <bpmn2:sourceRef>pExpenseType</bpmn2:sourceRef>
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_Expense-TypeInputX</bpmn2:targetRef>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataInputAssociation id="_jApoNt0XEeqOe_NM4o9CTw">
+          <bpmn2:sourceRef>pLimit</bpmn2:sourceRef>
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_LimitInputX</bpmn2:targetRef>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataInputAssociation id="_jApoN90XEeqOe_NM4o9CTw">
+          <bpmn2:sourceRef>pDecisionModelNamespace</bpmn2:sourceRef>
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_NamespaceInputX</bpmn2:targetRef>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataInputAssociation id="_jApoON0XEeqOe_NM4o9CTw">
+          <bpmn2:sourceRef>pDecisionName</bpmn2:sourceRef>
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_DecisionInputX</bpmn2:targetRef>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataInputAssociation id="_jApoOd0XEeqOe_NM4o9CTw">
+          <bpmn2:targetRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_TaskNameInputX</bpmn2:targetRef>
+          <bpmn2:assignment id="_jApoOt0XEeqOe_NM4o9CTw">
+            <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_jApoO90XEeqOe_NM4o9CTw"><![CDATA[RemoteDMNService]]></bpmn2:from>
+            <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_jApoPN0XEeqOe_NM4o9CTw">_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_TaskNameInputX</bpmn2:to>
+          </bpmn2:assignment>
+        </bpmn2:dataInputAssociation>
+        <bpmn2:dataOutputAssociation id="_jApoPd0XEeqOe_NM4o9CTw">
+          <bpmn2:sourceRef>_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_HR-Department-Limits-ValidationOutputX</bpmn2:sourceRef>
+          <bpmn2:targetRef>pExpenseLimitValidationDecision</bpmn2:targetRef>
+        </bpmn2:dataOutputAssociation>
+      </bpmn2:task>
+      <bpmn2:scriptTask id="_0A002AF2-910E-4EEE-B621-05563CA1224A" name="Extract Validated Item Vars &amp; Log Item" scriptFormat="http://www.java.com/java">
+        <bpmn2:extensionElements>
+          <drools:metaData name="elementname">
+            <drools:metaValue><![CDATA[Extract Validated Item Vars & Log Item ]]></drools:metaValue>
+          </drools:metaData>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>_BABAECEA-FECA-4FC6-BB27-E38B087BA88D</bpmn2:incoming>
+        <bpmn2:outgoing>_634C40E9-D87B-4394-A511-49EF844C20E3</bpmn2:outgoing>
+        <bpmn2:script><![CDATA[System.out.println("\n -------------What object type we think expenseItem is ["+expenseItem.getClass().getName()+"]----------------------------------------");
+System.out.println("Item to be Processed -> ["+expenseItem+"]");
+String expenseType = (String ) expenseItem.get("expenseType");
+java.math.BigDecimal expenseValue = java.math.BigDecimal.valueOf((Integer)expenseItem.get("expenseValue"));
+System.out.println("Item to be Validated -> expenseType["+expenseType+"] expenseValue["+expenseValue+"]");
+kcontext.setVariable("pLimit", expenseValue );
+kcontext.setVariable("pExpenseType", expenseType );
+
+System.out.println("pDepartmentName -> ["+pDepartmentName+"]");
+kcontext.setVariable("pDecisionName", pDepartmentName.toUpperCase()+" Department Limits Validation");
+kcontext.setVariable("pDecisionModelNamespace", "https://redhat.com/dmn/"+pDepartmentName.toLowerCase()+"departmentlimitsvalidationUUID");
+kcontext.setVariable("pDecisionModelNamespace", "https://redhat.com/dmn/"+pDepartmentName.toLowerCase()+"departmentlimitsvalidationUUID");
+System.out.println("-----------------------------------------------------\n");]]></bpmn2:script>
+      </bpmn2:scriptTask>
+    </bpmn2:subProcess>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="_jApoPt0XEeqOe_NM4o9CTw">
+    <bpmndi:BPMNPlane id="_jApoP90XEeqOe_NM4o9CTw" bpmnElement="DepartmentLimitsValidations">
+      <bpmndi:BPMNShape id="shape__C1F820AD-19C3-4643-8288-00900A7E22FD" bpmnElement="_C1F820AD-19C3-4643-8288-00900A7E22FD">
+        <dc:Bounds height="250.0" width="650.0" x="522.0" y="42.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge_shape__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07_to_shape__7656C379-B7CD-4B3B-BD46-274311FE4B90" bpmnElement="_4EF935FD-04AE-4836-9D5E-DE83E4D77F0A">
+        <di:waypoint xsi:type="dc:Point" x="1041.0" y="167.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1101.0" y="167.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape__0A002AF2-910E-4EEE-B621-05563CA1224A" bpmnElement="_0A002AF2-910E-4EEE-B621-05563CA1224A">
+        <dc:Bounds height="102.0" width="154.0" x="672.0" y="116.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07" bpmnElement="_2C367ADB-AC49-4C97-AAC4-44F07D0C8F07">
+        <dc:Bounds height="102.0" width="154.0" x="887.0" y="116.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge_shape__0A002AF2-910E-4EEE-B621-05563CA1224A_to_shape__2C367ADB-AC49-4C97-AAC4-44F07D0C8F07" bpmnElement="_634C40E9-D87B-4394-A511-49EF844C20E3">
+        <di:waypoint xsi:type="dc:Point" x="749.0" y="167.0"/>
+        <di:waypoint xsi:type="dc:Point" x="887.0" y="167.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape__996AA84C-7DBF-42C6-8B0B-CB658C3704B3" bpmnElement="_996AA84C-7DBF-42C6-8B0B-CB658C3704B3">
+        <dc:Bounds height="56.0" width="56.0" x="557.0" y="139.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge_shape__996AA84C-7DBF-42C6-8B0B-CB658C3704B3_to_shape__0A002AF2-910E-4EEE-B621-05563CA1224A" bpmnElement="_BABAECEA-FECA-4FC6-BB27-E38B087BA88D">
+        <di:waypoint xsi:type="dc:Point" x="585.0" y="167.0"/>
+        <di:waypoint xsi:type="dc:Point" x="672.0" y="167.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape__7656C379-B7CD-4B3B-BD46-274311FE4B90" bpmnElement="_7656C379-B7CD-4B3B-BD46-274311FE4B90">
+        <dc:Bounds height="56.0" width="56.0" x="1101.0" y="139.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__23683A27-E37C-489F-870A-3658C8F09FB0" bpmnElement="_23683A27-E37C-489F-870A-3658C8F09FB0">
+        <dc:Bounds height="56.0" width="56.0" x="269.0" y="139.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__BA952D42-7E83-4CCA-B07E-6B6E492D3866" bpmnElement="_BA952D42-7E83-4CCA-B07E-6B6E492D3866">
+        <dc:Bounds height="56.0" width="56.0" x="1250.0" y="139.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge_shape__23683A27-E37C-489F-870A-3658C8F09FB0_to_shape__C1F820AD-19C3-4643-8288-00900A7E22FD" bpmnElement="_8FA26273-911A-4787-98EF-9FF77B157460">
+        <di:waypoint xsi:type="dc:Point" x="297.0" y="167.0"/>
+        <di:waypoint xsi:type="dc:Point" x="522.0" y="167.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__C1F820AD-19C3-4643-8288-00900A7E22FD_to_shape__BA952D42-7E83-4CCA-B07E-6B6E492D3866" bpmnElement="_8164994B-3D8C-4118-ABD9-45ADD2BD431E">
+        <di:waypoint xsi:type="dc:Point" x="1172.0" y="167.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1250.0" y="167.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmn2:relationship id="_jApoQN0XEeqOe_NM4o9CTw" type="BPSimData">
+    <bpmn2:extensionElements>
+      <bpsim:BPSimData>
+        <bpsim:Scenario xsi:type="bpsim:Scenario" id="default" name="Simulationscenario">
+          <bpsim:ScenarioParameters xsi:type="bpsim:ScenarioParameters"/>
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_23683A27-E37C-489F-870A-3658C8F09FB0" id="_jApoQd0XEeqOe_NM4o9CTw">
+            <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
+              <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
+                <bpsim:NormalDistribution mean="0.0" standardDeviation="0.0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+          </bpsim:ElementParameters>
+        </bpsim:Scenario>
+      </bpsim:BPSimData>
+    </bpmn2:extensionElements>
+    <bpmn2:source>_jApoIN0XEeqOe_NM4o9CTw</bpmn2:source>
+    <bpmn2:target>_jApoIN0XEeqOe_NM4o9CTw</bpmn2:target>
+  </bpmn2:relationship>
+</bpmn2:definitions>

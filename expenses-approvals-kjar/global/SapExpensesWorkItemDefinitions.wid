@@ -1,0 +1,29 @@
+[
+        [
+            "name" : "SapExpensesWorkItemDefinitions",
+            "displayName" : "SapExpensesWorkItemDefinitions",
+            "category" : "Anadolu Service Tasks",
+            "description" : "",
+            "defaultHandler" : "mvel: new com.redhat.servicetask.SapExpensesWorkItemWorkItemHandler()",
+            "documentation" : "sap-expenses-service-task/index.html",
+
+            "parameters" : [
+                                "ExpenseOwnerID" : new StringDataType()
+                ,"ExpenseFormCorrelationKey" : new StringDataType()
+                ,"CauseBusinessError" : new StringDataType()
+                ,"CauseTechnicalError" : new StringDataType()
+
+            ],
+            "results" : [
+                                "SampleResult" : new StringDataType()
+
+            ],
+            "mavenDependencies" : [
+                                 "org.jbpm.contrib:sap-expenses-service-task:7.33.0.Final-redhat-00003"
+
+            ],
+            "icon" : "SapExpensesWorkItemDefinitions.png"
+
+        ]
+
+]

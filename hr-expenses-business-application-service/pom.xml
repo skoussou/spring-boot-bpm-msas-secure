@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.redhat</groupId>
+  <artifactId>hr-expenses-business-application-service</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>hr-expenses-business-application-service</name>
+  <description>Springboot RHPAM Project Expenses Process Approval Service</description>
+
+  <distributionManagement>
+    <repository>
+       <id>releases</id>
+       <url>https://nexus-cicd-demo.apps.cluster-demo-d3f8.demo-d3f8.example.opentlc.com/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+       <id>snapshots</id>
+       <url>https://nexus-cicd-demo.apps.cluster-demo-d3f8.demo-d3f8.example.opentlc.com /repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <!--  <version>2.2.12.RELEASE</version> -->
+    <!--version>2.3.7.RELEASE</version-->
+    <version>2.4.0</version>
+  </parent>
+  <!--
+  <parent>
+    <groupId>dev.snowdrop</groupId>
+    <artifactId>snowdrop-dependencies</artifactId>
+    <version>2.3.4.Final-redhat-00001</version>
+  </parent>
+  -->
+  <properties>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- Version 7.7.0 RHPAM BOM
+    <version.rhpam.bom>7.7.0.redhat-00002</version.rhpam.bom> -->
+    <!-- Version 7.7.1 RHPAM BOM 
+    <version.rhpam.bom>7.7.1.redhat-00002</version.rhpam.bom>-->
+    <!-- Version 7.8 RHPAM BOM
+    <version.rhpam.bom>7.8.0.redhat-00002</version.rhpam.bom> -->
+    <!-- Version 7.9 RHPAM BOM -->
+    <version.rhpam.bom>7.9.0.redhat-00002</version.rhpam.bom> 
+
+    <version.keycloak>9.0.3.redhat-00002</version.keycloak>
+
+    <!--version.spring.boot>2.2.2.RELEASE</version.spring.boot-->
+
+    <narayana.version>5.9.0.Final</narayana.version>
+    <jkube.version>1.0.2</jkube.version>
+  </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.redhat.ba</groupId>
+                <artifactId>ba-platform-bom</artifactId>
+                <version>${version.rhpam.bom}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>${version.keycloak}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+  <dependencies>
+    <!-- Since Spring Boot 2.3.0 the above dependency keycloak-spring-boot-starter is an issue with circular dependnecy issues on keycloakConfigResolver
+      we will attempt to use below starter from 2.3.4 onwards -->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <!-- Activate for RHSSO Setup -->
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-spring-boot-starter</artifactId>
+      <version>${version.keycloak}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-server-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <!--dependency>  MAYBE BRINGING OTHER JAXRS Dependencies causing Response failures
+      <groupId>org.kie.server</groupId>
+      <artifactId>kie-server-client</artifactId>
+    </dependency-->
+
+    <dependency>
+      <!-- Needed to override SSL Trust Manager -->
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!--dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-rs-service-description-swagger</artifactId>
+      <version>3.1.11</version>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-jaxrs</artifactId>
+      <version>1.5.15</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.ws.rs</groupId>
+          <artifactId>jsr311-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>swagger-ui</artifactId>
+      <version>2.2.10</version>
+    </dependency-->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.kie</groupId>
+        <artifactId>kie-maven-plugin</artifactId>
+        <!--<version>${version.org.kie}</version>-->
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>package-dependencies-kjar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <artifactItems>
+            <artifactItem>
+              <groupId>com.redhat</groupId>
+              <artifactId>expenses-approvals-kjar</artifactId>
+              <version>0.6.0</version>
+            </artifactItem>
+          </artifactItems>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <profiles>  
+    <!-- Profiles with local Springboot Runtime based on Database -->
+    <profile>
+      <id>h2</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mysql</id>
+      <activation>
+        <property>
+          <name>mysql</name>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>postgres</id>
+      <activation>
+        <property>
+          <name>postgres</name>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>test</scope>
+        </dependency>
+
+        <!-- SSO - KeyCloak Used currently only locally with Postgres (not in OCP) 
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency-->
+            
+      </dependencies>
+    </profile>
+        
+    <profile>
+      <id>docker</id>
+      <activation>
+        <property>
+          <name>docker</name>
+        </property>
+      </activation>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>openshift-maven-plugin</artifactId>
+            <version>${jkube.version}</version>
+            <configuration>
+              <verbose>false</verbose>
+              <images>
+                <image>
+                  <name>apps/${project.artifactId}:${project.version}</name>
+                  <build>
+                    <from>redhat-openjdk-18/redhat-openjdk-18/openjdk18-openshift</from>
+                    <assembly>
+                      <targetDir>/</targetDir>
+                      <inline>
+                        <files>
+                          <file>
+                            <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+                            <outputDirectory>deployments</outputDirectory>
+                            <destName>${project.build.finalName}.${project.packaging}</destName>
+                          </file>
+                          <file>
+                            <source>${project.artifactId}.xml</source>
+                            <outputDirectory>deployments</outputDirectory>
+                            <destName>${project.artifactId}.xml</destName>
+                          </file>
+                        </files>
+                        <fileSet>
+                          <directory>src/main/docker</directory>
+                          <outputDirectory>opt/jboss/.m2</outputDirectory>
+                          <includes>
+                            <include>settings.xml</include>
+                          </includes>
+                        </fileSet>
+                        <fileSet>
+                          <directory>../business-application-kjar/target/local-repository/maven</directory>
+                          <outputDirectory>opt/jboss/.m2/repository</outputDirectory>        
+                        </fileSet>
+                      </inline>
+                      <user>jboss:jboss:jboss</user>
+                    </assembly>
+                  </build>
+                </image>
+              </images>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>resource</goal>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Cloud Profiles - Openshift used with command line jkube tested and working. See README.adoc -->
+
+    <profile>
+      <id>openshift</id>
+      <activation>
+        <property>
+          <name>openshift</name>
+        </property>
+      </activation>
+
+      <properties>
+        <jkube.mode>openshift</jkube.mode>
+        <jkube.build.strategy>docker</jkube.build.strategy>
+      </properties>
+
+      <dependencies>
+         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+         </dependency>
+        <!--dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+        </dependency-->
+      </dependencies>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>openshift-maven-plugin</artifactId>
+            <version>${jkube.version}</version>
+            <configuration>
+              <images>
+                <image>
+                  <name>${jkube.namespace}/${project.artifactId}:${project.version}</name>
+                  <!--alias>${project.artifactId}</alias>
+                  <tags>
+                    <tag>${project.version}</tag>
+                  </tags-->
+                  <build>
+                  <from>registry.redhat.io/redhat-openjdk-18/openjdk18-openshift</from>
+                    <assembly>
+                      <targetDir>/</targetDir>
+                      <inline>
+                        <files>
+                          <file>
+                            <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+                            <outputDirectory>deployments</outputDirectory>
+                            <destName>${project.build.finalName}.${project.packaging}</destName>
+                          </file>
+                          <file>
+                            <source>${project.artifactId}.xml</source>
+                            <outputDirectory>deployments</outputDirectory>
+                            <destName>${project.artifactId}.xml</destName>
+                          </file>
+                        </files>
+                        <fileSets>
+                          <fileSet>
+                            <directory>src/main/docker</directory>
+                            <outputDirectory>opt/jboss/.m2</outputDirectory>
+                            <includes>
+                              <include>settings.xml</include>
+                            </includes>
+                          </fileSet>
+                          <!--fileSet>
+                            <directory>./local-m2-repository-offliner</directory>
+                            <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
+                          </fileSet-->
+                        </fileSets>
+                        <!--fileSet>
+                          <directory>../business-application-kjar/target/local-repository/maven</directory>
+                          <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
+                        </fileSet-->
+                      </inline>
+                      <user>jboss:jboss:jboss</user>
+                    </assembly>
+                    <env>
+                      <SPRING_PROFILES_ACTIVE>openshift</SPRING_PROFILES_ACTIVE>
+                    </env>
+                    <env>
+                      <JAVA_OPTIONS>-Dorg.drools.server.filter.classes=true -Dspring.profiles.active=openshift -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dkie.maven.settings.custom=/opt/jboss/.m2/settings.xml -Dorg.guvnor.m2repo.dir=/opt/jboss/.m2/repository -Dapplied=pom-openshift-profile -DSERVICE_NAME="$SERVICE_NAME" -DSERVICE_USERNAME="$SERVICE_USERNAME" -DSERVICE_PASSWORD="$SERVICE_PASSWORD"</JAVA_OPTIONS>
+                    </env>
+                    <ports>
+                      <port>8090</port>
+                    </ports>
+                    <runCmds>
+                      <run>chgrp -R root /opt/jboss/.m2 &amp;&amp; chmod -R g+w /opt/jboss/.m2</run>
+                      <run>chgrp -R root /deployments &amp;&amp; chmod -R g+w /deployments</run>
+                    </runCmds>
+                  </build>
+                </image>
+              </images>
+              <generateRoute>true</generateRoute>
+              <enricher>
+                <config>
+                  <jkube-healthcheck-spring-boot>
+                    <timeoutSeconds>1</timeoutSeconds>
+                    <readinessProbeInitialDelaySeconds>60</readinessProbeInitialDelaySeconds>
+                    <livenessProbeInitialDelaySeconds>30</livenessProbeInitialDelaySeconds>
+                    <failureThreshold>3</failureThreshold>
+                    <successThreshold>1</successThreshold>
+                  </jkube-healthcheck-spring-boot>
+                </config>
+              </enricher>
+              <resources>
+                <annotations>
+                </annotations>
+                <env>
+                  <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
+   	        </env>
+                <env>
+                  <SPRING_PROFILES_ACTIVE>openshift</SPRING_PROFILES_ACTIVE>
+                </env>
+		<env>
+                   <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
+                   <SPRING_PROFILES_ACTIVE>openshift</SPRING_PROFILES_ACTIVE>
+		   <JAVA_OPTS_APPEND>-DSSO_AUTH_SERVER_URL=https://secure-sso-init-test-expenses.apps.cluster-4315.4315.example.opentlc.com -Dorg.kie.server.controller.user=user -Dorg.kie.server.controller.pwd=user -Dorg.kie.server.controller.connect=10000 -Dorg.kie.server.location=http://hr-expenses-business-application-service-properties:8090/rest/server -DSERVICE_NAME=http://hr-expenses-validations-business-service:8090/rest/server -DSERVICE_USERNAME=user -DSERVICE_PASSWORD=user</JAVA_OPTS_APPEND>
+                 </env>		  
+                <openshiftBuildConfig>
+                  <requests>
+                    <cpu>200m</cpu>
+                    <memory>1Gi</memory>
+                  </requests>
+                  <limits>
+                    <cpu>200m</cpu>
+                    <memory>1Gi</memory>
+                  </limits>
+                </openshiftBuildConfig>
+                <labels>
+                  <all>
+                    <property>
+                      <name>app</name>
+                      <value>${project.artifactId}</value>
+                    </property>
+                    <property>
+                      <name>version</name>
+                      <value>${project.version}</value>
+                    </property>
+                  </all>
+                </labels>
+              </resources>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>resource</goal>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+
+    <!-- Cloud Profiles - Openshift with Dockerfile 'install' phase, tested and working. See README.adoc -->
+    <profile>
+      <id>openshift-docker</id>
+      <activation>
+        <property>
+          <name>openshift-docker</name>
+        </property>
+      </activation>
+
+      <properties>
+        <jkube.mode>openshift</jkube.mode>
+        <jkube.build.strategy>docker</jkube.build.strategy>
+      </properties>
+
+      <dependencies>
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+        </dependency-->
+      </dependencies>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>openshift-maven-plugin</artifactId>
+            <version>${jkube.version}</version>
+            <configuration>
+              <images>
+                <image>
+                  <name>${jkube.namespace}/${project.artifactId}:${project.version}</name>
+                  <build>
+                    <dockerFileDir>${project.basedir}</dockerFileDir>
+                    <dockerFile>Dockerfile</dockerFile>
+                  </build>
+                </image>
+              </images>
+              <generateRoute>true</generateRoute>
+              <enricher>
+                <config>
+                  <jkube-healthcheck-spring-boot>
+                    <timeoutSeconds>1</timeoutSeconds>
+                    <readinessProbeInitialDelaySeconds>60</readinessProbeInitialDelaySeconds>
+                    <livenessProbeInitialDelaySeconds>30</livenessProbeInitialDelaySeconds>
+                    <failureThreshold>3</failureThreshold>
+                    <successThreshold>1</successThreshold>
+                  </jkube-healthcheck-spring-boot>
+                </config>
+              </enricher>
+              <resources>
+                <annotations>
+                </annotations>
+                <env>
+                  <JAVA_OPTIONS>-Dorg.drools.server.filter.classes=true -Dspring.profiles.active=openshift -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dkie.maven.settings.custom=/opt/jboss/.m2/settings.xml -Dorg.guvnor.m2repo.dir=/opt/jboss/.m2/repository -Dapplied=pom-openshift-dockerfile-profile</JAVA_OPTIONS>
+                </env>
+                <env>
+                  <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
+                </env>
+                <openshiftBuildConfig>
+                  <requests>
+                    <cpu>500m</cpu>
+                    <memory>1Gi</memory>
+                  </requests>
+                  <limits>
+                    <cpu>500m</cpu>
+                    <memory>1Gi</memory>
+                  </limits>
+                </openshiftBuildConfig>
+                <labels>
+                  <all>
+                    <property>
+                      <name>app</name>
+                      <value>${project.artifactId}</value>
+                    </property>
+                    <property>
+                      <name>version</name>
+                      <value>${project.version}</value>
+                    </property>
+                  </all>
+                </labels>
+              </resources>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>resource</goal>
+                  <goal>build</goal>
+                  <goal>deploy</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+</project>

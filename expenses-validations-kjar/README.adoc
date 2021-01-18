@@ -1,0 +1,3 @@
+= expenses-validations-kjar
+
+Contains DMN Decisions for each Department to auto-validate Limits on expenses per Type of Expense

@@ -1,0 +1,23 @@
+= notifications-sevice-task 
+
+Contains RHPAM Service Task which will be used in BPMN to connect to Fuse Integration Service for Notifications
+
+* RHPAM Service Task Creation
+
+	mvn archetype:generate \
+	-DarchetypeGroupId=org.jbpm \
+	-DarchetypeArtifactId=jbpm-workitems-archetype \
+	-DarchetypeVersion=7.33.0.Final-redhat-00003 \
+	-Dversion=1.0.0 \
+	-DgroupId=com.redhat.servicetask \
+	-DartifactId=notifications-service-task \
+	-DclassPrefix=NotificationsWorkItem -s $WORKSHOP/resources/settings-xml/settings.xml
+
+* Service Task Class
+
+link:./src/main/java/com/redhat/servicetask/NotificationsWorkItemWorkItemHandler.java[NotificationsWorkItemWorkItemHandler.java]
+
+
+* Add to Business Central via 
+** Settings --> Service Task Administration (Select and Upload JAR --> activate it then)
+** In the KJAR you need it go to KJAR Project Settings --> Service Tasks --> Install

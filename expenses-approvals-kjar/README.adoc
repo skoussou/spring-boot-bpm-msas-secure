@@ -1,0 +1,18 @@
+= expenses-validations-kjar
+
+Contains the BPMN notations to implement Expense Approvals process automations
+
+== Configuration Requirements 
+
+* Environment hosting this KJAR must provide 3 System Properties to configure the include *RemoteDMNService* WIH
+** SERVICE_NAME (URL of RHPAM KIE Service offering DMN KJAR)
+** SERVICE_USERNAME (basic auth)
+** SERVICE_PASSWORD (basic auth)
+
+        <work-item-handler>
+            <resolver>mvel</resolver>
+            <identifier>new org.kie.server.client.integration.RemoteBusinessRuleTaskHandler(java.lang.System.getProperty("SERVICE_NAME"),java.lang.System.getProperty("SERVICE_USERNAME"),java.lang.System.getProperty("SERVICE_PASSWORD"),classLoader)</identifier>
+            <parameters/>
+            <name>RemoteDMNService</name>
+        </work-item-handler>
+

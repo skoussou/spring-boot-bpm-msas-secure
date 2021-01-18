@@ -1,0 +1,143 @@
+podTemplate(containers: [
+    containerTemplate(name: 'maven', image: 'maven:3.6.3-openjdk-11', ttyEnabled: true, command: 'cat'),
+    containerTemplate(name: 'ocp', image: 'openshift/origin-cli', ttyEnabled: true, command: 'cat')
+  ]) {
+
+// global variables
+
+// GIT REPO                     
+git_bussiness_app_project_repo="http://gogs-cicd-demo.apps.cluster-6681.6681.example.opentlc.com/gogs/pam-client-service.git"
+git_bussiness_app_project_branch = "master"
+// Service Name
+svc_name="pam-client-service"
+
+// namespaces
+def namespace_dev = "dev-demo"
+def namespace_qa = "qa-demo"
+def namespace_prd = "stage-demo"	
+// MAVEN Artifact Server
+nexus_url="http://nexus-cicd-demo.apps.cluster-6681.6681.example.opentlc.com/repository/"
+//nexus_repository="maven-releases"
+nexus_repository="maven-snapshots"
+
+    node(POD_LABEL) {
+        stage('Get a Maven project') {
+            container('maven') {
+                stage('Build a Maven project') {
+                    git  "${git_bussiness_app_project_repo}"
+                    //sh 'mvn clean install -DskipTests=false'
+                    sh "mvn -v"
+                    sh "mvn clean package deploy -DskipTests -DaltReleaseDeploymentRepository=$nexus_repository}::default::${nexus_url}${nexus_repository} -s settings-nexus.xml"            
+                }
+                stage('Build/Deploy into Dev Namespace') {
+                    
+                    sh '''
+                    ls
+                    pwd
+                    '''
+                    openshift.withCluster('efes-openshift') {
+                    openshift.withCredentials( 'efes-sa-token-rhpam-dev' ) {
+                        openshift.withProject( 'rhpam-dev') {
+                          echo "Using project ${openshift.project()} in cluster with url ${openshift.cluster()}"
+
+                          sh "ocp-resources/oc login https://api.cluster-6681.6681.example.opentlc.com:6443/ -u opentlc-mgr -p r3dh4t1!" 
+                          sh "mvn fabric8:deploy -Dfabric8.namespace=${namespace_dev} -DskipTests=true -P openshift -Dmaven.artifact.threads=50 -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -s settings-nexus.xml"
+                       }   
+                    }
+                    }
+                } 
+                stage('Stash') {
+                    stash includes: '**', name: 'buildStash'
+                }
+            }
+        }
+        
+    }
+
+    
+    node(POD_LABEL) {
+        stage ('Openshift') {
+            container('ocp') {
+                stage('Deploy in QA Namespace') {
+                    dir ('.') {
+                    unstash 'buildStash'
+                    }
+
+
+                    openshift.withCluster('efes-openshift') {
+                    openshift.withCredentials( 'efes-sa-token-rhpam-qa' ) {
+                        openshift.withProject( 'rhpam-qa') {
+                          echo "Using project ${openshift.project()} in cluster with url ${openshift.cluster()}"
+
+                          version = getChildVersionFromPom("pom.xml")                    
+                          echo "version: ${version}"
+
+
+                          
+                          sh "ocp-resources/oc login https://api.cluster-6681.6681.example.opentlc.com:6443/ -u opentlc-mgr -p r3dh4t1!" 
+                          echo "oc set triggers deploymentconfig ${svc_name} --from-image ${namespace_dev}/${svc_name}:${version} --containers=${svc_name} -n ${namespace_qa}"
+		                  sh "ocp-resources/oc set triggers deploymentconfig ${svc_name} --from-image ${namespace_dev}/${svc_name}:${version} --containers=${svc_name} -n ${namespace_qa}"
+		                  // Consider Tekton and Argo https://argoproj.github.io/argo-cd/
+
+                       }   
+                    }
+                    }
+                } 
+
+
+                stage('Deploy in Stage Namespace') {
+                    dir ('.') {
+                    unstash 'buildStash'
+                    }
+                    
+                    sh '''
+                    ls
+                    pwd
+                    '''
+                    openshift.withCluster('efes-openshift') {
+                    openshift.withCredentials( 'efes-sa-token-rhpam-prod' ) {
+                        openshift.withProject( 'rhpam-prod') {
+                          echo "Using project ${openshift.project()} in cluster with url ${openshift.cluster()}"
+
+                          version = getChildVersionFromPom("pom.xml")                    
+                          echo "version: ${version}"
+
+                          sh "ocp-resources/oc login https://api.cluster-6681.6681.example.opentlc.com:6443/ -u opentlc-mgr -p r3dh4t1!" 
+                          echo "oc set triggers deploymentconfig ${svc_name} --from-image ${namespace_dev}/${svc_name}:${version} --containers=${svc_name} -n ${namespace_prd}"
+		                  sh "ocp-resources/oc set triggers deploymentconfig ${svc_name} --from-image ${namespace_dev}/${svc_name}:${version} --containers=${svc_name} -n ${namespace_prd}"
+		                  // Consider Tekton and Argo https://argoproj.github.io/argo-cd/
+
+
+                       }   
+                    }
+                    }
+                } 
+
+
+            }
+            
+                
+            }
+        }
+    
+}
+
+// Convenience Functions to read variables from the pom.xml
+// Do not change anything below this line.
+// --------------------------------------------------------
+def getVersionFromPom(pom) {
+  def matcher = readFile(pom) =~ '<version>(.+)</version>'
+  matcher ? matcher[0][1] : null
+}
+def getChildVersionFromPom(pom) {
+  def matcher = readFile(pom) =~ '<version>(.+)</version>'
+  matcher ? matcher[1][1] : null
+}
+def getGroupIdFromPom(pom) {
+  def matcher = readFile(pom) =~ '<groupId>(.+)</groupId>'
+  matcher ? matcher[0][1] : null
+}
+def getArtifactIdFromPom(pom) {
+  def matcher = readFile(pom) =~ '<artifactId>(.+)</artifactId>'
+  matcher ? matcher[0][1] : null
+}

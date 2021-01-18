@@ -1,0 +1,133 @@
+<settings>
+        <!--localRepository>./local-m2-repository</localRepository-->
+
+  <servers>
+    <server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+
+
+  <server>
+   <id>releases</id>
+   <username>admin</username>
+   <password>admin123</password>
+  </server>
+  
+  <server>
+    <id>snapshots</id>
+    <username>admin</username>
+    <password>admin123</password>
+  </server>	    
+
+  <server>
+   <id>maven-releases</id>
+   <username>admin</username>
+   <password>admin123</password>
+  </server>
+
+
+
+  </servers>
+
+  <mirrors>
+    <mirror>
+      <mirrorOf>*</mirrorOf>
+      <name>nexus</name>
+      <url>http://nexus-cicd-demo.apps.cluster-6681.6681.example.opentlc.com/repository/maven-all-public/</url>
+      <id>nexus</id>
+    </mirror>    
+  </mirrors>
+  
+
+  <profiles>
+
+
+
+    <profile>
+      <id>nexus-repository</id>
+      <repositories>
+        <repository>
+          <id>nexus-releases-repository</id>
+          <url>http://nexus-cicd-demo.apps.cluster-6681.6681.example.opentlc.com/repository/maven-releases/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+        <repository>
+          <id>nexus-snapshots-repository</id>
+          <url>http://nexus-cicd-demo.apps.cluster-6681.6681.example.opentlc.com/repository/maven-snapshots/</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>nexus-releases-plugin-repository</id>
+          <url>http://nexus-cicd-demo.apps.cluster-6681.6681.example.opentlc.com/repository/maven-releases/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>nexus-snapshots-plugin-repository</id>
+          <url>http://nexus-cicd-demo.apps.cluster-6681.6681.example.opentlc.com/repository/maven-snapshots/</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+
+
+    <!-- Configure the JBoss GA Maven repository -->
+    <profile>
+      <id>jboss-ga-repository</id>
+      <repositories>
+        <repository>
+          <id>jboss-ga-repository</id>
+          <url>https://maven.repository.redhat.com/ga</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>jboss-ga-repository</id>
+          <url>http://maven.repository.redhat.com/ga</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+
+  </profiles>
+  <activeProfiles>
+    <!-- Optionally, make the repository active by default -->
+    <activeProfile>nexus-repository</activeProfile>
+    <activeProfile>jboss-ga-repository</activeProfile>
+  </activeProfiles>
+
+</settings>

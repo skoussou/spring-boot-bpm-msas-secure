@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deployment-descriptor xsi:schemaLocation="http://www.jboss.org/jbpm deployment-descriptor.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <persistence-unit>org.jbpm.domain</persistence-unit>
+    <audit-persistence-unit>org.jbpm.domain</audit-persistence-unit>
+    <audit-mode>JPA</audit-mode>
+    <persistence-mode>JPA</persistence-mode>
+    <runtime-strategy>PER_PROCESS_INSTANCE</runtime-strategy>
+    <marshalling-strategies/>
+    <event-listeners/>
+    <task-event-listeners/>
+    <globals/>
+    <work-item-handlers>
+        <work-item-handler>
+            <resolver>mvel</resolver>
+            <identifier>new com.redhat.servicetask.SapExpensesWorkItemWorkItemHandler()</identifier>
+            <parameters/>
+            <name>SapExpensesWorkItemDefinitions</name>
+        </work-item-handler>
+        <work-item-handler>
+            <resolver>mvel</resolver>
+            <identifier>new org.kie.server.client.integration.RemoteBusinessRuleTaskHandler(java.lang.System.getProperty("SERVICE_NAME"),java.lang.System.getProperty("SERVICE_USERNAME"),java.lang.System.getProperty("SERVICE_PASSWORD"),classLoader)</identifier>
+            <parameters/>
+            <name>RemoteDMNService</name>
+        </work-item-handler>
+        <work-item-handler>
+            <resolver>mvel</resolver>
+            <identifier>new com.redhat.servicetask.NotificationsWorkItemWorkItemHandler()</identifier>
+            <parameters/>
+            <name>NotificationsWorkItemDefinitions</name>
+        </work-item-handler>
+    </work-item-handlers>
+    <environment-entries/>
+    <configurations/>
+    <required-roles/>
+    <remoteable-classes/>
+    <limit-serialization-classes>true</limit-serialization-classes>
+</deployment-descriptor>

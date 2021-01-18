@@ -1,0 +1,31 @@
+import org.drools.core.process.core.datatype.impl.type.StringDataType;
+import org.drools.core.process.core.datatype.impl.type.ObjectDataType;
+import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
+
+[
+        [
+            "name" : "RemoteDMNService",
+            "displayName" : "RemoteDMNService",
+            "category" : "Anadolu Service Tasks",
+            "description" : "",
+            "defaultHandler" : "mvel: new org.kie.server.client.integration.RemoteBusinessRuleTaskHandler()",
+            "parameters" : [
+                                "ContainerId" : new StringDataType(),
+                                "Language" : new StringDataType(),
+                                "Namespace" : new StringDataType(),
+                                "Model" : new StringDataType(),
+                                "Decision" : new StringDataType(),
+                                "Replace-DMN-DataInput-ID-1" : new ObjectDataType(),
+                                "Replace-DMN-DataInput-ID-2" : new ObjectDataType(),
+                                "Replace-DMN-DataInput-ID-X" : new ObjectDataType()
+
+            ],
+            "results" : [
+				"Replace-DMN-Context-Result-Entry"  : new StringDataType()
+            ],
+            "icon" : "favicon-RH.png"
+
+        ]
+
+]
+
