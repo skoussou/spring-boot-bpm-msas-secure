@@ -16,3 +16,13 @@ Contains the BPMN notations to implement Expense Approvals process automations
             <name>RemoteDMNService</name>
         </work-item-handler>
 
+== Business Processes
+
+.ExpensesApprovals
+image::images./src/main/resources/com/anadoluefes/hr/expenses/ExpensesApproval-svg.svg[800,800]
+
+.DepartmentLimitsValidations
+image::images./src/main/resources/com/anadoluefes/DepartmentLimitsValidations-svg.svg[800,800]
+
+.Notifications
+image::images./src/main/resources/com/anadoluefes/Notifications-svg.svg[800,800]
