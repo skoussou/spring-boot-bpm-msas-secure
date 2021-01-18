@@ -1,7 +1,7 @@
 package com.redhat.service.api.model.expenses;
 
 import java.io.Serializable;
-import com.anadoluefes.hr.expenses.model.ExpenseItemModel;
+import com.redhat.hr.expenses.model.ExpenseItemModel;
 
 import java.util.List;
 import java.util.ArrayList;

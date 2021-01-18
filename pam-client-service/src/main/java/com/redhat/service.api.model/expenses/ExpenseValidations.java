@@ -1,7 +1,7 @@
 package com.redhat.service.api.model.expenses;
 
 import java.io.Serializable;
-import com.anadoluefes.hr.expenses.model.ExpenseItemModel;
+import com.redhat.hr.expenses.model.ExpenseItemModel;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * Payload for Starting Validation of Limits DMN Service
   *         
  * {
- *  "model-namespace" : "https://anadoluefes.com/dmn/hrdepartmentlimitsvalidationUUID",
+ *  "model-namespace" : "https://redhat.com/dmn/hrdepartmentlimitsvalidationUUID",
  *  "model-name" : "HR Department Limits Validation",
  *  "dmn-context" : {"Role" : "HR Manager", "Expense Type": "Taxi", "Limit" : 9999}
  *  }
@@ -28,7 +28,7 @@ public class ExpenseValidations implements java.io.Serializable {
   private BigDecimal limit = null;
 
   //String containerId = "expenses-validations-kjar";
-  private String namespace = null; //"https://anadoluefes.com/dmn/hrdepartmentlimitsvalidationUUID";
+  private String namespace = null; //"https://redhat.com/dmn/hrdepartmentlimitsvalidationUUID";
   private String model = null; //"HR Department Limits Validation";
   private String decision = null; //"HR Department Limits Validation";
 
@@ -40,7 +40,7 @@ public class ExpenseValidations implements java.io.Serializable {
     this.departmentName = departmentName;
     this.expenseType = expenseType;
     this.limit = limit;
-    this.namespace = "https://anadoluefes.com/dmn/"+departmentName.toLowerCase()+"departmentlimitsvalidationUUID";
+    this.namespace = "https://redhat.com/dmn/"+departmentName.toLowerCase()+"departmentlimitsvalidationUUID";
     this.model = departmentName + MODEL_SUFFIX;
     this.decision = departmentName + MODEL_SUFFIX;
   }

@@ -53,7 +53,7 @@ _" in link:https://docs.google.com/document/d/1MC7KCEMaWbFkL9L0xeHm69-zFM2j32fON
 	      "processName":"Expenses Approval",
 	      "processVersion":"0.9",
 	      "state":1,
-	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "containerId":"com.redhat:expenses-approvals-kjar:0.1.0",
 	      "initiator":"user",
 	      "date":"2020-08-11T14:13:59.900+0000",
 	      "processInstanceDescription":"Expenses Approval",
@@ -70,7 +70,7 @@ _" in link:https://docs.google.com/document/d/1MC7KCEMaWbFkL9L0xeHm69-zFM2j32fON
 	      "processName":"Expenses Approval",
 	      "processVersion":"0.9",
 	      "state":1,
-	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "containerId":"com.redhat:expenses-approvals-kjar:0.1.0",
 	      "initiator":"user",
 	      "date":"2020-08-11T17:05:12.589+0000",
 	      "processInstanceDescription":"Expenses Approval",
@@ -87,7 +87,7 @@ _" in link:https://docs.google.com/document/d/1MC7KCEMaWbFkL9L0xeHm69-zFM2j32fON
 	      "processName":"Expenses Approval",
 	      "processVersion":"0.9",
 	      "state":1,
-	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "containerId":"com.redhat:expenses-approvals-kjar:0.1.0",
 	      "initiator":"user",
 	      "date":"2020-08-11T17:19:03.517+0000",
 	      "processInstanceDescription":"Expenses Approval",
@@ -104,7 +104,7 @@ _" in link:https://docs.google.com/document/d/1MC7KCEMaWbFkL9L0xeHm69-zFM2j32fON
 	      "processName":"Expenses Approval",
 	      "processVersion":"0.9",
 	      "state":1,
-	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "containerId":"com.redhat:expenses-approvals-kjar:0.1.0",
 	      "initiator":"user",
 	      "date":"2020-08-12T06:19:39.926+0000",
 	      "processInstanceDescription":"Expenses Approval",
@@ -121,7 +121,7 @@ _" in link:https://docs.google.com/document/d/1MC7KCEMaWbFkL9L0xeHm69-zFM2j32fON
 	      "processName":"Expenses Approval",
 	      "processVersion":"0.9",
 	      "state":1,
-	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "containerId":"com.redhat:expenses-approvals-kjar:0.1.0",
 	      "initiator":"user",
 	      "date":"2020-08-12T06:52:13.739+0000",
 	      "processInstanceDescription":"Expenses Approval",
@@ -138,7 +138,7 @@ _" in link:https://docs.google.com/document/d/1MC7KCEMaWbFkL9L0xeHm69-zFM2j32fON
 	      "processName":"Expenses Approval",
 	      "processVersion":"0.9",
 	      "state":1,
-	      "containerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0",
+	      "containerId":"com.redhat:expenses-approvals-kjar:0.1.0",
 	      "initiator":"user",
 	      "date":"2020-08-12T07:39:51.414+0000",
 	      "processInstanceDescription":"Expenses Approval",
@@ -177,7 +177,7 @@ eg.
 	 --header "Authorization: Bearer $TOKEN" \
 	   -H "accept: application/json" -H "content-type: application/json" -d "{\"processId\":\"ExpensesApproval\",\"groupFilters\":[],\"taskStatusfilters\":[]}"
 
-	[{"id":3,"name":"Expenses Approval 1","subject":"","description":"","status":"Reserved","priority":0,"skipable":false,"actualOwner":"firstapprover","createdBy":null,"createdOn":"2020-10-23T13:05:21.997+0000","activationTime":"2020-10-23T13:05:21.997+0000","expirationTime":null,"processInstanceId":3,"processId":"ExpensesApproval","containerId":"com.anadoluefes:expenses-approvals-kjar:0.5.0","parentId":-1}]
+	[{"id":3,"name":"Expenses Approval 1","subject":"","description":"","status":"Reserved","priority":0,"skipable":false,"actualOwner":"firstapprover","createdBy":null,"createdOn":"2020-10-23T13:05:21.997+0000","activationTime":"2020-10-23T13:05:21.997+0000","expirationTime":null,"processInstanceId":3,"processId":"ExpensesApproval","containerId":"com.redhat:expenses-approvals-kjar:0.5.0","parentId":-1}]
 
 
 
@@ -278,15 +278,15 @@ IMPORTANT: Important: calling this API you are required to provide `taskContaine
 
 * Request Body (APPROVED)
 
-	{"approvalStatus":"Approved","approvalMessage":"I approve this report"taskContainerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
+	{"approvalStatus":"Approved","approvalMessage":"I approve this report"taskContainerId":"com.redhat:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
 
 * COMPLETE Request Body (Revision_Request)
 
-	{"approvalStatus":"Revision_Request","approvalMessage":"Revise Dates in Claim Item 1","taskContainerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
+	{"approvalStatus":"Revision_Request","approvalMessage":"Revise Dates in Claim Item 1","taskContainerId":"com.redhat:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
 
 * COMPLETE Request Body (Rejected)
 
-	{"approvalStatus":"Rejected","approvalMessage":"Your expenses are too high","taskContainerId":"com.anadoluefes:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
+	{"approvalStatus":"Rejected","approvalMessage":"Your expenses are too high","taskContainerId":"com.redhat:expenses-approvals-kjar:0.1.0","actionUserId":"user","processId":"ExpensesApproval"}
 
 ==== CLAIM 
 
@@ -358,31 +358,31 @@ export BUSINESS_PROCESS_KIESERVER_ROUTE_URL=<URL OF (ROUTE) PAM BUSINESS APPLICA
 
 ** Response Process ID: 752
 ** In DB `select from taskevent where processInstanceId= 752` points to task `36` (Expenses-Approval-1)
-** In Browser open the diagram and press F5 in each task completion to see process progress: http://hr-expenses-business-application-service-hr-expenses-dev.apps.cluster-anadolu-52cf.anadolu-52cf.example.opentlc.com/rest/server/containers/com.anadoluefes:expenses-approvals-kjar:0.5.0/images/processes/instances/752
+** In Browser open the diagram and press F5 in each task completion to see process progress: http://hr-expenses-business-application-service-hr-expenses-dev.apps.cluster-anadolu-52cf.anadolu-52cf.example.opentlc.com/rest/server/containers/com.redhat:expenses-approvals-kjar:0.5.0/images/processes/instances/752
 * Complete Task `36` status `Approved`
 
-	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/36/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"com.anadoluefes:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/36/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"com.redhat:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
 
 ** Response _Action [COMPLETE] Completed on Task [36]_
 ** In DB `select from taskevent where processInstanceId= 752` points to task `37`  (Expenses-Approval-2)
 
-	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/37/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"com.anadoluefes:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/37/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"com.redhat:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
 
 ** Response _Action [COMPLETE] Completed on Task [37]_
 ** In DB `select from taskevent where processInstanceId= 752` points to task `38`  (Financial Affairs Director Approval)
 
-	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/38/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"Although high I will also approve this report\", \"taskContainerId\":\"com.anadoluefes:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/38/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"Although high I will also approve this report\", \"taskContainerId\":\"com.redhat:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
 
 ** Response _Action [COMPLETE] Completed on Task [38]_
 ** In DB `select from taskevent where processInstanceId= 752` points to task `39`  (Financial Department Approval)
 ** In DB `select from peopleassignments_potowners where task_id = 39`  and group `financialapprover` is the allocated *group of potential owners*. We will use `user` (available in the DefaultWebSecurityConfig.java of project `hr-expenses-business-application-service`
 
-	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/39/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"Approved for payment by Financial DEpartment\", \"taskContainerId\":\"com.anadoluefes:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
+	curl -u user:user -X POST '$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/39/COMPLETE'  -H  "accept: application/json" -H  "content-type: application/json"  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"Approved for payment by Financial DEpartment\", \"taskContainerId\":\"com.redhat:expenses-approvals-kjar:0.5.0\",\"actionUserId\":\"user\",\"processId\":\"ExpensesApproval\"}"
 
 ** In DB `select status from processinstance log where processInstanceId= 752` status is 2 process completed 
-** check again the status of the procss in the diagram in the browser: http://hr-expenses-business-application-service-hr-expenses-dev.apps.cluster-anadolu-52cf.anadolu-52cf.example.opentlc.com/rest/server/containers/com.anadoluefes:expenses-approvals-kjar:0.5.0/images/processes/instances/752
+** check again the status of the procss in the diagram in the browser: http://hr-expenses-business-application-service-hr-expenses-dev.apps.cluster-anadolu-52cf.anadolu-52cf.example.opentlc.com/rest/server/containers/com.redhat:expenses-approvals-kjar:0.5.0/images/processes/instances/752
 
-=== Example Calls `[POST] /rhpam/expenses/department/validation`
+=== Example Calls `[POST] /rhpam/expenses/department/validation`/
 
 * MET
 

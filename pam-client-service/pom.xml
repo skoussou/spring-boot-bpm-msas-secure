@@ -102,7 +102,7 @@
 
     <!-- Model Artifacts to use in RHPAM Requests -->
     <dependency>
-      <groupId>com.anadoluefes</groupId>
+      <groupId>com.redhat</groupId>
       <artifactId>expenses-model</artifactId>
       <version>1.0.0</version>
     </dependency>

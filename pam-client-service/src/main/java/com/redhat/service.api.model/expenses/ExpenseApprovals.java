@@ -1,7 +1,7 @@
 package com.redhat.service.api.model.expenses;
 
 import java.io.Serializable;
-import com.anadoluefes.hr.expenses.model.ExpenseItemModel;
+import com.redhat.hr.expenses.model.ExpenseItemModel;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ import java.math.BigDecimal;
 public class ExpenseApprovals implements java.io.Serializable {
 
   //"{  \"pExpensesItemsTypesHighestCost\": [
-  //           {\"com.anadoluefes.hr.expenses.model.ExpenseItemModel\": {\"expenseType\" : \"Food\", \"expenseValue\" :  100000}}, 
-  //           {\"com.anadoluefes.hr.expenses.model.ExpenseItemModel\": {\"expenseType\" : \"Taxi\", \"expenseValue\" :  26000}}, 
-  //           {\"com.anadoluefes.hr.expenses.model.ExpenseItemModel\": {\"expenseType\" : \"Accommodation\", \"expenseValue\" :  10000}}],    
+  //           {\"com.redhat.hr.expenses.model.ExpenseItemModel\": {\"expenseType\" : \"Food\", \"expenseValue\" :  100000}}, 
+  //           {\"com.redhat.hr.expenses.model.ExpenseItemModel\": {\"expenseType\" : \"Taxi\", \"expenseValue\" :  26000}}, 
+  //           {\"com.redhat.hr.expenses.model.ExpenseItemModel\": {\"expenseType\" : \"Accommodation\", \"expenseValue\" :  10000}}],    
   //    \"pDepartmentRole\": \"HR Manager\",    
   //    \"pDepartmentName\": \"HR\",    
   //    \"pExpenseCreatorID\" : \"stelios\",    
@@ -32,7 +32,7 @@ public class ExpenseApprovals implements java.io.Serializable {
   //    \"pSecondApprover\" : \"pamAdmin\",    
   //    \"pCauseBusinessError\" : true}"
 
-  private List<com.anadoluefes.hr.expenses.model.ExpenseItemModel> listOfExpenseItems = new ArrayList<com.anadoluefes.hr.expenses.model.ExpenseItemModel>();
+  private List<com.redhat.hr.expenses.model.ExpenseItemModel> listOfExpenseItems = new ArrayList<com.redhat.hr.expenses.model.ExpenseItemModel>();
   private String departmentRole = null;
   private String departmentName = null;
   private String expenseSubmitterID = null;
@@ -47,7 +47,7 @@ public class ExpenseApprovals implements java.io.Serializable {
 
   }
 
-  public ExpenseApprovals(List<com.anadoluefes.hr.expenses.model.ExpenseItemModel> listOfExpenseItems,
+  public ExpenseApprovals(List<com.redhat.hr.expenses.model.ExpenseItemModel> listOfExpenseItems,
                         String departmentRole, String departmentName, String expenseSubmitterID,
                         String expenseFormCorrelationKey, String expenseOwnerNotificationAddress, 
                         String expenseOwnerID, String financialAffairsDirectorApproverUsername,  
@@ -80,14 +80,14 @@ public class ExpenseApprovals implements java.io.Serializable {
      /**
     * Gets the listOfExpenseItems
     */
-    public List<com.anadoluefes.hr.expenses.model.ExpenseItemModel> getListOfExpenseItems() {
+    public List<com.redhat.hr.expenses.model.ExpenseItemModel> getListOfExpenseItems() {
       return this.listOfExpenseItems;
    }
  
    /**
     * Sets the listOfExpenseItems
     */
-   // public void setListOfExpenseItems(List<com.anadoluefes.hr.expenses.model.ExpenseItemModel> value) {
+   // public void setListOfExpenseItems(List<com.redhat.hr.expenses.model.ExpenseItemModel> value) {
    //    this.listOfExpenseItems = value;
    // }
  

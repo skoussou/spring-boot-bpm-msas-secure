@@ -48,7 +48,7 @@ public class TaskActionMessage implements TaskActionMessageIF,java.io.Serializab
     public String getTaskContainerId() {
       System.out.println("Getting value of this.taskContainerId via get ["+this.taskContainerId+"]");
       if (this.taskContainerId == null){
-        this.taskContainerId = "com.anadoluefes:expenses-approvals-kjar:0.1.0";
+        this.taskContainerId = "com.redhat:expenses-approvals-kjar:0.1.0";
       }
       return this.taskContainerId;
    }
