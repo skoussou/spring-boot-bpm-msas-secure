@@ -15,10 +15,10 @@
   <bpmn2:itemDefinition id="_pApprovalStatusItem" structureRef="String"/>
   <bpmn2:itemDefinition id="_initiatorItem" structureRef="String"/>
   <bpmn2:itemDefinition id="_pProcessStatusItem" structureRef="String"/>
-  <bpmn2:itemDefinition id="_pNotificationItem" structureRef="com.anadoluefes.notifications.model.NotificationsModel"/>
+  <bpmn2:itemDefinition id="_pNotificationItem" structureRef="com.redhat.notifications.model.NotificationsModel"/>
   <bpmn2:itemDefinition id="_pExpenseLimitValidationDecisionItem" structureRef="String"/>
   <bpmn2:itemDefinition id="_pApprovalCommentItem" structureRef="String"/>
-  <bpmn2:itemDefinition id="_pBusinessErrorsItem" structureRef="com.anadoluefes.exceptions.BusinessException"/>
+  <bpmn2:itemDefinition id="_pBusinessErrorsItem" structureRef="com.redhat.exceptions.BusinessException"/>
   <bpmn2:itemDefinition id="_pTestLimitItem" structureRef="java.math.BigDecimal"/>
   <bpmn2:itemDefinition id="_pIDItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__69656E6A-48DD-41D4-9C24-5ACAEC1264E3_SkippableInputXItem" structureRef="Object"/>
@@ -36,15 +36,15 @@
   <bpmn2:itemDefinition id="__69656E6A-48DD-41D4-9C24-5ACAEC1264E3_tExpenseFormCorrelationKeyInputXItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__69656E6A-48DD-41D4-9C24-5ACAEC1264E3_tApprovalStatusOutputXItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__69656E6A-48DD-41D4-9C24-5ACAEC1264E3_tApprovalCommentOutputXItem" structureRef="String"/>
-  <bpmn2:itemDefinition id="__7091579D-87C1-495C-9545-9CF8F5BAFE46_pNotificationInputXItem" structureRef="com.anadoluefes.notifications.model.NotificationsModel"/>
+  <bpmn2:itemDefinition id="__7091579D-87C1-495C-9545-9CF8F5BAFE46_pNotificationInputXItem" structureRef="com.redhat.notifications.model.NotificationsModel"/>
   <bpmn2:itemDefinition id="__B998EB47-0A71-4CDB-B823-37A2B9391159_CauseBusinessErrorInputXItem" structureRef="Boolean"/>
   <bpmn2:itemDefinition id="__B998EB47-0A71-4CDB-B823-37A2B9391159_CauseTechnicalErrorInputXItem" structureRef="Boolean"/>
   <bpmn2:itemDefinition id="__B998EB47-0A71-4CDB-B823-37A2B9391159_ExpenseFormCorrelationKeyInputXItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__B998EB47-0A71-4CDB-B823-37A2B9391159_ExpenseOwnerIDInputXItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__B998EB47-0A71-4CDB-B823-37A2B9391159_SampleResultOutputXItem" structureRef="String"/>
-  <bpmn2:itemDefinition id="__7DA82DD2-ACBF-4401-803C-A0FFD89E07CD_pNotificationInputXItem" structureRef="com.anadoluefes.notifications.model.NotificationsModel"/>
-  <bpmn2:itemDefinition id="__B6BB9EEB-3061-4DD6-8D7F-46024917CEBE_businessExceptionOutputXItem" structureRef="com.anadoluefes.exceptions.BusinessException"/>
-  <bpmn2:itemDefinition id="__5F7D5DFE-E78B-4B4D-84C3-F04E61267703_pNotificationInputXItem" structureRef="com.anadoluefes.notifications.model.NotificationsModel"/>
+  <bpmn2:itemDefinition id="__7DA82DD2-ACBF-4401-803C-A0FFD89E07CD_pNotificationInputXItem" structureRef="com.redhat.notifications.model.NotificationsModel"/>
+  <bpmn2:itemDefinition id="__B6BB9EEB-3061-4DD6-8D7F-46024917CEBE_businessExceptionOutputXItem" structureRef="com.redhat.exceptions.BusinessException"/>
+  <bpmn2:itemDefinition id="__5F7D5DFE-E78B-4B4D-84C3-F04E61267703_pNotificationInputXItem" structureRef="com.redhat.notifications.model.NotificationsModel"/>
   <bpmn2:itemDefinition id="__4A9F4468-BE63-4DDB-8F93-DC1E50A6668F_SkippableInputXItem" structureRef="Object"/>
   <bpmn2:itemDefinition id="__4A9F4468-BE63-4DDB-8F93-DC1E50A6668F_PriorityInputXItem" structureRef="Object"/>
   <bpmn2:itemDefinition id="__4A9F4468-BE63-4DDB-8F93-DC1E50A6668F_CommentInputXItem" structureRef="Object"/>
@@ -64,7 +64,7 @@
   <bpmn2:itemDefinition id="__A4D25B1F-0DF7-4365-A487-024EC4F8F088_pDepartmentRoleInputXItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__A4D25B1F-0DF7-4365-A487-024EC4F8F088_pExpensesItemsTypesHighestCostInputXItem" structureRef="java.util.ArrayList"/>
   <bpmn2:itemDefinition id="__A4D25B1F-0DF7-4365-A487-024EC4F8F088_pExpenseLimitValidationDecisionOutputXItem" structureRef="String"/>
-  <bpmn2:itemDefinition id="__99AD8FA8-BDAC-4002-8F2B-7660553B7671_pNotificationInputXItem" structureRef="com.anadoluefes.notifications.model.NotificationsModel"/>
+  <bpmn2:itemDefinition id="__99AD8FA8-BDAC-4002-8F2B-7660553B7671_pNotificationInputXItem" structureRef="com.redhat.notifications.model.NotificationsModel"/>
   <bpmn2:itemDefinition id="__059470AB-2C4E-4EA0-B818-D14FF45F780C_SkippableInputXItem" structureRef="Object"/>
   <bpmn2:itemDefinition id="__059470AB-2C4E-4EA0-B818-D14FF45F780C_PriorityInputXItem" structureRef="Object"/>
   <bpmn2:itemDefinition id="__059470AB-2C4E-4EA0-B818-D14FF45F780C_CommentInputXItem" structureRef="Object"/>
@@ -93,7 +93,7 @@
   <bpmn2:itemDefinition id="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_NotStartedNotifyInputXItem" structureRef="Object"/>
   <bpmn2:itemDefinition id="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_NotCompletedNotifyInputXItem" structureRef="Object"/>
   <bpmn2:itemDefinition id="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tExpenseFormCorrelationKeyInputXItem" structureRef="String"/>
-  <bpmn2:itemDefinition id="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tBusinessErrorsInputXItem" structureRef="com.anadoluefes.exceptions.BusinessException"/>
+  <bpmn2:itemDefinition id="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tBusinessErrorsInputXItem" structureRef="com.redhat.exceptions.BusinessException"/>
   <bpmn2:itemDefinition id="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tApprovalCommentOutputXItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tCauseBusinessErrorOutputXItem" structureRef="Boolean"/>
   <bpmn2:itemDefinition id="__FB74C315-03A2-4CD7-B3DC-5091444D14F1_SkippableInputXItem" structureRef="Object"/>
@@ -111,7 +111,7 @@
   <bpmn2:itemDefinition id="__FB74C315-03A2-4CD7-B3DC-5091444D14F1_tExpenseFormCorrelationKeyInputXItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__FB74C315-03A2-4CD7-B3DC-5091444D14F1_tApprovalStatusOutputXItem" structureRef="String"/>
   <bpmn2:itemDefinition id="__FB74C315-03A2-4CD7-B3DC-5091444D14F1_tApprovalCommentOutputXItem" structureRef="String"/>
-  <bpmn2:itemDefinition id="__2F79221D-8F55-4A60-85A4-E3564CDED3F8_pNotificationInputXItem" structureRef="com.anadoluefes.notifications.model.NotificationsModel"/>
+  <bpmn2:itemDefinition id="__2F79221D-8F55-4A60-85A4-E3564CDED3F8_pNotificationInputXItem" structureRef="com.redhat.notifications.model.NotificationsModel"/>
   <bpmn2:itemDefinition id="__E104CF93-06F2-478C-AA70-C2D27E1BFE07_SkippableInputXItem" structureRef="Object"/>
   <bpmn2:itemDefinition id="__E104CF93-06F2-478C-AA70-C2D27E1BFE07_PriorityInputXItem" structureRef="Object"/>
   <bpmn2:itemDefinition id="__E104CF93-06F2-478C-AA70-C2D27E1BFE07_CommentInputXItem" structureRef="Object"/>
@@ -129,7 +129,7 @@
   <bpmn2:itemDefinition id="__E104CF93-06F2-478C-AA70-C2D27E1BFE07_tApprovalCommentOutputXItem" structureRef="String"/>
   <bpmn2:signal id="_6f5716ed-9ed5-3252-b35c-c24c874dfc66" name="sendNotification"/>
   <bpmn2:signal id="_6f5716ed-9ed5-3252-b35c-c24c874dfc66" name="sendNotification"/>
-  <bpmn2:error id="com.anadoluefes.exceptions.BusinessException" errorCode="com.anadoluefes.exceptions.BusinessException"/>
+  <bpmn2:error id="com.redhat.exceptions.BusinessException" errorCode="com.redhat.exceptions.BusinessException"/>
   <bpmn2:signal id="_6f5716ed-9ed5-3252-b35c-c24c874dfc66" name="sendNotification"/>
   <bpmn2:signal id="_6f5716ed-9ed5-3252-b35c-c24c874dfc66" name="sendNotification"/>
   <bpmn2:signal id="_6f5716ed-9ed5-3252-b35c-c24c874dfc66" name="sendNotification"/>
@@ -482,7 +482,7 @@
       </bpmn2:extensionElements>
       <bpmn2:incoming>_49031CD0-5DD7-4C0B-B0AD-D8B5A884AED3</bpmn2:incoming>
       <bpmn2:outgoing>_DDEF60E4-0860-45FA-BD21-5E5087E56E5E</bpmn2:outgoing>
-      <bpmn2:dataInput id="_2F79221D-8F55-4A60-85A4-E3564CDED3F8_pNotificationInputX" drools:dtype="com.anadoluefes.notifications.model.NotificationsModel" itemSubjectRef="__2F79221D-8F55-4A60-85A4-E3564CDED3F8_pNotificationInputXItem" name="pNotification"/>
+      <bpmn2:dataInput id="_2F79221D-8F55-4A60-85A4-E3564CDED3F8_pNotificationInputX" drools:dtype="com.redhat.notifications.model.NotificationsModel" itemSubjectRef="__2F79221D-8F55-4A60-85A4-E3564CDED3F8_pNotificationInputXItem" name="pNotification"/>
       <bpmn2:dataInputAssociation id="_yZnl4dzhEeqOe_NM4o9CTw">
         <bpmn2:sourceRef>pNotification</bpmn2:sourceRef>
         <bpmn2:targetRef>_2F79221D-8F55-4A60-85A4-E3564CDED3F8_pNotificationInputX</bpmn2:targetRef>
@@ -498,7 +498,7 @@
           <drools:metaValue><![CDATA[Expenses Approval 1]]></drools:metaValue>
         </drools:metaData>
         <drools:onExit-script scriptFormat="http://www.java.com/java">
-          <drools:script><![CDATA[com.anadoluefes.notifications.model.NotificationsModel notification = new com.anadoluefes.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
+          <drools:script><![CDATA[com.redhat.notifications.model.NotificationsModel notification = new com.redhat.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
 kcontext.setVariable("pNotification", notification);
 System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:onExit-script>
@@ -559,7 +559,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
           <drools:metaValue><![CDATA[Financial Department Correct & Resubmit]]></drools:metaValue>
         </drools:metaData>
         <drools:onExit-script scriptFormat="http://www.java.com/java">
-          <drools:script><![CDATA[com.anadoluefes.notifications.model.NotificationsModel notification = new com.anadoluefes.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
+          <drools:script><![CDATA[com.redhat.notifications.model.NotificationsModel notification = new com.redhat.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
 kcontext.setVariable("pNotification", notification);
 System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:onExit-script>
@@ -569,7 +569,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
       <bpmn2:ioSpecification id="_yZnl89zhEeqOe_NM4o9CTw">
         <bpmn2:dataInput id="_73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_TaskNameInputX" drools:dtype="Object" itemSubjectRef="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_TaskNameInputXItem" name="TaskName"/>
         <bpmn2:dataInput id="_73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tExpenseFormCorrelationKeyInputX" drools:dtype="String" itemSubjectRef="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tExpenseFormCorrelationKeyInputXItem" name="tExpenseFormCorrelationKey"/>
-        <bpmn2:dataInput id="_73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tBusinessErrorsInputX" drools:dtype="com.anadoluefes.exceptions.BusinessException" itemSubjectRef="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tBusinessErrorsInputXItem" name="tBusinessErrors"/>
+        <bpmn2:dataInput id="_73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tBusinessErrorsInputX" drools:dtype="com.redhat.exceptions.BusinessException" itemSubjectRef="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tBusinessErrorsInputXItem" name="tBusinessErrors"/>
         <bpmn2:dataInput id="_73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_SkippableInputX" drools:dtype="Object" itemSubjectRef="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_SkippableInputXItem" name="Skippable"/>
         <bpmn2:dataInput id="_73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_GroupIdInputX" drools:dtype="Object" itemSubjectRef="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_GroupIdInputXItem" name="GroupId"/>
         <bpmn2:dataOutput id="_73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tApprovalCommentOutputX" drools:dtype="String" itemSubjectRef="__73F14AFE-A8A6-4989-B3F4-5855E7A83FD0_tApprovalCommentOutputXItem" name="tApprovalComment"/>
@@ -630,7 +630,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
           <drools:metaValue><![CDATA[Financial Affairs Director Approval]]></drools:metaValue>
         </drools:metaData>
         <drools:onExit-script scriptFormat="http://www.java.com/java">
-          <drools:script><![CDATA[com.anadoluefes.notifications.model.NotificationsModel notification = new com.anadoluefes.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
+          <drools:script><![CDATA[com.redhat.notifications.model.NotificationsModel notification = new com.redhat.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
 kcontext.setVariable("pNotification", notification);
 System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:onExit-script>
@@ -692,7 +692,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>_07DE3953-8802-4F33-8C49-B25B1EF763F2</bpmn2:incoming>
-      <bpmn2:dataInput id="_99AD8FA8-BDAC-4002-8F2B-7660553B7671_pNotificationInputX" drools:dtype="com.anadoluefes.notifications.model.NotificationsModel" itemSubjectRef="__99AD8FA8-BDAC-4002-8F2B-7660553B7671_pNotificationInputXItem" name="pNotification"/>
+      <bpmn2:dataInput id="_99AD8FA8-BDAC-4002-8F2B-7660553B7671_pNotificationInputX" drools:dtype="com.redhat.notifications.model.NotificationsModel" itemSubjectRef="__99AD8FA8-BDAC-4002-8F2B-7660553B7671_pNotificationInputXItem" name="pNotification"/>
       <bpmn2:dataInputAssociation id="_yZnmF9zhEeqOe_NM4o9CTw">
         <bpmn2:sourceRef>pNotification</bpmn2:sourceRef>
         <bpmn2:targetRef>_99AD8FA8-BDAC-4002-8F2B-7660553B7671_pNotificationInputX</bpmn2:targetRef>
@@ -761,7 +761,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
           <drools:metaValue><![CDATA[Financial Department Approval]]></drools:metaValue>
         </drools:metaData>
         <drools:onExit-script scriptFormat="http://www.java.com/java">
-          <drools:script><![CDATA[com.anadoluefes.notifications.model.NotificationsModel notification = new com.anadoluefes.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
+          <drools:script><![CDATA[com.redhat.notifications.model.NotificationsModel notification = new com.redhat.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
 kcontext.setVariable("pNotification", notification);
 System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:onExit-script>
@@ -827,7 +827,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>_D85841EC-68FA-4ADA-9036-14B6E3E3A5A0</bpmn2:incoming>
-      <bpmn2:dataInput id="_5F7D5DFE-E78B-4B4D-84C3-F04E61267703_pNotificationInputX" drools:dtype="com.anadoluefes.notifications.model.NotificationsModel" itemSubjectRef="__5F7D5DFE-E78B-4B4D-84C3-F04E61267703_pNotificationInputXItem" name="pNotification"/>
+      <bpmn2:dataInput id="_5F7D5DFE-E78B-4B4D-84C3-F04E61267703_pNotificationInputX" drools:dtype="com.redhat.notifications.model.NotificationsModel" itemSubjectRef="__5F7D5DFE-E78B-4B4D-84C3-F04E61267703_pNotificationInputXItem" name="pNotification"/>
       <bpmn2:dataInputAssociation id="_yZnmM9zhEeqOe_NM4o9CTw">
         <bpmn2:sourceRef>pNotification</bpmn2:sourceRef>
         <bpmn2:targetRef>_5F7D5DFE-E78B-4B4D-84C3-F04E61267703_pNotificationInputX</bpmn2:targetRef>
@@ -844,7 +844,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>_236ECF4C-1417-4ADA-BBA0-67B7CF9231EA</bpmn2:incoming>
-      <bpmn2:dataInput id="_7DA82DD2-ACBF-4401-803C-A0FFD89E07CD_pNotificationInputX" drools:dtype="com.anadoluefes.notifications.model.NotificationsModel" itemSubjectRef="__7DA82DD2-ACBF-4401-803C-A0FFD89E07CD_pNotificationInputXItem" name="pNotification"/>
+      <bpmn2:dataInput id="_7DA82DD2-ACBF-4401-803C-A0FFD89E07CD_pNotificationInputX" drools:dtype="com.redhat.notifications.model.NotificationsModel" itemSubjectRef="__7DA82DD2-ACBF-4401-803C-A0FFD89E07CD_pNotificationInputXItem" name="pNotification"/>
       <bpmn2:dataInputAssociation id="_yZnmNtzhEeqOe_NM4o9CTw">
         <bpmn2:sourceRef>pNotification</bpmn2:sourceRef>
         <bpmn2:targetRef>_7DA82DD2-ACBF-4401-803C-A0FFD89E07CD_pNotificationInputX</bpmn2:targetRef>
@@ -920,7 +920,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>_CA144BA9-65E4-4B10-8DCC-389B1A0F76BB</bpmn2:incoming>
-      <bpmn2:dataInput id="_7091579D-87C1-495C-9545-9CF8F5BAFE46_pNotificationInputX" drools:dtype="com.anadoluefes.notifications.model.NotificationsModel" itemSubjectRef="__7091579D-87C1-495C-9545-9CF8F5BAFE46_pNotificationInputXItem" name="pNotification"/>
+      <bpmn2:dataInput id="_7091579D-87C1-495C-9545-9CF8F5BAFE46_pNotificationInputX" drools:dtype="com.redhat.notifications.model.NotificationsModel" itemSubjectRef="__7091579D-87C1-495C-9545-9CF8F5BAFE46_pNotificationInputXItem" name="pNotification"/>
       <bpmn2:dataInputAssociation id="_yZnmRdzhEeqOe_NM4o9CTw">
         <bpmn2:sourceRef>pNotification</bpmn2:sourceRef>
         <bpmn2:targetRef>_7091579D-87C1-495C-9545-9CF8F5BAFE46_pNotificationInputX</bpmn2:targetRef>
@@ -961,7 +961,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
           <drools:metaValue><![CDATA[Expenses Approval 2]]></drools:metaValue>
         </drools:metaData>
         <drools:onExit-script scriptFormat="http://www.java.com/java">
-          <drools:script><![CDATA[com.anadoluefes.notifications.model.NotificationsModel notification = new com.anadoluefes.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
+          <drools:script><![CDATA[com.redhat.notifications.model.NotificationsModel notification = new com.redhat.notifications.model.NotificationsModel(pExpenseOwnerNotificationAddress, "Expenses Form "+pExpenseFormCorrelationKey+" is "+pApprovalStatus, pApprovalComment, pExpenseFormCorrelationKey);
 kcontext.setVariable("pNotification", notification);
 System.out.println("notification ready= " +pNotification);]]></drools:script>
         </drools:onExit-script>
@@ -1018,7 +1018,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
     </bpmn2:userTask>
     <bpmn2:boundaryEvent id="_B6BB9EEB-3061-4DD6-8D7F-46024917CEBE" drools:boundaryca="true" drools:dockerinfo="126.0^26.2|" attachedToRef="_B998EB47-0A71-4CDB-B823-37A2B9391159">
       <bpmn2:outgoing>_6B622110-8091-4C41-9AF7-A75C70F7B3A5</bpmn2:outgoing>
-      <bpmn2:dataOutput id="_B6BB9EEB-3061-4DD6-8D7F-46024917CEBE_businessExceptionOutputX" drools:dtype="com.anadoluefes.exceptions.BusinessException" itemSubjectRef="__B6BB9EEB-3061-4DD6-8D7F-46024917CEBE_businessExceptionOutputXItem" name="businessException"/>
+      <bpmn2:dataOutput id="_B6BB9EEB-3061-4DD6-8D7F-46024917CEBE_businessExceptionOutputX" drools:dtype="com.redhat.exceptions.BusinessException" itemSubjectRef="__B6BB9EEB-3061-4DD6-8D7F-46024917CEBE_businessExceptionOutputXItem" name="businessException"/>
       <bpmn2:dataOutputAssociation id="_yZoM4tzhEeqOe_NM4o9CTw">
         <bpmn2:sourceRef>_B6BB9EEB-3061-4DD6-8D7F-46024917CEBE_businessExceptionOutputX</bpmn2:sourceRef>
         <bpmn2:targetRef>pBusinessErrors</bpmn2:targetRef>
@@ -1026,7 +1026,7 @@ System.out.println("notification ready= " +pNotification);]]></drools:script>
       <bpmn2:outputSet id="_yZoM4dzhEeqOe_NM4o9CTw">
         <bpmn2:dataOutputRefs>_B6BB9EEB-3061-4DD6-8D7F-46024917CEBE_businessExceptionOutputX</bpmn2:dataOutputRefs>
       </bpmn2:outputSet>
-      <bpmn2:errorEventDefinition id="_yZoM49zhEeqOe_NM4o9CTw" drools:erefname="com.anadoluefes.exceptions.BusinessException" errorRef="com.anadoluefes.exceptions.BusinessException"/>
+      <bpmn2:errorEventDefinition id="_yZoM49zhEeqOe_NM4o9CTw" drools:erefname="com.redhat.exceptions.BusinessException" errorRef="com.redhat.exceptions.BusinessException"/>
     </bpmn2:boundaryEvent>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="_yZoM5NzhEeqOe_NM4o9CTw">

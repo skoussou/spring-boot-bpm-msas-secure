@@ -19,10 +19,10 @@ Contains the BPMN notations to implement Expense Approvals process automations
 == Business Processes
 
 .ExpensesApprovals
-image::src/main/resources/com/anadoluefes/hr/expenses/ExpensesApproval-svg.svg[800,800]
+image::src/main/resources/com/redhat/hr/expenses/ExpensesApproval-svg.svg[800,800]
 
 .DepartmentLimitsValidations
-image::src/main/resources/com/anadoluefes/DepartmentLimitsValidations-svg.svg[800,800]
+image::src/main/resources/com/redhat/DepartmentLimitsValidations-svg.svg[800,800]
 
 .Notifications
-image::src/main/resources/com/anadoluefes/Notifications-svg.svg[800,800]
+image::src/main/resources/com/redhat/Notifications-svg.svg[800,800]
