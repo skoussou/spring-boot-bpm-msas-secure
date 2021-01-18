@@ -22,7 +22,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.jbpm.bpmn2.handler.WorkItemHandlerRuntimeException;
-import com.anadoluefes.exceptions.BusinessException;
+import com.redhat.exceptions.BusinessException;
 
 public class SapExpensesWorkItemWorkItemHandlerTest extends AbstractBaseTest {
 

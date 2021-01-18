@@ -31,7 +31,7 @@ import org.jbpm.process.workitem.core.util.service.WidAuth;
 import org.jbpm.process.workitem.core.util.service.WidService;
 import org.jbpm.process.workitem.core.util.WidMavenDepends;
 
-import com.anadoluefes.exceptions.BusinessException;
+import com.redhat.exceptions.BusinessException;
 
 @Wid(widfile="SapExpensesWorkItemDefinitions.wid", name="SapExpensesWorkItemDefinitions",
         displayName="SapExpensesWorkItemDefinitions",
@@ -74,7 +74,7 @@ public class SapExpensesWorkItemWorkItemHandler extends AbstractLogOrThrowWorkIt
             Boolean causeTechnicalError = (Boolean) workItem.getParameter("CauseTechnicalError");
 
             if (causeBusinessError != null && causeBusinessError == true){
-              System.out.println("causeTechnicalError=true throwing com.anadoluefes.exceptions.BusinessException exception");
+              System.out.println("causeTechnicalError=true throwing com.redhat.exceptions.BusinessException exception");
 
               // Assumptions about the business errors from the SAP Service (Department Details are incorrect, Expene Type TAXI mismatch should be anadolu-Taxi)
               ArrayList<String> errorsReceived = new ArrayList<String>(Arrays.asList(new String[] {"Department Name does not exist", "Expene Type TAXI mismatch should be anadolu-Taxi"}));
