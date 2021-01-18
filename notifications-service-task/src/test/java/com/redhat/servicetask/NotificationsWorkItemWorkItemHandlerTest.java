@@ -21,7 +21,7 @@ import org.jbpm.test.AbstractBaseTest;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import com.anadoluefes.notifications.model.NotificationsModel;
+import com.redhat.notifications.model.NotificationsModel;
 
 public class NotificationsWorkItemWorkItemHandlerTest extends AbstractBaseTest {
 
@@ -30,7 +30,7 @@ public class NotificationsWorkItemWorkItemHandlerTest extends AbstractBaseTest {
         WorkItemImpl workItem = new WorkItemImpl();
 
 
-com.anadoluefes.notifications.model.NotificationsModel notification = new com.anadoluefes.notifications.model.NotificationsModel("test@email.com", "Message Subject: Test", "The full message will be here", "Custom Unique ID");
+com.redhat.notifications.model.NotificationsModel notification = new com.redhat.notifications.model.NotificationsModel("test@email.com", "Message Subject: Test", "The full message will be here", "Custom Unique ID");
         workItem.setParameter("Notification", notification);
 
 

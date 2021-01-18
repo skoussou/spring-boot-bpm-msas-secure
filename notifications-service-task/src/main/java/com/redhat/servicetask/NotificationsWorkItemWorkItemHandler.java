@@ -29,7 +29,7 @@ import org.jbpm.process.workitem.core.util.service.WidAuth;
 import org.jbpm.process.workitem.core.util.service.WidService;
 import org.jbpm.process.workitem.core.util.WidMavenDepends;
 
-import com.anadoluefes.notifications.model.NotificationsModel;
+import com.redhat.notifications.model.NotificationsModel;
 
 @Wid(widfile="NotificationsWorkItemDefinitions.wid", name="NotificationsWorkItemDefinitions",
         displayName="NotificationsWorkItemDefinitions",
