@@ -1,0 +1,43 @@
+version: '3.1'
+services:
+  keycloak:
+    image: jboss/keycloak:10.0.0
+    ports:
+     - 8080:8080
+    environment:
+     - JAVA_OPTS=-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/keycloak-export-exepnse-approvals.json -Dkeycloak.migration.strategy=OVERWRITE_EXISTING -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.profile.feature.upload_scripts=enabled 
+    volumes:
+     - ./rhsso:/tmp   
+  pam-client-service:
+    image: quay.io/skoussou/bpm-msas-secure-pam-client-service:1.0.0
+    ports:
+     - 8091:8091
+    environment:
+     - JAVA_OPTS=-Dorg.drools.server.filter.classes=true -Dspring.profiles.active=local -Dorg.kie.server.mode=PRODUCTION -DSSO_AUTH_SERVER_URL=http://localhost:8080
+     - SB_EXPENSES_PROCESS_URL=http://localhost:8090/rest/server
+     - SB_EXPENSES_VALIDATION_URL=http://localhost:8092/rest/server
+    depends_on: 
+      - keycloak 
+    container_name: pam-client-service   
+    network_mode: host     
+  hr-expenses-business-application-service:
+    image: quay.io/skoussou/bpm-msas-secure-hr-expenses-business-application-service:1.0.0
+    ports:
+     - 8090:8092
+    environment:
+     - JAVA_OPTS=-Dspring.profiles.active=h2 -DSSO_AUTH_SERVER_URL=http://localhost:8080 -Dorg.drools.server.filter.classes=true -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy  -DSERVICE_NAME=http://localhost:8092/rest/server -DSERVICE_USERNAME=user -DSERVICE_PASSWORD=user
+     - GC_MAX_METASPACE_SIZE=512
+    depends_on: 
+      - keycloak     
+    container_name: hr-expenses-business-application-service 
+    network_mode: host               
+  hr-expenses-validation-service:
+    image: quay.io/skoussou/bpm-msas-secure-hr-expenses-validations-service:1.0.0
+    ports:
+     - 8092:8093
+    environment:
+     - JAVA_OPTS=-Dspring.profiles.active=h2 -DSSO_AUTH_SERVER_URL=http://localhost:8080 -Dorg.drools.server.filter.classes=true -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy
+    depends_on: 
+      - keycloak    
+    container_name: hr-expenses-validation-service   
+    network_mode: host             

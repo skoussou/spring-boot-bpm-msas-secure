@@ -229,6 +229,24 @@ This executes all configurations set forth by the `docker-compose.yaml` file.
 ** link:hr-expenses-validations-service/README.adoc[hr-expenses-validations-service]
 
 
+RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=stelios  -d password=stelios   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
+export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
+curl --location --request POST "$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/process/ExpensesApproval" --header "Authorization: Bearer $TOKEN" -H  "accept: application/json" -H  "content-type: application/json"   -d  "{\"listOfExpenseItems\":[{\"expenseType\":\"Food\",\"expenseValue\":100000},{\"expenseType\":\"Taxi\",\"expenseValue\":26000},{\"expenseType\":\"Accommodation\",\"expenseValue\":10000}],\"departmentRole\":\"HR Manager\",\"departmentName\":\"HR\",\"expenseSubmitterID\":\"PetraJones-35324\",\"expenseFormCorrelationKey\":\"expenseReport-62\",\"expenseOwnerID\":\"NickWatkins-0253\",\"expenseOwnerNotificationAddress\":\"nick.watkings@redhat.com\",\"financialAffairsDirectorApproverUsername\":\"fadirectorapprover\",\"firstApproverUsername\":\"firstapprover\",\"secondApproverUsername\":\"secondapprover\"}"
+
+RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=firstapprover  -d password=firstapprover   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
+export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
+curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/1/COMPLETE  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"expenses-approvals-kjar-0.6.0\",\"actionUserId\":\"firstapprover\",\"processId\":\"ExpensesApproval\"}" -H "content-type: application/json" --header "Authorization: Bearer $TOKEN"
+
+curl -X GET "$BUSINESS_PROCESS_KIESERVER_ROUTE_URL/rest/server/containers/com.redhat:expenses-approvals-kjar:0.6.0/images/processes/instances/1" --output process1.svg --header "Authorization: Bearer $TOKEN"  -H "content-type: application/json" -H "accept: application/svg+xml"
 
 
+RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=secondapprover  -d password=secondapprover   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
+export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
+curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/2/COMPLETE  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"expenses-approvals-kjar-0.6.0\",\"actionUserId\":\"secondapprover\",\"processId\":\"ExpensesApproval\"}" -H "content-type: application/json" --header "Authorization: Bearer $TOKEN"
+
+curl -X GET "$BUSINESS_PROCESS_KIESERVER_ROUTE_URL/rest/server/containers/com.redhat:expenses-approvals-kjar:0.6.0/images/processes/instances/1" --output process1.svg --header "Authorization: Bearer $TOKEN"  -H "content-type: application/json" -H "accept: application/svg+xml"
+
+RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=fadirectorapprover  -d password=fadirectorapprover   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
+export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
+curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/3/COMPLETE  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"expenses-approvals-kjar-0.6.0\",\"actionUserId\":\"fadirectorapprover\",\"processId\":\"ExpensesApproval\"}" -H "content-type: application/json" --header "Authorization: Bearer $TOKEN"
 
