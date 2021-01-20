@@ -6,11 +6,10 @@ EXPOSE 8090
 COPY target/hr-expenses-validations-business-service-1.0.0.jar /deployments/
 COPY hr-expenses-validations-business-service.xml /deployments/
 COPY ./src/main/docker/settings.xml /opt/jboss/.m2/settings.xml
-COPY local-m2-repository-offliner /opt/jboss/.m2/repository
 
-COPY maven/hr-expenses-validations-business-service-1.0.0.jar /deployments/
-COPY maven/hr-expenses-validations-business-service.xml /deployments/
-COPY maven/settings.xml /opt/jboss/.m2/settings.xml
+#COPY maven/hr-expenses-validations-business-service-1.0.0.jar /deployments/
+#COPY maven/hr-expenses-validations-business-service.xml /deployments/
+#COPY maven/settings.xml /opt/jboss/.m2/settings.xml
 
 
 

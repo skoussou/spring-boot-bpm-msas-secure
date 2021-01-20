@@ -13,11 +13,6 @@
         <type>java.lang.String</type>
       </config-item>
       <config-item>
-        <name>org.kie.server.mode</name>
-        <value>DEVELOPMENT</value>
-        <type>java.lang.String</type>
-      </config-item>
-      <config-item>
         <name>org.kie.server.controller.user</name>
         <value>controllerUser</value>
         <type>java.lang.String</type>
@@ -40,6 +35,11 @@
       <config-item>
         <name>org.kie.server.location</name>
         <value>http://localhost:8090/rest/server</value>
+        <type>java.lang.String</type>
+      </config-item>
+      <config-item>
+        <name>org.kie.server.mode</name>
+        <value>PRODUCTION</value>
         <type>java.lang.String</type>
       </config-item>
       <config-item>

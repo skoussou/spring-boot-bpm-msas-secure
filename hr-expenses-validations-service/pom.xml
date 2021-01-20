@@ -172,7 +172,7 @@
           <artifactId>h2</artifactId>
         </dependency>
 
-      <!-- SSO - KeyCloak moved to h2 profile until OCP has RHSSO configured -->
+      <!-- SSO - KeyCloak moved to h2 profile until OCP has RHSSO configured 
       <dependency>
           <groupId>org.keycloak</groupId>
           <artifactId>keycloak-spring-boot-starter</artifactId>
@@ -182,7 +182,7 @@
                   <groupId>commons-logging</groupId>
               </exclusion>
           </exclusions>
-      </dependency>
+      </dependency-->
       </dependencies>
     </profile>
 
@@ -238,7 +238,7 @@
         <plugins>
           <plugin>
             <groupId>org.eclipse.jkube</groupId>
-            <artifactId>openshift-maven-plugin</artifactId>
+	    <artifactId>openshift-maven-plugin</artifactId>
             <version>${jkube.version}</version>
             <configuration>
               <verbose>false</verbose>
