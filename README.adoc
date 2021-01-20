@@ -111,17 +111,19 @@ This a setup of multiple microservices to provide client, business process and b
 
 ### Microservices Local
 
-1. MYSQL Business Process Database Creation
+1. ENVIRONMENT PROPERTIES SETUP
 
-	jbpm/jbpm and db jbpm
+	SSO_ROUTE=http://localhost:8080
+	PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
+	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
 
 2. RHSSO Setup
 
-* EAP:
+* based on EAP:
 
 	bin/standalone.sh -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=keycloak-export-exepnse-approvals.json -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.strategy=OVERWRITE_EXISTING -Dkeycloak.profile.feature.upload_scripts=enabled
 	
-* Docker: 
+* or based on Docker: 
 
 	docker run --rm\
     --name sso-init\
@@ -136,22 +138,63 @@ This a setup of multiple microservices to provide client, business process and b
     -Dkeycloak.profile.feature.upload_scripts=enabled
     
 3. Service Deployments 
+
 * Start `hr-expenses-validations-service`
 
-	
+	java -jar  -Dspring.profiles.active=h2 -Dserver.port=8093 \
+	  -Dorg.drools.server.filter.classes=true \
+	  -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy \
+	  -Dorg.kie.server.mode=PRODUCTION \
+	  -Dkie.maven.settings.custom=~/.m2/settings.xml \
+	  -Dorg.guvnor.m2repo.dir=~/.m2/repository \
+	  target/hr-expenses-validations-business-service-1.0.0.jar
+
 
 * Start `hr-expenses-business-application-service`
 
-	
-	
+	java -jar  -Dspring.profiles.active=h2 -Dserver.port=8092 \
+	  -DSSO_AUTH_SERVER_URL=http://localhost:8080 \
+	  -Dorg.drools.server.filter.classes=true \
+	  -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy \
+	  -Dorg.kie.server.mode=PRODUCTION \
+	  -Dkie.maven.settings.custom=~/.m2/settings.xml \
+	  -Dorg.guvnor.m2repo.dir=~/.m2/repository \
+	  -DSERVICE_NAME=http://localhost:8093/rest/server \
+	  -DSERVICE_USERNAME=user \
+	  -DSERVICE_PASSWORD=user \
+	  target/hr-expenses-business-application-service-1.0.0.jar
+
 * Start `pam-client-service`
 
-	
+	java -jar  -Dspring.profiles.active=local -Dserver.port=8091 \
+	  -DSSO_AUTH_SERVER_URL=http://localhost:8080 \
+	  -Dexpenses.process.service.url=http://localhost:8092/rest/server \
+	  -Dexpenses.validation.service.url=http://localhost:8093/rest/server \
+	  target/pam-client-service-1.0.0.jar
     
 
 ### Microservices Local Docker (compose)
 
-* TODO Docker Compose
+* For preperation of imagessee link:prep-images.adoc[prep-images.adoc]
+
+* Start all components:
+
+	SSO_ROUTE=http://localhost:8080
+	PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
+	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
+
+```console
+$ docker-compose up --build
+```
+
+This executes all configurations set forth by the `docker-compose.yaml` file.
+
+
+* Stop all components:
+
+```console
+$ docker-compose up --build
+```
 
 ### Microservices Openshift
 
