@@ -188,7 +188,7 @@ image::images/Expenses-Architecture.png[800,800]
 
 	$ docker-compose up
 
-This executes all configurations set forth by the `docker-compose.yaml` file.
+This executes all configurations set forth by the link:docker-compose.yaml[`docker-compose.yaml`] file.
 
 
 * Stop all components:
