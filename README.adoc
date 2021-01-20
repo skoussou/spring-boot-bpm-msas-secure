@@ -5,6 +5,10 @@ This a setup of multiple microservices to provide client, business process and b
 
 ## Application Components
 
+.Expenses Application Architecture
+image::images/Expenses-Architecture.png[800,800]
+
+
 .List of Application Components
 ====
 [width="100%",options="header"]
@@ -222,8 +226,8 @@ This executes all configurations set forth by the `docker-compose.yaml` file.
 
 * See Description of Microservices
 ** link:pam-client-service/README.adoc[pam-client-service]
-** link:hr-expenses-business-application-service/README.adoc[pam-client-service]
-** link:hr-expenses-validations-service/README.adoc[pam-client-service]
+** link:hr-expenses-business-application-service/README.adoc[hr-expenses-business-application-service]
+** link:hr-expenses-validations-service/README.adoc[hr-expenses-validations-service]
 
 
 
