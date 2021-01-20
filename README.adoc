@@ -109,7 +109,7 @@ This a setup of multiple microservices to provide client, business process and b
 
 ## Microservices Setup
 
-### Microservices Local
+### Microservices Local Setup
 
 1. ENVIRONMENT PROPERTIES SETUP
 
@@ -173,7 +173,7 @@ This a setup of multiple microservices to provide client, business process and b
 	  target/pam-client-service-1.0.0.jar
     
 
-### Microservices Local Docker (compose)
+### Microservices Local Docker (compose)  Setup
 
 * For preperation of imagessee link:prep-images.adoc[prep-images.adoc]
 
@@ -183,20 +183,16 @@ This a setup of multiple microservices to provide client, business process and b
 	PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
 	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
 
-```console
-$ docker-compose up --build
-```
+	$ docker-compose up
 
 This executes all configurations set forth by the `docker-compose.yaml` file.
 
 
 * Stop all components:
 
-```console
-$ docker-compose up --build
-```
+	$ docker-compose stop
 
-### Microservices Openshift
+### Microservices Openshift  Setup
 
 1. MYSQL Database creation for Spring Boot (Business Process) KIE Server `hr-expenses-business-application-service`
 
@@ -222,9 +218,12 @@ $ docker-compose up --build
         PAM_CLIENT_SERVICE_ROUTE_URL=http://$(oc get routes pam-client-service -o jsonpath='{.spec.host}')
 	curl --location --request POST "$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/process/ExpensesApproval" --header "Authorization: Bearer $TOKEN" -H  "accept: application/json" -H  "content-type: application/json"   -d  "{\"listOfExpenseItems\":[{\"expenseType\":\"Food\",\"expenseValue\":100000},{\"expenseType\":\"Taxi\",\"expenseValue\":26000},{\"expenseType\":\"Accommodation\",\"expenseValue\":10000}],\"departmentRole\":\"HR Manager\",\"departmentName\":\"HR\",\"expenseSubmitterID\":\"PetraJones-35324\",\"expenseFormCorrelationKey\":\"expenseReport-62\",\"expenseOwnerID\":\"NickWatkins-0253\",\"expenseOwnerNotificationAddress\":\"nick.watkings@redhat.com\",\"financialAffairsDirectorApproverUsername\":\"fadirectorapprover\",\"firstApproverUsername\":\"firstapprover\",\"secondApproverUsername\":\"secondapprover\"}"
 	
-		
+## Scenarios Test
 
-
+* See Description of Microservices
+** link:pam-client-service/README.adoc[pam-client-service]
+** link:hr-expenses-business-application-service/README.adoc[pam-client-service]
+** link:hr-expenses-validations-service/README.adoc[pam-client-service]
 
 
 
