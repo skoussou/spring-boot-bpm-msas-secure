@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.security.RolesAllowed;
 
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,17 +38,19 @@ import org.kie.server.api.model.KieContainerResourceList;
 import org.kie.server.api.model.instance.TaskSummary;
 
 
-@Profile("openshift")
+@Profile({"openshift","local"})
 @RestController
 @RequestMapping("/rhpam")
 public class RHPAMController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RHPAMController.class);
 
+    @Autowired
+    private BusinessServiceMappingsHelper helper;
 
     private AbstractKieServerConnector createBusinessSvcConnector(String Authorization, String businessActivity) {
 
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
         LOGGER.debug("\nConnector with Authorization Token ["+Authorization+"]");
         LOGGER.debug("Connector with Service URL ["+helper.getBusinessAliasServiceURLMappings().get(helper.getBusinessActivityAliasMappings().get(businessActivity))+"]");
@@ -75,9 +78,8 @@ public class RHPAMController {
         LOGGER.debug("Our job is then to map the process to a service (SQL for this?) ");
         LOGGER.debug("--------------------------------------------------------------------------------------");
 
-        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper();
         // Gets Openshift Helper
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
         Long id = connector.getProcessClient().startProcess(helper.getBusinessActivityAliasMappings().get(processId), processId, body.processVarsMapper());
 
         LOGGER.debug("Created Business Process ["+processId+"] with ID ["+id+"] ");
@@ -101,9 +103,8 @@ public class RHPAMController {
         LOGGER.debug("Our job is then to map the DMN Service to a service (SQL for this?) ");
         LOGGER.debug("--------------------------------------------------------------------------------------");
 
-        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper();
         // Gets Openshift Helper
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
         DMNContext dmnContext = connector.getDMNClient().newContext();
 
@@ -143,8 +144,8 @@ public class RHPAMController {
         LOGGER.debug("Authorization Token ["+Authorization+"]");
 
         AbstractKieServerConnector connector = createBusinessSvcConnector(Authorization,processId);
-        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper();
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
 
         // TODO 
@@ -181,8 +182,7 @@ public class RHPAMController {
         LOGGER.debug("Authorization Token ["+Authorization+"]");
         LOGGER.debug("/t Search with filters ["+body.toString()+"]");
 
-        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper();
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
         Map<String, AbstractKieServerConnector> connectors = new HashMap<String, AbstractKieServerConnector>();
 
@@ -263,8 +263,8 @@ public class RHPAMController {
 
         //AbstractKieServerConnector connector = createBusinessSvcConnector(Authorization, ((TaskActionMessage) body).getProcessId());
         AbstractKieServerConnector connector = createBusinessSvcConnector(Authorization, body.getProcessId());
-        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper();
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
         // TODO 
         // claim, complete, forward, delegate, release,

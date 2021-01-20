@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.annotation.security.RolesAllowed;
 
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,17 +38,20 @@ import org.kie.server.api.model.instance.TaskSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Profile("local")
+@Profile("localnonsso")
 @RestController
 @RequestMapping("/rhpam")
 public class NonSSORHPAMController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NonSSORHPAMController.class);
 
+    @Autowired
+    private BusinessServiceMappingsHelper helper;
+
     private AbstractKieServerConnector createBusinessSvcConnector(String businessActivity) {
 
         // Gets Openshift Helper
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
         LOGGER.debug("Connector with Service URL ["+helper.getBusinessAliasServiceURLMappings().get(helper.getBusinessActivityAliasMappings().get(businessActivity))+"]");
         
@@ -73,7 +78,7 @@ public class NonSSORHPAMController {
         LOGGER.debug("--------------------------------------------------------------------------------------");
 
         // Gets Openshift Helper
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
         Long id = connector.getProcessClient().startProcess(helper.getBusinessActivityAliasMappings().get(processId), processId, body.processVarsMapper());
 
         LOGGER.debug("Created Business Process ["+processId+"] with ID ["+id+"] ");
@@ -97,7 +102,7 @@ public class NonSSORHPAMController {
         LOGGER.debug("--------------------------------------------------------------------------------------");
 
         // Gets Openshift Helper
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
         DMNContext dmnContext = connector.getDMNClient().newContext();
 
@@ -135,7 +140,7 @@ public class NonSSORHPAMController {
         
         LOGGER.debug("========================= Search (API: processInstances called =================");
         AbstractKieServerConnector connector = createBusinessSvcConnector(processId);
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
 
         // TODO 
@@ -170,7 +175,7 @@ public class NonSSORHPAMController {
         LOGGER.debug("========================= Search (API: searchTasks called =================");
         LOGGER.debug("/t Search with filters ["+body.toString()+"]");
 
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
         Map<String, AbstractKieServerConnector> connectors = new HashMap<String, AbstractKieServerConnector>();
 
@@ -251,7 +256,7 @@ public class NonSSORHPAMController {
 
         //AbstractKieServerConnector connector = createBusinessSvcConnector(((TaskActionMessage)body).getProcessId());
         AbstractKieServerConnector connector = createBusinessSvcConnector(body.getProcessId());
-        BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
+        //BusinessServiceMappingsHelper helper = new BusinessServiceMappingsHelper(true);
 
         // TODO 
         // claim, complete, forward, delegate, release,

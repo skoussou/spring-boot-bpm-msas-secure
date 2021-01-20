@@ -299,7 +299,7 @@
 		</env-->
 		<env>
 		    <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
-		    <JAVA_OPTS_APPEND>-DSSO_AUTH_SERVER_URL=https://secure-sso-init-test-expenses.apps.cluster-4315.4315.example.opentlc.com</JAVA_OPTS_APPEND>
+		    <JAVA_OPTS_APPEND>-DSSO_AUTH_SERVER_URL=https://secure-sso-init-expenses.apps.cluster-4315.4315.example.opentlc.com</JAVA_OPTS_APPEND>
                 </env>
                 <openshiftBuildConfig>
                   <requests>
