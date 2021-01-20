@@ -1,0 +1,21 @@
+= Preparing docker images
+
+* PAM Client Service
+
+	cd pam-client-service
+	docker build -f src/main/docker/Dockerfile . -t quay.io/skoussou/bpm-msas-secure-pam-client-service:1.0.0
+	docker push quay.io/skoussou/bpm-msas-secure-pam-client-service:1.0.0
+
+* HR Expense Approvals Business Process Service
+
+	cd pam-client-service
+	docker build -f src/main/docker/Dockerfile . -t quay.io/skoussou/bpm-msas-secure-hr-expenses-business-application-service:1.0.0
+	docker push quay.io/skoussou/bpm-msas-secure-hr-expenses-business-application-service:1.0.0
+
+* HR Expense Validations Rules Service
+
+	cd hr-expenses-validations-service
+	docker build -f src/main/docker/Dockerfile . -t quay.io/skoussou/bpm-msas-secure-hr-expenses-validations-service:1.0.0
+	docker push quay.io/skoussou/bpm-msas-secure-hr-expenses-validations-service:1.0.0	
+
+
