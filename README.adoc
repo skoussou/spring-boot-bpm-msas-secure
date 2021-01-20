@@ -115,13 +115,12 @@ image::images/Expenses-Architecture.png[800,800]
 
 ### Microservices Local Setup
 
-1. ENVIRONMENT PROPERTIES SETUP
+SSO_ROUTE=http://localhost:8080
+PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
+BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
 
-	SSO_ROUTE=http://localhost:8080
-	PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
-	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
 
-2. RHSSO Setup
+1. RHSSO Setup
 
 * based on EAP:
 
@@ -141,7 +140,7 @@ image::images/Expenses-Architecture.png[800,800]
     -Dkeycloak.migration.usersExportStrategy=REALM_FILE\
     -Dkeycloak.profile.feature.upload_scripts=enabled
     
-3. Service Deployments 
+2. Service Deployments 
 
 * Start `hr-expenses-validations-service`
 
