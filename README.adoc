@@ -115,9 +115,9 @@ image::images/Expenses-Architecture.png[800,800]
 
 ### Microservices Local Setup
 
-SSO_ROUTE=http://localhost:8080
-PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
-BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
+	SSO_ROUTE=http://localhost:8080
+	PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
+	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
 
 
 1. RHSSO Setup
@@ -178,13 +178,13 @@ BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
 
 ### Microservices Local Docker (compose)  Setup
 
-* For preperation of imagessee link:prep-images.adoc[prep-images.adoc]
-
-* Start all components:
-
 	SSO_ROUTE=http://localhost:8080
 	PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
 	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
+
+* For preperation of imagessee link:prep-images.adoc[prep-images.adoc]
+
+* Start all components:
 
 	$ docker-compose up
 
