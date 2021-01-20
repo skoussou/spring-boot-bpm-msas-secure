@@ -237,10 +237,10 @@ This executes all configurations set forth by the `docker-compose.yaml` file.
 
 2. First Approver Approval
 
-RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=firstapprover  -d password=firstapprover   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
-export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
-curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/1/COMPLETE  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"expenses-approvals-kjar-0.6.0\",\"actionUserId\":\"firstapprover\",\"processId\":\"ExpensesApproval\"}" -H "content-type: application/json" --header "Authorization: Bearer $TOKEN"
-
+	RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=firstapprover  -d password=firstapprover   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
+	export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
+	curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/1/COMPLETE  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"expenses-approvals-kjar-0.6.0\",\"actionUserId\":\"firstapprover\",\"processId\":\"ExpensesApproval\"}" -H "content-type: application/json" --header "Authorization: Bearer $TOKEN"
++
 * Get the diagram of the process state and view it in the browser
 
 	curl -X GET "$BUSINESS_PROCESS_KIESERVER_ROUTE_URL/rest/server/containers/com.redhat:expenses-approvals-kjar:0.6.0/images/processes/instances/1" --output process1.svg --header "Authorization: Bearer $TOKEN"  -H "content-type: application/json" -H "accept: application/svg+xml"
@@ -250,7 +250,7 @@ curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/1/COMPLETE  -d "{\"approva
 	RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=secondapprover  -d password=secondapprover   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
 	export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
 	curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/2/COMPLETE  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"expenses-approvals-kjar-0.6.0\",\"actionUserId\":\"secondapprover\",\"processId\":\"ExpensesApproval\"}" -H "content-type: application/json" --header "Authorization: Bearer $TOKEN"
-
++
 * Get the diagram of the process state and view it in the browser
 
 	curl -X GET "$BUSINESS_PROCESS_KIESERVER_ROUTE_URL/rest/server/containers/com.redhat:expenses-approvals-kjar:0.6.0/images/processes/instances/1" --output process1.svg --header "Authorization: Bearer $TOKEN"  -H "content-type: application/json" -H "accept: application/svg+xml"
@@ -260,7 +260,7 @@ curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/1/COMPLETE  -d "{\"approva
 	RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=fadirectorapprover  -d password=fadirectorapprover   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
 	export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
 	curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/3/COMPLETE  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"expenses-approvals-kjar-0.6.0\",\"actionUserId\":\"fadirectorapprover\",\"processId\":\"ExpensesApproval\"}" -H "content-type: application/json" --header "Authorization: Bearer $TOKEN"
-	
++	
 * Get the diagram of the process state and view it in the browser
 
 	curl -X GET "$BUSINESS_PROCESS_KIESERVER_ROUTE_URL/rest/server/containers/com.redhat:expenses-approvals-kjar:0.6.0/images/processes/instances/1" --output process1.svg --header "Authorization: Bearer $TOKEN"  -H "content-type: application/json" -H "accept: application/svg+xml"
@@ -270,7 +270,7 @@ curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/1/COMPLETE  -d "{\"approva
 		RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=findepapprover2  -d password=findepapprover2   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
 	export TOKEN=$( jq -r ".access_token" <<<"$RESULT")
 	curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/4/COMPLETE  -d "{\"approvalStatus\":\"Approved\",\"approvalMessage\":\"I approve this report\", \"taskContainerId\":\"expenses-approvals-kjar-0.6.0\",\"actionUserId\":\"findepapprover2\",\"processId\":\"ExpensesApproval\"}" -H "content-type: application/json" --header "Authorization: Bearer $TOKEN"
-
++
 * Get the diagram of the process state and view it in the browser
 
 	curl -X GET "$BUSINESS_PROCESS_KIESERVER_ROUTE_URL/rest/server/containers/com.redhat:expenses-approvals-kjar:0.6.0/images/processes/instances/1" --output process1.svg --header "Authorization: Bearer $TOKEN"  -H "content-type: application/json" -H "accept: application/svg+xml"
