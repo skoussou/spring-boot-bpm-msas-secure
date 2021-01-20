@@ -439,7 +439,7 @@
 		<env>
                    <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
                    <SPRING_PROFILES_ACTIVE>openshift</SPRING_PROFILES_ACTIVE>
-		   <JAVA_OPTS_APPEND>-DSSO_AUTH_SERVER_URL=https://secure-sso-init-test-expenses.apps.cluster-4315.4315.example.opentlc.com -Dorg.kie.server.controller.user=user -Dorg.kie.server.controller.pwd=user -Dorg.kie.server.controller.connect=10000 -Dorg.kie.server.location=http://hr-expenses-business-application-service-properties:8090/rest/server -DSERVICE_NAME=http://hr-expenses-validations-business-service:8090/rest/server -DSERVICE_USERNAME=user -DSERVICE_PASSWORD=user</JAVA_OPTS_APPEND>
+		   <JAVA_OPTS_APPEND>-DSSO_AUTH_SERVER_URL=https://secure-sso-init-expenses.apps.cluster-4315.4315.example.opentlc.com -Dorg.kie.server.controller.user=user -Dorg.kie.server.controller.pwd=user -Dorg.kie.server.controller.connect=10000 -Dorg.kie.server.location=http://hr-expenses-business-application-service-properties:8090/rest/server -DSERVICE_NAME=http://hr-expenses-validations-business-service:8090/rest/server -DSERVICE_USERNAME=user -DSERVICE_PASSWORD=user</JAVA_OPTS_APPEND>
                  </env>		  
                 <openshiftBuildConfig>
                   <requests>
