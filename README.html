@@ -801,14 +801,20 @@ BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092</pre>
 </li>
 <li>
 <p>Test</p>
+<div class="literalblock">
+<div class="content">
+<pre>SSO_ROUTE=https://$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
+PAM_CLIENT_SERVICE_ROUTE_URL=http://$(oc get routes pam-client-service -o jsonpath='{.spec.host}')
+BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://$(oc get routes hr-expenses-business-application-service -o jsonpath='{.spec.host}')</pre>
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
 <p>Create JWT Token</p>
 <div class="literalblock">
 <div class="content">
-<pre>SSO_ROUTE=$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
-RESULT=$(curl -sk -X POST https://$SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=stelios  -d password=stelios   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
+<pre>RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=stelios  -d password=stelios   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
 export TOKEN=$( jq -r ".access_token" &lt;&lt;&lt;"$RESULT")</pre>
 </div>
 </div>
@@ -852,6 +858,13 @@ curl --location --request POST "$PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/process/Expe
 </div>
 <div class="sect2">
 <h3 id="_process_an_expense_claim">Process an Expense Claim</h3>
+<div class="literalblock">
+<div class="content">
+<pre>SSO_ROUTE=https://$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
+PAM_CLIENT_SERVICE_ROUTE_URL=http://$(oc get routes pam-client-service -o jsonpath='{.spec.host}')
+BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://$(oc get routes hr-expenses-business-application-service -o jsonpath='{.spec.host}')</pre>
+</div>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -960,7 +973,7 @@ curl -X POST $PAM_CLIENT_SERVICE_ROUTE_URL/rhpam/task/4/COMPLETE  -d "{\"approva
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-20 20:58:12 UTC
+Last updated 2021-01-20 21:39:38 UTC
 </div>
 </div>
 </body>

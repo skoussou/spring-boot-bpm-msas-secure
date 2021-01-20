@@ -210,10 +210,14 @@ This executes all configurations set forth by the link:docker-compose.yaml[`dock
 	mvn oc:deploy -Djkube.namespace=<NAMESPACE> -DskipTests=true -P openshift -Dmaven.artifact.threads=50 -s settings.xml  (local or nexus configured)
 	
 4. Test
+
+	SSO_ROUTE=https://$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
+	PAM_CLIENT_SERVICE_ROUTE_URL=http://$(oc get routes pam-client-service -o jsonpath='{.spec.host}')
+	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://$(oc get routes hr-expenses-business-application-service -o jsonpath='{.spec.host}')
+
 * Create JWT Token
 
-	SSO_ROUTE=$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
-	RESULT=$(curl -sk -X POST https://$SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=stelios  -d password=stelios   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
+	RESULT=$(curl -sk -X POST $SSO_ROUTE/auth/realms/master/protocol/openid-connect/token   -d grant_type=password   -d username=stelios  -d password=stelios   -d client_id=pam-client-service   -d client_secret=bcf90d5f-56e5-4515-b1db-3cf95e9e3207)
 	export TOKEN=$( jq -r ".access_token" <<<"$RESULT")	
 	
 * Request Example
@@ -228,6 +232,10 @@ This executes all configurations set forth by the link:docker-compose.yaml[`dock
 ** see link:expenses-approvals-kjar/README.adoc[expenses-approvals-kjar] for the diagram of the Business process
 
 ### Process an Expense Claim
+
+	SSO_ROUTE=https://$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
+	PAM_CLIENT_SERVICE_ROUTE_URL=http://$(oc get routes pam-client-service -o jsonpath='{.spec.host}')
+	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://$(oc get routes hr-expenses-business-application-service -o jsonpath='{.spec.host}')
 
 1. Start the claim 
 
