@@ -10,7 +10,7 @@
 
 * Started port-forward to the SSO Db POD `oc port-forward sso-postgresql-1-5l9s6 5432:5432`
 * Used the standaloen-openshift.xml datasource subsystem to configure a local RHSSO instance to connect to the DB 127.0.0.1:5432
-* Then extracted the realm, roles, users, clients etc.
+* Then extracted the realm, roles, users, clients etc. by connecting local RHSSO to remote db of OCP deployed RHSSO.
 
 	./standalone.sh -c standalone-openshift-postgres.xml -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=keycloak-export.json -Dkeycloak.migration.usersExportStrategy=REALM_FILE
 
