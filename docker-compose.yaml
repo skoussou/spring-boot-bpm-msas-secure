@@ -37,6 +37,7 @@ services:
      - 8093:8093
     environment:
      - JAVA_OPTS=-Dspring.profiles.active=h2 -DSSO_AUTH_SERVER_URL=http://localhost:8080 -Dorg.drools.server.filter.classes=true -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy
+     - GC_MAX_METASPACE_SIZE=512     
     depends_on: 
       - keycloak    
     container_name: hr-expenses-validation-service   
