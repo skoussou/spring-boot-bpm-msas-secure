@@ -162,7 +162,6 @@
       <plugin>
         <groupId>org.kie</groupId>
         <artifactId>kie-maven-plugin</artifactId>
-        <!--<version>${version.org.kie}</version>-->
         <executions>
           <execution>
             <id>copy</id>
@@ -182,7 +181,6 @@
           </artifactItems>
         </configuration>
       </plugin>
-
     </plugins>
   </build>
 
@@ -338,10 +336,10 @@
       </properties>
 
       <dependencies>
-         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-         </dependency>
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+        </dependency>
         <!--dependency>
           <groupId>org.postgresql</groupId>
           <artifactId>postgresql</artifactId>
@@ -363,7 +361,7 @@
                     <tag>${project.version}</tag>
                   </tags-->
                   <build>
-                  <from>registry.redhat.io/redhat-openjdk-18/openjdk18-openshift</from>
+                   <from>registry.redhat.io/redhat-openjdk-18/openjdk18-openshift</from>
                     <assembly>
                       <targetDir>/</targetDir>
                       <inline>
