@@ -182,7 +182,7 @@ image::images/Expenses-Architecture.png[800,800]
 	PAM_CLIENT_SERVICE_ROUTE_URL=http://localhost:8091
 	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=http://localhost:8092
 
-* Images available at quay.io/skoussou[Quary Registry] For preperation of images see link:prep-images.adoc[prep-images.adoc]
+* Images available at link:quay.io/skoussou[Quay Registry] For preperation of images see link:prep-images.adoc[prep-images.adoc]
 
 * Start all components:
 
