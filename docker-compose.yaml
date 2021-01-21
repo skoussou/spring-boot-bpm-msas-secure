@@ -14,8 +14,8 @@ services:
      - 8091:8091
     environment:
      - JAVA_OPTS=-Dorg.drools.server.filter.classes=true -Dspring.profiles.active=local -Dorg.kie.server.mode=PRODUCTION -DSSO_AUTH_SERVER_URL=http://localhost:8080
-     - SB_EXPENSES_PROCESS_URL=http://localhost:8090/rest/server
-     - SB_EXPENSES_VALIDATION_URL=http://localhost:8092/rest/server
+     - SB_EXPENSES_PROCESS_URL=http://localhost:8092/rest/server
+     - SB_EXPENSES_VALIDATION_URL=http://localhost:8093/rest/server
     depends_on: 
       - keycloak 
     container_name: pam-client-service   
@@ -23,9 +23,9 @@ services:
   hr-expenses-business-application-service:
     image: quay.io/skoussou/bpm-msas-secure-hr-expenses-business-application-service:1.0.0
     ports:
-     - 8090:8092
+     - 8092:8092
     environment:
-     - JAVA_OPTS=-Dspring.profiles.active=h2 -DSSO_AUTH_SERVER_URL=http://localhost:8080 -Dorg.drools.server.filter.classes=true -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy  -DSERVICE_NAME=http://localhost:8092/rest/server -DSERVICE_USERNAME=user -DSERVICE_PASSWORD=user
+     - JAVA_OPTS=-Dspring.profiles.active=h2 -DSSO_AUTH_SERVER_URL=http://localhost:8080 -Dorg.drools.server.filter.classes=true -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy  -DSERVICE_NAME=http://localhost:8093/rest/server -DSERVICE_USERNAME=user -DSERVICE_PASSWORD=user
      - GC_MAX_METASPACE_SIZE=512
     depends_on: 
       - keycloak     
@@ -34,7 +34,7 @@ services:
   hr-expenses-validation-service:
     image: quay.io/skoussou/bpm-msas-secure-hr-expenses-validations-service:1.0.0
     ports:
-     - 8092:8093
+     - 8093:8093
     environment:
      - JAVA_OPTS=-Dspring.profiles.active=h2 -DSSO_AUTH_SERVER_URL=http://localhost:8080 -Dorg.drools.server.filter.classes=true -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy
     depends_on: 
