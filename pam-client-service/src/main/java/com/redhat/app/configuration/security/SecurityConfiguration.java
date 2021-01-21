@@ -20,8 +20,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
-
-//@Component
+/**
+ * Security Configuration for Authorisation/Authentication
+ */
 @Configuration
 @EnableWebSecurity(debug=true)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)

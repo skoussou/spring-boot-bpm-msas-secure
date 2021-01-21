@@ -41,39 +41,11 @@ public class BusinessServiceMappingsHelper {
     this.businessActivityAliasMappings.put("HR Department Limits Validation", "expenses-validations-kjar");
     this.businessActivityAliasMappings.put("IT Department Limits Validation", "expenses-validations-kjar");
 
-    // Local Openshift Alias to Service URLs
-//    this.businessAliasServiceURLMappings.put("expenses-approvals-kjar", appConfig.getProcessServiceUrl()+KIESERVERESTRATH);
-//    this.businessAliasServiceURLMappings.put("expenses-validations-kjar", appConfig.getValidationServiceUrl()+KIESERVERESTRATH);
+      // Local Openshift Alias to Service URLs
       this.businessAliasServiceURLMappings.put("expenses-approvals-kjar", expensesProcessServiceURL);
       this.businessAliasServiceURLMappings.put("expenses-validations-kjar", expensesValidationServiceURL);
   }
 
-/*
-  public BusinessServiceMappingsHelper(){
-    // Mappings of process definitions to ALIAS
-    this.businessActivityAliasMappings.put("ExpensesApproval", "expenses-approvals-kjar");
-    this.businessActivityAliasMappings.put("HR Department Limits Validation", "expenses-validations-kjar");
-    this.businessActivityAliasMappings.put("IT Department Limits Validation", "expenses-validations-kjar");
-
-    // Local Openshift Alias to Service URLs
-    this.businessAliasServiceURLMappings.put("expenses-approvals-kjar", "http://localhost:8092/rest/server");        
-    this.businessAliasServiceURLMappings.put("expenses-validations-kjar", "http://localhost:8090/rest/server");  
-  }
-
-  public BusinessServiceMappingsHelper(boolean openshiftSettings){
-    // Mappings of process definitions to ALIAS
-    this.businessActivityAliasMappings.put("ExpensesApproval", "expenses-approvals-kjar");
-    this.businessActivityAliasMappings.put("HR Department Limits Validation", "expenses-validations-kjar");
-    this.businessActivityAliasMappings.put("IT Department Limits Validation", "expenses-validations-kjar");
-
-    // Openshift Alias to Service URLs
-    this.businessAliasServiceURLMappings.put("expenses-approvals-kjar", "http://hr-expenses-business-application-service:8090/rest/server");        
-    this.businessAliasServiceURLMappings.put("expenses-validations-kjar", "http://hr-expenses-validations-business-service:8090/rest/server"); 
-    //this.businessAliasServiceURLMappings.put("expenses-approvals-kjar", "http://localhost:8090/rest/server");        
-    //this.businessAliasServiceURLMappings.put("expenses-validations-kjar", "http://localhost:8092/rest/server");   
-}
-  */    
-   
    /**
     * Gets the businessActivityAliasMappings
     */

@@ -45,20 +45,11 @@
     <!--version.org.keycloak>9.0.3.redhat-00002</version.org.keycloak-->
     <version.keycloak>9.0.2</version.keycloak>
     <version.org.apache.cxf>3.2.6</version.org.apache.cxf>
-    <!--version.spring.boot>2.2.2.RELEASE</version.spring.boot-->
-
     <jkube.version>1.0.2</jkube.version>
   </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!--dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${version.spring.boot}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency-->
             <dependency>
                 <groupId>com.redhat.ba</groupId>
                 <artifactId>ba-platform-bom</artifactId>
@@ -98,7 +89,6 @@
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
-
 
     <!-- Model Artifacts to use in RHPAM Requests -->
     <dependency>
@@ -259,16 +249,9 @@
                     <env>
                       <SPRING_PROFILES_ACTIVE>openshift</SPRING_PROFILES_ACTIVE>
                      </env>
-		     <env>
-
+		             <env>
                        <JAVA_OPTIONS>-Dorg.drools.server.filter.classes=true -Dspring.profiles.active=openshift -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION -Dkie.maven.settings.custom=/opt/jboss/.m2/settings.xml -Dorg.guvnor.m2repo.dir=/opt/jboss/.m2/repository -Dapplied=pom-openshift-profile</JAVA_OPTIONS>
                     </env>
-                    <!--env>
-                      <PROCESS_IDS_TO_ALIAS_MAPPINGS>procestosalias</PROCESS_IDS_TO_ALIAS_MAPPINGS>
-                     </env>
-                    <env>
-                      <ALIAS_TO_SERVICE_MAPPINGS>aliastoservice</ALIAS_TO_SERVICE_MAPPINGS>
-                     </env-->                                                           
                     <ports>
                       <port>8090</port>
                     </ports>
@@ -294,12 +277,11 @@
               <resources>
                 <annotations>
                 </annotations>
-                <!--env>
-                  <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
-		</env-->
-		<env>
-		    <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
-		    <JAVA_OPTS_APPEND>-DSSO_AUTH_SERVER_URL=https://secure-sso-init-expenses.apps.cluster-4315.4315.example.opentlc.com</JAVA_OPTS_APPEND>
+                <env>
+		          <GC_MAX_METASPACE_SIZE>512</GC_MAX_METASPACE_SIZE>
+		          <JAVA_OPTS_APPEND>-DSSO_AUTH_SERVER_URL=https://secure-sso-init-expenses.apps.cluster-4315.4315.example.opentlc.com</JAVA_OPTS_APPEND>
+                  <SB_EXPENSES_PROCESS_URL>http://hr-expenses-business-application-service:8090/rest/server</SB_EXPENSES_PROCESS_URL>
+                  <SB_EXPENSES_VALIDATION_URL>com.redhat:payments:http://hr-expenses-validations-business-service:8090/rest/server</SB_EXPENSES_VALIDATION_URL>
                 </env>
                 <openshiftBuildConfig>
                   <requests>

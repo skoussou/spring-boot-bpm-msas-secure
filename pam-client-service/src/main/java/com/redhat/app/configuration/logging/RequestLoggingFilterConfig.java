@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
+/**
+ * Filter to log incoming requests
+ */
 @Configuration
 public class RequestLoggingFilterConfig {
 

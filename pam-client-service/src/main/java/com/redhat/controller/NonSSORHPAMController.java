@@ -38,6 +38,9 @@ import org.kie.server.api.model.instance.TaskSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Controller for NON SSO backends
+ */
 @Profile("localnonsso")
 @RestController
 @RequestMapping("/rhpam")

@@ -19,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Bootstap Client for RHPAM Spring Boot services */
-//public abstract class AbstractKieServerConnector {
 	public class AbstractKieServerConnector {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractKieServerConnector.class);
@@ -48,7 +47,7 @@ import org.slf4j.LoggerFactory;
 
 		LOGGER.debug("Creating KieServicesConfiguration with it to serviceURL: ["+serviceURL+"]\n");
 
-  	// SPRING BOOT KIE SERVER (username/password)
+  	    // SPRING BOOT KIE SERVER (username/password)
 		//KieServicesConfiguration config = KieServicesFactory
 		//.newRestConfiguration("http://localhost:8090/rest/server", "pamAdmin", "pamAdmin");
 

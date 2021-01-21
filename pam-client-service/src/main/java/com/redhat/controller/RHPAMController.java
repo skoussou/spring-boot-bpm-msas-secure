@@ -37,7 +37,9 @@ import org.kie.server.api.model.KieContainerResource;
 import org.kie.server.api.model.KieContainerResourceList;
 import org.kie.server.api.model.instance.TaskSummary;
 
-
+/**
+ * RHPAM API Controller with SSO
+ */
 @Profile({"openshift","local"})
 @RestController
 @RequestMapping("/rhpam")
