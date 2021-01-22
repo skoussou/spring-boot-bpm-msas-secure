@@ -1,12 +1,12 @@
 = KNATIVE DEPLOYMENTS 
 :toc:
 
-This branch combines the work from https://github.com/skoussou/spring-boot-bpm-msas-secure/tree/sb-app-keycloak[sb-app-keycloak branch] and repository https://github.com/skoussou/serverless-playground [knative -ocp] to bring the services as KNATIVE services
+This branch combines the work from https://github.com/skoussou/spring-boot-bpm-msas-secure/tree/sb-app-keycloak[sb-app-keycloak branch] and repository https://github.com/skoussou/serverless-playground[knative -ocp] to bring the services as KNATIVE services
 
 == Create supporting apps
 
-* Database
-* RHSSO
+* Database (see: https://github.com/skoussou/spring-boot-bpm-msas-secure/tree/sb-app-keycloak#microservices-openshift-setup[Microservices Openshift Setup])
+* RHSSO (see: https://github.com/skoussou/spring-boot-bpm-msas-secure/tree/sb-app-keycloak#microservices-openshift-setup[Microservices Openshift Setup])
 
 == Create KNATIVE apps
 
