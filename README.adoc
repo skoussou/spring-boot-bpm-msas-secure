@@ -184,11 +184,11 @@ Use the external ROUTE URL between services
 	Namespace:  development
 	Age:        6m
 	URL:        http://pam-client-service-development.apps.cluster-4315.4315.example.opentlc.com
-+
+.
 	Revisions:  
 	  100%  @latest (pam-client-service-v1) [1] (6m)
 		Image:  quay.io/skoussou/bpm-msas-secure-pam-client-service:1.0.0 (at 96502b)
-+
+.
 	Conditions:  
 	  OK TYPE                   AGE REASON
 	  ++ Ready                   6m 
@@ -200,11 +200,11 @@ Use the external ROUTE URL between services
 	Namespace:  development
 	Age:        5m
 	URL:        http://hr-expenses-business-application-service.development.svc.cluster.local
-+
+.
 	Revisions:  
 	  100%  @latest (hr-expenses-business-application-service-v1) [1] (5m)
 		Image:  quay.io/skoussou/bpm-msas-secure-hr-expenses-business-application-service:1.0.0 (at 41f5c5)
-+
+.
 	Conditions:  
 	  OK TYPE                   AGE REASON
 	  ++ Ready                   5m 
@@ -217,11 +217,11 @@ Use the external ROUTE URL between services
 	Namespace:  development
 	Age:        5m
 	URL:        http://hr-expenses-validations-service.development.svc.cluster.local
-+
+.
 	Revisions:  
 	  100%  @latest (hr-expenses-validations-service-v1) [1] (5m)
 		Image:  quay.io/skoussou/bpm-msas-secure-hr-expenses-validations-service:1.0.0 (at 856484)
-+
+.
 	Conditions:  
 	  OK TYPE                   AGE REASON
 	  ++ Ready                   5m 
