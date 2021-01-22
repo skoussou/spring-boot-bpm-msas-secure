@@ -8,16 +8,44 @@ This branch combines the work from https://github.com/skoussou/spring-boot-bpm-m
 * Database (see: https://github.com/skoussou/spring-boot-bpm-msas-secure/tree/sb-app-keycloak#microservices-openshift-setup[Microservices Openshift Setup])
 * RHSSO (see: https://github.com/skoussou/spring-boot-bpm-msas-secure/tree/sb-app-keycloak#microservices-openshift-setup[Microservices Openshift Setup])
 
-== Create KNATIVE apps
+== Create & Test KNATIVE apps
 
+=== Scenario 1 - Use K8s Services
+	
 * Deploy KNative Service for `pam-client-service`
 
-	oc create -f pam-client-service-knative.yaml
+	oc create -f scenarios/1-UseK8sServices/pam-client-service-knative.yaml
 
 * Deploy KNative Service for `hr-expenses-business-application-service`
 
-	oc create -f hr-expenses-business-application-service-knative.yaml
+	oc create -f scenarios/1-UseK8sServices/hr-expenses-business-application-service-knative.yaml
 	
 * Deploy KNative Service for `hr-expenses-validations-service`
 	
-	oc create -f hr-expenses-validations-service-knative.yaml
+	oc create -f scenarios/1-UseK8sServices/hr-expenses-validations-service-knative.yaml	
+		
+=== Test KNATIVE apps	
+
+==== Create Token
+
+* Environment Variables
+
+	SSO_ROUTE=https://$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
+	PAM_CLIENT_SERVICE_ROUTE_URL=$(oc get service.serving.knative.dev pam-client-service -o jsonpath='{.status.url}')
+	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=$(oc get service.serving.knative.dev hr-expenses-business-application-service -o jsonpath='{.status.url}')
+
+* Token
+
+        `. create_export_token.sh stelios stelios $SSO_ROUTE`
+	
+	
+=== Test KNATIVE Service Access
+
+	./start-process.sh $TOKEN $PAM_CLIENT_SERVICE_ROUTE_URL
+	
+* RESULT
+** *FAILED*
+** CAUSE: K8s service not exposed/used in KNATIVE `http://hr-expenses-business-application-service:8090/rest/server`
+
+
+=== Test KNATIVE Service Performance	
