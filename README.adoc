@@ -1,0 +1,23 @@
+= KNATIVE DEPLOYMENTS 
+:toc:
+
+This branch combines the work from https://github.com/skoussou/spring-boot-bpm-msas-secure/tree/sb-app-keycloak[sb-app-keycloak branch] and repository https://github.com/skoussou/serverless-playground [knative -ocp] to bring the services as KNATIVE services
+
+== Create supporting apps
+
+* Database
+* RHSSO
+
+== Create KNATIVE apps
+
+* Deploy KNative Service for `pam-client-service`
+
+	oc create -f pam-client-service-knative.yaml
+
+* Deploy KNative Service for `hr-expenses-business-application-service`
+
+	oc create -f hr-expenses-business-application-service-knative.yaml
+	
+* Deploy KNative Service for `hr-expenses-validations-service`
+	
+	oc create -f hr-expenses-validations-service-knative.yaml

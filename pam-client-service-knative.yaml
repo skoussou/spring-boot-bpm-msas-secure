@@ -1,0 +1,23 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: pam-client-service 
+  namespace: development 
+spec:
+  template:
+    metadata:
+      name: pam-client-service-v1
+    spec:
+      containers:
+        - image: quay.io/skoussou/bpm-msas-secure-pam-client-service:1.0.0
+          ports:
+          - containerPort: 8090        
+          env:
+            - name: GC_MAX_METASPACE_SIZE 
+              value: '512'
+            - name: JAVA_OPTS_APPEND 
+              value: "-DSSO_AUTH_SERVER_URL=https://secure-sso-init-development.apps.cluster-4315.4315.example.opentlc.com"     
+            - name: SB_EXPENSES_PROCESS_URL 
+              value: "http://hr-expenses-business-application-service:8090/rest/server"     
+            - name: SB_EXPENSES_VALIDATION_URL 
+              value: ":http://hr-expenses-validations-business-service:8090/rest/server"
