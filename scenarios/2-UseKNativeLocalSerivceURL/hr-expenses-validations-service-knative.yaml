@@ -1,0 +1,23 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hr-expenses-validations-service 
+  namespace: development 
+  labels:
+    serving.knative.dev/visibility: cluster-local  
+spec:
+  template:
+    metadata:
+      name: hr-expenses-validations-service-v1
+    spec:
+      containers:
+        - image: quay.io/skoussou/bpm-msas-secure-hr-expenses-validations-service:1.0.0
+          ports:
+          - containerPort: 8090        
+          env:
+            - name: GC_MAX_METASPACE_SIZE 
+              value: '512'
+            - name: JAVA_OPTS_APPEND 
+              value: "-DSSO_AUTH_SERVER_URL=-Dorg.drools.server.filter.classes=true -Dspring.profiles.active=openshift -Dorg.kie.server.startup.strategy=LocalContainersStartupStrategy -Dorg.kie.server.mode=PRODUCTION"     
+            - name: SPRING_PROFILES_ACTIVE 
+              value: "openshift"     

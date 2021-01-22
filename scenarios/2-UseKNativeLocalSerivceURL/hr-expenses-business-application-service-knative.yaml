@@ -1,0 +1,23 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hr-expenses-business-application-service 
+  namespace: development 
+  labels:
+    serving.knative.dev/visibility: cluster-local  
+spec:
+  template:
+    metadata:
+      name: hr-expenses-business-application-service-v1
+    spec:
+      containers:
+        - image: quay.io/skoussou/bpm-msas-secure-hr-expenses-business-application-service:1.0.0
+          ports:
+          - containerPort: 8090        
+          env:
+            - name: GC_MAX_METASPACE_SIZE 
+              value: '512'
+            - name: JAVA_OPTS_APPEND 
+              value: "-DSSO_AUTH_SERVER_URL=https://secure-sso-init-development.apps.cluster-4315.4315.example.opentlc.com -Dorg.kie.server.controller.user=user -Dorg.kie.server.controller.pwd=user -Dorg.kie.server.controller.connect=10000 -Dorg.kie.server.location=http://hr-expenses-business-application-service-properties:8090/rest/server -DSERVICE_NAME=http://hr-expenses-validations-service.development.svc.cluster.local/rest/server -DSERVICE_USERNAME=user -DSERVICE_PASSWORD=user"     
+            - name: SPRING_PROFILES_ACTIVE 
+              value: "openshift"     

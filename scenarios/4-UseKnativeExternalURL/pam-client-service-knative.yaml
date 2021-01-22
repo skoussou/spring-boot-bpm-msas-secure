@@ -18,6 +18,6 @@ spec:
             - name: JAVA_OPTS_APPEND 
               value: "-DSSO_AUTH_SERVER_URL=https://secure-sso-init-development.apps.cluster-4315.4315.example.opentlc.com"     
             - name: SB_EXPENSES_PROCESS_URL 
-              value: "http://hr-expenses-business-application-service:8090/rest/server"     
+              value: "http://hr-expenses-business-application-service-development.apps.cluster-4315.4315.example.opentlc.com/rest/server"     
             - name: SB_EXPENSES_VALIDATION_URL 
-              value: "http://hr-expenses-validations-business-service:8090/rest/server"
+              value: "http://hr-expenses-validations-service-development.apps.cluster-4315.4315.example.opentlc.com/rest/server"

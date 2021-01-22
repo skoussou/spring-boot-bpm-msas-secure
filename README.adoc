@@ -10,7 +10,21 @@ This branch combines the work from https://github.com/skoussou/spring-boot-bpm-m
 
 == Create & Test KNATIVE apps
 
+* Environment Variables
+
+	SSO_ROUTE=https://$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
+	PAM_CLIENT_SERVICE_ROUTE_URL=$(oc get service.serving.knative.dev pam-client-service -o jsonpath='{.status.url}')
+	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=$(oc get service.serving.knative.dev hr-expenses-business-application-service -o jsonpath='{.status.url}')
+
+* Token Creation
+
+        . create_export_token.sh stelios stelios $SSO_ROUTE
+
 === Scenario 1 - Use K8s Services
+	
+* Reset
+
+	./delete-ksvc.sh 	
 	
 * Deploy KNative Service for `pam-client-service`
 
@@ -24,28 +38,198 @@ This branch combines the work from https://github.com/skoussou/spring-boot-bpm-m
 	
 	oc create -f scenarios/1-UseK8sServices/hr-expenses-validations-service-knative.yaml	
 		
-=== Test KNATIVE apps	
-
-==== Create Token
-
-* Environment Variables
-
-	SSO_ROUTE=https://$(oc get routes secure-sso-init -o jsonpath='{.spec.host}')
-	PAM_CLIENT_SERVICE_ROUTE_URL=$(oc get service.serving.knative.dev pam-client-service -o jsonpath='{.status.url}')
-	BUSINESS_PROCESS_KIESERVER_ROUTE_URL=$(oc get service.serving.knative.dev hr-expenses-business-application-service -o jsonpath='{.status.url}')
-
-* Token
-
-        `. create_export_token.sh stelios stelios $SSO_ROUTE`
+==== Test KNATIVE apps	
 	
-	
-=== Test KNATIVE Service Access
-
 	./start-process.sh $TOKEN $PAM_CLIENT_SERVICE_ROUTE_URL
 	
 * RESULT
 ** *FAILED*
 ** CAUSE: K8s service not exposed/used in KNATIVE `http://hr-expenses-business-application-service:8090/rest/server`
+** SOLUTION: Use `cluster-local` service URL by configuring the serivce as link:https://knative.dev/docs/serving/cluster-local-route/[‘private cluster-local]
 
 
-=== Test KNATIVE Service Performance	
+=== Scenario 2 - Use KNATIVE `cluster-local` Services URL
+
+* Description
+
+Configure KNative services to be exposed to private `cluster-local` by adding the following to `hr-expenses-business-application-service` and `hr-expenses-validations-service`
+
+  labels:
+    serving.knative.dev/visibility: cluster-local  
+
+** Before
+	
+	NAME                                       URL                                                                                                      LATEST                                        AGE     CONDITIONS   READY   REASON
+	hr-expenses-business-application-service   http://hr-expenses-business-application-service-development.apps.cluster-4315.4315.example.opentlc.com   hr-expenses-business-application-service-v1   169m    3 OK / 3     True    
+	hr-expenses-validations-service            http://hr-expenses-validations-service-development.apps.cluster-4315.4315.example.opentlc.com            hr-expenses-validations-service-v1            4h33m   3 OK / 3     True    
+	pam-client-service                         http://pam-client-service-development.apps.cluster-4315.4315.example.opentlc.com                         pam-client-service-v1                         5h40m   3 OK / 3     True  
+
+** After
+
+
+Results in    
+    
+	NAME                                       URL                                                                                LATEST                                        AGE     CONDITIONS   READY   REASON
+	hr-expenses-business-application-service   http://hr-expenses-business-application-service.development.svc.cluster.local      hr-expenses-business-application-service-v1   78s     3 OK / 3     True    
+	hr-expenses-validations-service            http://hr-expenses-validations-service.development.svc.cluster.local               hr-expenses-validations-service-v1            72s     3 OK / 3     True    
+	pam-client-service                         http://pam-client-service-development.apps.cluster-4315.4315.example.opentlc.com   pam-client-service-v1                         85s     3 OK / 3     True        
+
+* Reset
+
+	./delete-ksvc.sh 	
+		
+* Deploy KNative Service for `pam-client-service`
+
+	oc create -f scenarios/2-UseKNativeLocalSerivceURL/pam-client-service-knative.yaml
+
+* Deploy KNative Service for `hr-expenses-business-application-service`
+
+	oc create -f scenarios/2-UseKNativeLocalSerivceURL/hr-expenses-business-application-service-knative.yaml
+	
+* Deploy KNative Service for `hr-expenses-validations-service`
+	
+	oc create -f scenarios/2-UseKNativeLocalSerivceURL/hr-expenses-validations-service-knative.yaml	
+		
+==== Test KNATIVE apps	
+	
+	./start-process.sh $TOKEN $PAM_CLIENT_SERVICE_ROUTE_URL
+	
+* RESULT
+** *FAILED*
+** CAUSE: Every call to  `pam-client-service` results in a new  `hr-expenses-business-application-service` but the call fails to materialize
+
+
+=== Scenario 3 - Use KNATIVE `cluster-local` Services URL and always 1 POD available
+
+* Description
+
+Configure KNative backend services to be maintain `minScale: "1"`  by adding the following to `hr-expenses-business-application-service` and `hr-expenses-validations-service`
+
+      annotations:
+        autoscaling.knative.dev/minScale: "1"    
+
+* Reset
+
+	./delete-ksvc.sh 	
+		
+* Deploy KNative Service for `pam-client-service`
+
+	oc create -f scenarios/3-UseKNativeLocalServiceURLMinScal1/pam-client-service-knative.yaml
+
+* Deploy KNative Service for `hr-expenses-business-application-service`
+
+	oc create -f scenarios/3-UseKNativeLocalServiceURLMinScal1/hr-expenses-business-application-service-knative.yaml
+	
+* Deploy KNative Service for `hr-expenses-validations-service`
+	
+	oc create -f scenarios/3-UseKNativeLocalServiceURLMinScal1/hr-expenses-validations-service-knative.yaml	
+		
+==== Test KNATIVE apps	
+	
+	./start-process.sh $TOKEN $PAM_CLIENT_SERVICE_ROUTE_URL
+	
+* RESULT
+** *SUCCESS*
+
+
+=== Scenario 4 - Use KNATIVE `EXTERNAL` KNative Route URL and always 1 POD available
+
+* Description
+
+Use the external ROUTE URL between services
+
+	kn service list
+	NAME                                       URL                                                                                
+	hello                                      http://hello-development.apps.cluster-4315.4315.example.opentlc.com                
+	hr-expenses-business-application-service   http://hr-expenses-business-application-service.development.svc.cluster.local      
+	hr-expenses-validations-service            http://hr-expenses-validations-service.development.svc.cluster.local               
+	pam-client-service                         http://pam-client-service-development.apps.cluster-4315.4315.example.opentlc.com   
+
+* Reset
+
+	./delete-ksvc.sh 	
+		
+* Deploy KNative Service for `pam-client-service`
+
+	oc create -f scenarios/4-UseKnativeExternalURL/pam-client-service-knative.yaml
+
+* Deploy KNative Service for `hr-expenses-business-application-service`
+
+	oc create -f scenarios/4-UseKnativeExternalURL/hr-expenses-business-application-service-knative.yaml
+	
+* Deploy KNative Service for `hr-expenses-validations-service`
+	
+	oc create -f scenarios/4-UseKnativeExternalURL/hr-expenses-validations-service-knative.yaml	
+		
+==== Test KNATIVE apps	
+	
+	./start-process.sh $TOKEN $PAM_CLIENT_SERVICE_ROUTE_URL
+	
+* RESULT
+** *SUCCESS*
+
+
+== Troubleshooting
+
+	kn service list
+	NAME                                       URL                                                                                LATEST                                        AGE     CONDITIONS   READY   REASON
+	hello                                      http://hello-development.apps.cluster-4315.4315.example.opentlc.com                hello-wmp67                                   7h17m   3 OK / 3     True    
+	hr-expenses-business-application-service   http://hr-expenses-business-application-service.development.svc.cluster.local      hr-expenses-business-application-service-v1   80s     3 OK / 3     True    
+	hr-expenses-validations-service            http://hr-expenses-validations-service.development.svc.cluster.local               hr-expenses-validations-service-v1            70s     3 OK / 3     True    
+	pam-client-service                         http://pam-client-service-development.apps.cluster-4315.4315.example.opentlc.com   pam-client-service-v1                         88s     3 OK / 3     True
+
+
+	$ kn service describe pam-client-service
+	Name:       pam-client-service
+	Namespace:  development
+	Age:        6m
+	URL:        http://pam-client-service-development.apps.cluster-4315.4315.example.opentlc.com
++
+	Revisions:  
+	  100%  @latest (pam-client-service-v1) [1] (6m)
+		Image:  quay.io/skoussou/bpm-msas-secure-pam-client-service:1.0.0 (at 96502b)
++
+	Conditions:  
+	  OK TYPE                   AGE REASON
+	  ++ Ready                   6m 
+	  ++ ConfigurationsReady     6m 
+	  ++ RoutesReady             6m 
+	  
+	$ kn service describe hr-expenses-business-application-service
+	Name:       hr-expenses-business-application-service
+	Namespace:  development
+	Age:        5m
+	URL:        http://hr-expenses-business-application-service.development.svc.cluster.local
++
+	Revisions:  
+	  100%  @latest (hr-expenses-business-application-service-v1) [1] (5m)
+		Image:  quay.io/skoussou/bpm-msas-secure-hr-expenses-business-application-service:1.0.0 (at 41f5c5)
++
+	Conditions:  
+	  OK TYPE                   AGE REASON
+	  ++ Ready                   5m 
+	  ++ ConfigurationsReady     5m 
+	  ++ RoutesReady             5m 
+		  
+
+	$ kn service describe hr-expenses-validations-service
+	Name:       hr-expenses-validations-service
+	Namespace:  development
+	Age:        5m
+	URL:        http://hr-expenses-validations-service.development.svc.cluster.local
++
+	Revisions:  
+	  100%  @latest (hr-expenses-validations-service-v1) [1] (5m)
+		Image:  quay.io/skoussou/bpm-msas-secure-hr-expenses-validations-service:1.0.0 (at 856484)
++
+	Conditions:  
+	  OK TYPE                   AGE REASON
+	  ++ Ready                   5m 
+	  ++ ConfigurationsReady     5m 
+	  ++ RoutesReady             5m 
+
+
+
+
+
+== Test KNATIVE Service Performance	
