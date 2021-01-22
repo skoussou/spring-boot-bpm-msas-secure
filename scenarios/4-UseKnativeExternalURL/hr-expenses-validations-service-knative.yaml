@@ -6,9 +6,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: hr-expenses-validations-service-v1
-      annotations:
-        autoscaling.knative.dev/minScale: "1"      
+      name: hr-expenses-validations-service-v1  
     spec:
       containers:
         - image: quay.io/skoussou/bpm-msas-secure-hr-expenses-validations-service:1.0.0
