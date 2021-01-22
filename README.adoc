@@ -100,13 +100,13 @@ image::images/Expenses-Architecture.png[800,800]
 | mvn clean install -s settings.xml (local or nexus configured)
 
 | pam-client-service
-| mvn clean install -s settings.xml (local or nexus configured)
+| mvn clean package -P openshift -s settings.xml (local or nexus configured)
 
 | hr-expenses-business-application-service
-| mvn clean install -s settings.xml (local or nexus configured)
+| mvn clean package -P openshift -s settings.xml (local or nexus configured)
 
 | hr-expenses-validations-service
-| mvn clean install -s settings.xml (local or nexus configured)
+| mvn clean package -P openshift -s settings.xml (local or nexus configured)
 |===
 ====
 
