@@ -169,6 +169,39 @@ Use the external ROUTE URL between services
 ** *SUCCESS*
 
 
+=== Scenario 5 - Canary Testing (Use KNATIVE `cluster-local` Services URL and always 1 POD available)
+
+* Description
+
+Configure KNative backend services to be maintain `minScale: "1"`  by adding the following to `hr-expenses-business-application-service` and `hr-expenses-validations-service`
+
+      annotations:
+        autoscaling.knative.dev/minScale: "1"    
+
+* Reset
+
+	./delete-ksvc.sh 	
+		
+* Deploy KNative Service for `pam-client-service`
+
+	oc create -f scenarios/5-CanaryTesting/pam-client-service-knative.yaml
+
+* Deploy KNative Service for `hr-expenses-business-application-service`
+
+	oc create -f scenarios/5-CanaryTesting/hr-expenses-business-application-service-knative.yaml
+	
+* Deploy KNative Service for `hr-expenses-validations-service`
+	
+	oc create -f scenarios/5-CanaryTesting/hr-expenses-validations-service-knative.yaml	
+		
+==== Test KNATIVE apps	
+	
+	./start-process.sh $TOKEN $PAM_CLIENT_SERVICE_ROUTE_URL
+	
+* RESULT
+** *SUCCESS*
+
+
 == Troubleshooting
 
 	kn service list
