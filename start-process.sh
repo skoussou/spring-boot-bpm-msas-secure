@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 TOKEN=$1
 PAM_CLIENT_SERVICE_ROUTE_URL=$2
 
