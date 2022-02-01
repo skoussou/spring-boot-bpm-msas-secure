@@ -1,0 +1,97 @@
+= OCP Pipelines
+
+Branch to host creation of OCP Pipelines for the projects found at https://github.com/skoussou/spring-boot-bpm-msas-secure/tree/sb-app-keycloak[sb-app-keycloak branch]
+
+
+== prepare
+
+* Secret/SA to contain GIT Server for activities
+
+./add-github-credentials.sh cicd YOUR_GITHUB_USER YOUR_GITHUB_PASSWORD
+
+== Resources Used
+
+* https://github.com/tektoncd/catalog/tree/master/task[Tekton Tasks Description]
+
+
+== pam-client-service pipeline
+
+Currently creating  `pam-client-service-knative-pipeline-v0.yaml` pipeline
+
+TODO: IMAGE OF PIPELINE STEPS
+
+* Prepare Tekton Tasks available
+
+----
+NS=cicd
+oc project $NS
+ echo "Installing buildah task from https://hub-preview.tekton.dev/"
+ oc apply -f \
+  https://raw.githubusercontent.com/tektoncd/catalog/master/task/buildah/0.1/buildah.yaml \
+  -n $NS
+ oc apply -f \
+  https://raw.githubusercontent.com/tektoncd/catalog/master/task/maven/0.2/maven.yaml \
+  -n $NS  
+----
+
+* Configure https://docs.openshift.com/container-platform/4.6/pipelines/understanding-openshift-pipelines.html#op-pipelines-concepts_understanding-openshift-pipelines[Tekton Tasks and Pipeline]
+
+----
+echo "Installing custom tasks"
+# oc apply -f tekton/custom-tasks/push-knative-manifest.yaml -n $NS
+oc apply -f tekton/custom-tasks/workspace-cleaner.yaml -n $NS
+echo "Installing pam-client-service-knative-pipeline"
+# oc apply -f tekton/pipelines/knative-pipeline.yaml -n $NS 
+oc apply -f tekton/pipelines/pam-client-service-knative-pipeline-v0.yaml -n $NS
+----
+
+----
+NS=cicd
+oc project $NS
+echo "Installing custom tasks"
+oc apply -f tekton/custom-tasks/workspace-cleaner.yaml -n $NS
+echo "Installing pam-client-service-knative-pipeline"
+oc apply -f tekton/pipelines/pam-client-service-knative-pipeline-v0.yaml -n $NS
+----
+
+
+* Initiatlize Tekton Workspaces
+
+----
+NS=cicd
+echo "Creating maven ConfigMap with settings.xml"
+oc create cm maven --from-file=tekton/workspaces/maven/settings.xml -n $NS  
+
+echo "Creating PVC using default storage class"
+oc apply -f tekton/workspaces/source-pvc/pvc.yaml -n $NS 
+
+# echo "Creating PVC with storage class => $STORAGE_CLASS"
+# cat tekton/workspaces/source-pvc/pvc.yaml  | STORAGE_CLASS=$STORAGE_CLASS envsubst \
+#   | kubectl apply -f - -n $NS 
+----
+
+
+=== A manual pipeline run
+
+cat tekton/pipelines/pam-client-service-knative-pipeline-run-v0.yaml | \
+  APP_NAME=pam-client-service \
+  SOURCE_REPO=https://github.com/skoussou/spring-boot-bpm-msas-secure.git \
+  SOURCE_CTX_PATH=pam-client-service \
+  COMMIT=dbb0ddda8fbbbf97888363542f44c769b3bfffe2 \
+  SHORT_COMMIT=dbb0ddda8f \
+#  DEPLOYMENT_REPO=https://github.com/skoussou/quarkus-hello-world-deployment.git \
+  IMAGES_NS=cicd envsubst | \
+  oc create -f - -n cicd
+
+
+
+
+
+
+
+
+
+
+
+
+
