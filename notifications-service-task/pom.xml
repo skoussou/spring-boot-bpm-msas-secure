@@ -10,7 +10,7 @@
 
   <description>Integrates with FUSE Notifications Service to send notifications (email, text, social media etc.)</description>
   <organization>
-    <name>Anadolu Efes</name>
+    <name>Red Hat</name>
   </organization>
   <!--
   <distributionManagement>
@@ -26,7 +26,7 @@
   -->
 
   <properties>
-    <version.org.kie>7.39.0.Final-redhat-00007</version.org.kie>
+    <version.org.kie>7.52.0.Final-redhat-00008</version.org.kie>
     <version.org.powermock>1.7.4</version.org.powermock>
     <version.junit>4.12</version.junit>
     <version.org.slf4j>1.7.26</version.org.slf4j>
