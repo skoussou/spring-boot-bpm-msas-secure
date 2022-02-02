@@ -38,8 +38,10 @@
 
     <!-- Version 7.8 RHPAM BOM
     <version.rhpam.bom>7.8.0.redhat-00002</version.rhpam.bom> -->
-    <!-- Version 7.9 RHPAM BOM -->
-    <version.rhpam.bom>7.9.0.redhat-00002</version.rhpam.bom> 
+    <!-- Version 7.9 RHPAM BOM 
+    <version.rhpam.bom>7.9.0.redhat-00002</version.rhpam.bom> -->
+    <!-- Version 7.11.1 RHPAM BOM -->
+    <version.rhpam.bom>7.11.1.redhat-00001</version.rhpam.bom> 
 
     <!-- for BOM if I have time to test -->
     <!--version.org.keycloak>9.0.3.redhat-00002</version.org.keycloak-->
